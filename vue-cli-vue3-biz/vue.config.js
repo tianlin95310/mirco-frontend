@@ -1,31 +1,40 @@
 const { defineConfig } = require('@vue/cli-service')
 const webpack = require('webpack');
-const { ModuleFederationPlugin } = require('webpack').container;
+const { mfpPlugins, mfpRemotes, mfpProxy } = require('./src/mfp/deploy')
+console.log('mfpProxy', mfpRemotes, mfpProxy)
 module.exports = defineConfig({
   pages: {
     index: {
       entry: './src/index.js',
     },
   },
-  publicPath: '/',
+  publicPath: '/vue3clibiz',
   configureWebpack: {
-    optimization: {
-      splitChunks: false
+    devServer: {
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      port: 9999,
+      proxy: {
+        ...mfpProxy
+      }
     },
     plugins: [
-      new ModuleFederationPlugin({
+      new webpack.container.ModuleFederationPlugin({
         name: 'biz_vue3',
         filename: 'remoteEntry.js',
         remotes: {
           lib_common_vue2: 'lib_common_vue2@http://localhost:8080/remoteEntry.js',
           lib_common_vue3: 'lib_common_vue3@http://localhost:8081/remoteEntry.js',
+          ...mfpRemotes
         },
         shared: {
           vue: {
             singleton: true,
           }
-        }
-      })
+        },
+      }),
+      // ...mfpPlugins
     ]
   },
   transpileDependencies: true,

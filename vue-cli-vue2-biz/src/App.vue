@@ -1,15 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <BaseText />
-    <AsyncBaseText />
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <div>
+      BaseText:<BaseText />
+    </div>
+    <div>
+      AsyncBaseText1:<AsyncBaseText1 />
+    </div>
+    <div>
+      AsyncBaseText2:<AsyncBaseText2 />
+    </div>
   </div>
 </template>
 
 <script>
 /*eslint-disable */
 import HelloWorld from './components/HelloWorld.vue'
+// 需异步加载
+// import BaseText from 'lib_common_vue2/BaseText.vue'
 const AsyncComponent = (builder) => () => ({
   // 需要加载的组件 (应该是一个 `Promise` 对象)
   component: builder(),
@@ -27,8 +36,8 @@ export default {
   name: 'App',
   components: {
     HelloWorld: HelloWorld,
-    AsyncBaseText: AsyncComponent(() => import('lib_common_vue2/BaseText.vue')),
-    BaseText: () => import('lib_common_vue2/BaseText.vue')
+    AsyncBaseText2: AsyncComponent(() => import('lib_common_vue2/BaseText.vue')),
+    AsyncBaseText1: () => import('lib_common_vue2/BaseText.vue')
   }
 }
 </script>

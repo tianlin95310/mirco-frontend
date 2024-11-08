@@ -44,7 +44,6 @@ module.exports = defineConfig({
         shared: {
           vue: {
             singleton: true,
-            // eager: true
           },
         },
       }),
