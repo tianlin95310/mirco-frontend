@@ -1,0 +1,12 @@
+{
+  "name": "vue-waveview",
+  "version": "1.1.0",
+  "description": "一个借助贝塞尔曲线实现的动态水波纹组件",
+  "main": "vue-waveview.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["自定义组件","水波纹","Canvas组件","贝塞尔曲线"],
+  "author": "litian",
+  "license": "ISC"
+}

@@ -1,0 +1,12 @@
+@mixin scrollBar($bg, $fore) {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: $bg;
+    -webkit-box-shadow: 0 0 3px 1px $fore inset;
+  }
+}

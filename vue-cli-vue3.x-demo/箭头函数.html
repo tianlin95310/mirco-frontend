@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+</body>
+<script>
+  // 对于顶层箭头函数，他的this指向Window对象
+    var fun = () => {
+      console.log(this);
+    }
+    fun();
+
+    var fun2 = (param) => {
+      console.log(param);
+    }
+    fun2(1212414124);
+</script>
+</html>

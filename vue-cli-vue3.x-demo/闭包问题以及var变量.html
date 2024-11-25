@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="./代码引入.js" type="text/javascript">
+  </script>
+</head>
+<body>
+
+<h1>原生js的闭包问题</h1>
+
+</body>
+
+<script type="text/javascript">
+  /*eslint-disable*/
+  var name = "The Window";
+  var object = {
+    name: "My Object",
+    getNameFunc: function () {
+      console.log('---object对象函数的内部this---', this)
+      let _this = this
+      let innerFun = function () {
+        console.log('---object对象函数内部的函数的变量this---', this, _this)
+        return this.name;
+      }
+      return innerFun
+    }
+  };
+  console.log('---this最外层---', this)
+  console.log('---object的方法调用---', object.getNameFunc()())
+//  【注意】这里的赋值会改变对象的函数内部的this的指向，让他变成是指向window，因为赋值是在对象的外部进行赋值的，
+//  所以js环境运行时，代码里的this只能是是当前window，因为当前作用域不在对象的作用域里，是在外部对象的作用域里
+  console.log('---特殊赋值后，object的方法调用---', (object.getNameFunc = object.getNameFunc)()())
+
+  // var的全局性，n实在另一个文件里的，他是全局的,会被塞进this对象里
+  console.log('n', n)
+  console.log(' this.n', this.n)
+
+  console.log('n1', n1)
+  // let变量不会放到this里面去
+  console.log('this.n1', this.n1)
+
+  fun1()
+  // 不调用fun2的话，n3不存在
+  fun2()
+  // 函数内部定义的局部变量无法访问
+  // console.log('n2', n2)
+  // 函数内容给this添加的值可以直接访问
+  console.log('n3', n3)
+</script>
+</html>

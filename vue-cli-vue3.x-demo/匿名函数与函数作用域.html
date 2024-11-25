@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+</style>
+<body>
+<h1>js匿名函数</h1>
+</body>
+
+<script type="application/javascript">
+  /*eslint-disable*/
+//  函数定义支持函数声明
+  fun1();
+  function fun1() {
+    alert('fun1')
+  }
+
+//  函数表达式不支持函数声明
+//  fun2();
+//  var fun2 = function () {
+//    alert('fun2')
+//  }
+
+//  函数定义
+//  function () {
+//    alert('函数定义')
+//  }
+
+//  加一对()变成函数表达式
+  (function () {
+    alert('函数表达式')
+  });
+
+//  函数表达式加一对()表示执行
+  (function () {
+    alert('自执行匿名函数')
+  }) ();
+
+  (function (window, undefined) {
+    alert('带参数自执行匿名函数')
+  }) (window, undefined);
+
+  // 作用域提升
+  var name = "haha";
+  var changeName1 = function () {
+    // 作用域提升，name是当前的环境的，不会报错
+    console.log(name)
+    // 当期的this是全局的window对象
+    console.log(this.name)
+    // 当前环境的定义的变量，因为覆盖了父环境的变量
+    var name = "xixi"
+  }
+  changeName1()
+
+  var changeName2 = function () {
+    // 作用域提升，name2不会报错，因为当前环境定义过name2，但是会执行报错，需要用var定义才不会报错
+    console.log(name2)
+    console.log(name)
+    let name2 = "xixi"
+  }
+  changeName2()
+  console.log(name)
+
+</script>
+</html>

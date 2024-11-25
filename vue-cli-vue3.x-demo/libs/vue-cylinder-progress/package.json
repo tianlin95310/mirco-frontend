@@ -1,0 +1,12 @@
+{
+  "name": "vue-cylinder-progress",
+  "version": "1.0.0",
+  "description": "圆柱体百分比进度条",
+  "main": "vue-cylinder-progress.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["自定义组件","圆柱体百分比进度条"],
+  "author": "litian",
+  "license": "ISC"
+}
