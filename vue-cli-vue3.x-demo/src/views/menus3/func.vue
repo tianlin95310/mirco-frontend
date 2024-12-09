@@ -8,9 +8,6 @@
 
     <div>
       <button class="button" @click="defineAClass">函数作为类的实现体</button>
-    </div>
-
-    <div>
       <button class="button" @click="ex5Extends">ES5继承（原型链继承）</button>
       <button class="button" @click="callExtends">ES5继承（构造继承）</button>
       <button class="button" @click="combineExtends">ES5继承（组合寄生继承）</button>
@@ -25,8 +22,8 @@
     </div>
 
     <div>
-      <button class="button" @click="getInstance">JS单例模式 属性上直接添加闭包函数</button>
-      <button class="button" @click="getInstanceStatic">JS单例模式 class添加静态方法</button>
+      <button class="button" title="属性上直接添加闭包函数" @click="getInstance">JS单例模式方式1</button>
+      <button class="button" title="class添加静态方法" @click="getInstanceStatic">JS单例模式方式2</button>
     </div>
 
     <div>
@@ -47,7 +44,6 @@
   /*eslint-disable*/
   import { throttle, debounce } from 'lodash'
   import { debounceS, throttleS } from './utils'
-  // import './utils/classSingleInstance.js'
   import { People, User } from './utils/classSingleInstance.js'
 
   export default {
@@ -115,35 +111,43 @@
         obj1.fun.apply(this)
       },
       FunctionUse() {
-        console.log(Function)
-        console.log(Function.prototype)
-        console.log(Function.__proto__)
+        console.log('Function', Function)
+        console.log('Function.prototype', Function.prototype)
+        console.log('Function.__proto__', Function.__proto__)
 
-        console.log(Object)
+        console.log('Object', Object)
         console.log('Object.prototype', Object.prototype)
         console.log('Object.__proto__', Object.__proto__)
 
         let obj = {}
-        console.log(obj)
+        console.log('obj', obj)
         console.log('obj.__proto__', obj.__proto__)
 
-        console.log(Function instanceof Object)
-        console.log(Object instanceof Function)
-        // Function.a = '123';
+        console.log('Function instanceof Object', Function instanceof Object)
+        console.log('Object instanceof Function', Object instanceof Function)
+        Function.a = '123';
 
-        let funa = new Function();
+        // Function使用字符串构造成函数
+        let funa = new Function('console.log(\'执行字符串代码\');return \'Function\'');
+        // 普通函数
         let funb = function() {
-          this.name = 'hello'
+          console.log('latest this', this)
+          // this.name = 'hello'
+          return 'hello'
         }
-        let fund = new function(){
-          this.name = 'hello'
-        };
+        // 匿名函数构造对象1
         let func = new (function(){
           this.name = 'hello'
         });
+        // 匿名函数构造对象2
+        let fund = new function(){
+          this.name = 'hello'
+        };
+        // 匿名函数构造对象3
         let fune = new function(){
           this.name = 'hello'
         }();
+        // E函数构造对象
         let funf = new function E(){
           this.name = 'hello'
         };
@@ -152,8 +156,8 @@
         (function() {
           console.log('匿名自执行函数')
         })();
-        console.log('funa,funb,func,fund,fune,funf = ', typeof funa, typeof funb, typeof func, typeof fund, typeof fune, typeof funf, typeof objg)
-        console.log('funa,funb,func,fund,fune,funf = ', typeof funa, funb(), func, fund, fune, funf, objg)
+        console.log('funa,funb,func,fund,fune,funf,objg = ', typeof funa, typeof funb, typeof func, typeof fund, typeof fune, typeof funf, typeof objg)
+        console.log('funa,funb,func,fund,fune,funf,objg = ', funa(), funb(), func, fund, fune, funf, objg)
       },
       funProto() {
         console.log(Date)

@@ -1,38 +1,38 @@
 <template>
   <div class="test-css-style page-container">
-   <div>
-     <h2>测试css的属性</h2>
-     <div class="parent">
-       <span style="visibility: hidden;" @click="testBefore">我的visibility</span>
-       <p class="test">我在父块的右下角</p>
-     </div>
+    <div>
+      <h2>测试css的属性</h2>
+      <div class="parent">
+        <span style="visibility: hidden;" @click="testBefore">我的visibility</span>
+        <p class="test">我在父块的右下角</p>
+      </div>
 
-     <div class="test-before" @click="testBefore">
-       line-height竖直居中
-     </div>
+      <div class="test-before" @click="testBefore">
+        line-height竖直居中
+      </div>
 
-     <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center">
-       <div style="background: #D42D00;width: 50%;text-align: center;margin: 0 auto;">div水平居中</div>
-     </div>
+      <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center">
+        <div style="background: #D42D00;width: 50%;text-align: center;margin: 0 auto;">div水平居中</div>
+      </div>
 
-     <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center">
-       <div>0.5px边框</div>
-       <div class="line-t-e line-b-e">sss</div>
-     </div>
-   </div>
+      <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center">
+        <div>0.5px边框</div>
+        <div class="line-t-e line-b-e">sss</div>
+      </div>
+    </div>
 
-<!--    margin 塌陷导致垂直居中失效-->
+    <!--    margin 塌陷导致垂直居中失效-->
     <div style="background: gray;width: 200px;height: 200px;">
       <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
     </div>
 
-<!--    通过子元素display: inline-block设置BFC解决问题-->
+    <!--    通过子元素display: inline-block设置BFC解决问题-->
     <div style="background: white;width: 200px;height: 200px;display: inline-block">
       <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
     </div>
-<!--    ·可以为父元素定义上边框。-->
-<!--    ·可以为父元素定义上内边距-->
-<!--    ·可以为父元素添加overflow:hidden, auto等，不能为visable。-->
+    <!--    ·可以为父元素定义上边框。-->
+    <!--    ·可以为父元素定义上内边距-->
+    <!--    ·可以为父元素添加overflow:hidden, auto等，不能为visable。-->
     <div style="background: whitesmoke;width: 200px;height: 200px;overflow: hidden">
       <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
     </div>
@@ -79,78 +79,78 @@
   </div>
 </template>
 
-<script>
-  export default {
-    methods: {
-      testBefore() {
-        alert('window testBefore')
-      }
-    }
-  }
+<script setup>
+const testBefore = () => {
+  alert('window testBefore')
+}
 </script>
 <style lang="scss">
-  .test-css-style {
-    background-color: var(--primiryColor);
-    color: black;
-    position: relative;
-    left: 100px;
-    // relative元素可为自身设置相对位置
+.test-css-style {
+  background-color: var(--primiryColor);
+  color: black;
+  position: relative;
+  left: 100px;
+  // relative元素可为自身设置相对位置
 
-    .test-float {
-      border: 1px solid;
+  .test-float {
+    border: 1px solid;
+    margin-top: 10px;
+
+    .overflow {
+      overflow: hidden;
+    }
+
+    div {
+      background: #D42D00;
       margin-top: 10px;
-
-      .overflow {
-        overflow: hidden;
-      }
-
-      div {
-        background: #D42D00;
-        margin-top: 10px;
-      }
-      .left {
-        float: left;
-        color: black;
-      }
-      .right {
-        float: right;
-        color: black;
-      }
     }
-    .test-before {
-      display: inline-block;
-      height: 120px;
-      width: 160px;
-      position: relative;
-      line-height: 120px;
-      background: lightgrey;
+
+    .left {
+      float: left;
+      color: black;
     }
-    /*::after不在dom上，不能响应事件, 但能增加元素本身的点击面积*/
-    .test-before::after {
-      content: '\2715';
-      position: absolute;
-      cursor: pointer;
-      right: -6px;
-      line-height: 0px;
+
+    .right {
+      float: right;
+      color: black;
     }
   }
 
-  .parent {
-    position: relative;
-    width: 200px;
-    height: 100px;
+  .test-before {
     display: inline-block;
-    background: yellow;
-    font-size: 0.7rem;
-    vertical-align: middle;
-
-    .test {
-      color: #0f131c;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      display: block;
-    }
-
+    height: 120px;
+    width: 160px;
+    position: relative;
+    line-height: 120px;
+    background: lightgrey;
   }
+
+  /*::after不在dom上，不能响应事件, 但能增加元素本身的点击面积*/
+  .test-before::after {
+    content: '\2715';
+    position: absolute;
+    cursor: pointer;
+    right: -6px;
+    line-height: 0px;
+  }
+}
+
+.parent {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  display: inline-block;
+  background: yellow;
+  font-size: 0.7rem;
+  vertical-align: middle;
+
+  .test {
+    color: #0f131c;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: block;
+  }
+
+}
 </style>

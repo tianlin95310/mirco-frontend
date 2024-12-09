@@ -7,7 +7,7 @@
     </div>
 
     <div ref="customScroll" class="custom-scroll">
-      <div ref="scroll" :style="{left: left + 'px'}" class="my-scroll"></div>
+      <div ref="scroll" :style="{ left: left + 'px' }" class="my-scroll"></div>
     </div>
 
     <t-l-dialog v-model="show" tableTitle="a fixed Table">
@@ -19,7 +19,7 @@
 
 </template>
 
-<script>
+<script setup>
 // let s1 = this.$refs.scrollTop.wrap
 // let s2 = this.$refs.multipleTable.bodyWrapper
 // let c1 = this.$refs.scrollContent
@@ -33,40 +33,28 @@
 // s2.addEventListener('scroll', function (e) {
 //   s1.scrollLeft = s2.scrollLeft
 // })
-  import TLDialog from 'comp/TLDialog'
-
-  export default {
-    name: 'Scroll',
-    data() {
-      return {
-        left: 0,
-        show: false
-      }
-    },
-    components: {
-      TLDialog
-    },
-    created() {
-      console.log('scroll created')
-    },
-    mounted() {
-      const table = this.$refs.table
-      const customScroll = this.$refs.customScroll
-      const originActScrollWidth = table.clientWidth / (table.scrollWidth / table.clientWidth)
-      const maxScroll = table.scrollWidth - table.clientWidth
-      console.log('mounted', originActScrollWidth, maxScroll, customScroll.clientWidth)
-      table.onscroll = (event) => {
-        const scrollPercent = maxScroll / (300 - 100)
-        this.left = table.scrollLeft / scrollPercent
-      }
-    }
+import { onMounted, ref } from 'vue'
+import TLDialog from 'comp/TLDialog'
+const left = ref(0)
+const show = ref(false)
+const table = ref(null)
+const customScroll = ref(null)
+onMounted(() => {
+  const originActScrollWidth = table.value.clientWidth / (table.value.scrollWidth / table.value.clientWidth)
+  const maxScroll = table.value.scrollWidth - table.value.clientWidth
+  console.log('onMounted', originActScrollWidth, maxScroll, customScroll.value.clientWidth)
+  table.value.onscroll = (event) => {
+    const scrollPercent = maxScroll / (300 - 100)
+    left.value = table.value.scrollLeft / scrollPercent
   }
+})
 
 </script>
 
 <style lang="scss" scoped>
 .scroll-info {
   width: 100%;
+
   .custom-scroll {
     margin: 16px 0;
     width: 300px;
@@ -74,6 +62,7 @@
     position: relative;
     height: 10px;
     border-radius: 20px;
+
     .my-scroll {
       position: absolute;
       height: 100%;
@@ -82,6 +71,7 @@
       border-radius: 20px;
     }
   }
+
   .table {
     width: 100%;
     overflow: auto;

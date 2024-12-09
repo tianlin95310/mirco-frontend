@@ -31,7 +31,7 @@
       </div>
 
       <div class="right">
-        <div class="one-text" :class="{'one-text-hide': bookShow}" @click="bookShow = !bookShow">
+        <div class="one-text" :class="{ 'one-text-hide': bookShow }" @click="bookShow = !bookShow">
           静夜思 <span style="font-size: 12px;">唐-李白</span>
           床前明月光，
           疑是地上霜。
@@ -44,67 +44,63 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      imgAnim1: 'imgAnim1',
-      isChange1: false,
-      imgAnim2: 'imgAnim2',
-      isChange2: false,
-      imgAnim3: 'imgAnim3',
-      isChange3: false,
-      imgAnim4: 'imgAnim4',
-      isChange4: false,
-      imgAnim5: 'imgAnim5',
-      isChange5: false,
+<script setup>
+import { reactive, toRefs } from 'vue';
 
-      bookShow: false
+const state = reactive({
+  imgAnim1: 'imgAnim1',
+  isChange1: false,
+  imgAnim2: 'imgAnim2',
+  isChange2: false,
+  imgAnim3: 'imgAnim3',
+  isChange3: false,
+  imgAnim4: 'imgAnim4',
+  isChange4: false,
+  imgAnim5: 'imgAnim5',
+  isChange5: false,
+  bookShow: false
+})
+const {imgAnim1, imgAnim2, imgAnim3, imgAnim4, imgAnim5, bookShow} = toRefs(state)
+const onClick = (index) => {
+  if (index === 1) {
+    if (state.isChange1) {
+      state.imgAnim1 = 'imgAnim1'
+    } else {
+      state.imgAnim1 = 'imgAnim1End'
     }
-  },
-  methods: {
-    onClick(index) {
-      if (index === 1) {
-        if (this.isChange1) {
-          this.imgAnim1 = 'imgAnim1'
-        } else {
-          this.imgAnim1 = 'imgAnim1End'
-        }
-        this.isChange1 = !this.isChange1
-      }
-      if (index === 2) {
-        if (this.isChange2) {
-          this.imgAnim2 = 'imgAnim2'
-        } else {
-          this.imgAnim2 = 'imgAnim2End'
-        }
-        this.isChange2 = !this.isChange2
-      }
-      if (index === 3) {
-        if (this.isChange3) {
-          this.imgAnim3 = 'imgAnim3'
-        } else {
-          this.imgAnim3 = 'imgAnim3End'
-        }
-        this.isChange3 = !this.isChange3
-      }
-      if (index === 4) {
-        if (this.isChange4) {
-          this.imgAnim4 = 'imgAnim4'
-        } else {
-          this.imgAnim4 = 'imgAnim4End'
-        }
-        this.isChange4 = !this.isChange4
-      }
-      if (index === 5) {
-        if (this.isChange5) {
-          this.imgAnim5 = 'imgAnim5'
-        } else {
-          this.imgAnim5 = 'imgAnim5End'
-        }
-        this.isChange5 = !this.isChange5
-      }
+    state.isChange1 = !state.isChange1
+  }
+  if (index === 2) {
+    if (state.isChange2) {
+      state.imgAnim2 = 'imgAnim2'
+    } else {
+      state.imgAnim2 = 'imgAnim2End'
     }
+    state.isChange2 = !state.isChange2
+  }
+  if (index === 3) {
+    if (state.isChange3) {
+      state.imgAnim3 = 'imgAnim3'
+    } else {
+      state.imgAnim3 = 'imgAnim3End'
+    }
+    state.isChange3 = !state.isChange3
+  }
+  if (index === 4) {
+    if (state.isChange4) {
+      state.imgAnim4 = 'imgAnim4'
+    } else {
+      state.imgAnim4 = 'imgAnim4End'
+    }
+    state.isChange4 = !state.isChange4
+  }
+  if (index === 5) {
+    if (state.isChange5) {
+      state.imgAnim5 = 'imgAnim5'
+    } else {
+      state.imgAnim5 = 'imgAnim5End'
+    }
+    state.isChange5 = !state.isChange5
   }
 }
 </script>
@@ -113,8 +109,10 @@ export default {
 .linearlayout {
   display: flex;
   flex-direction: row;
+
   .right {
     flex: 1;
+
     .one-text {
       width: 150px;
       white-space: pre-line;
@@ -131,6 +129,7 @@ export default {
       transform: rotateZ(0);
       font-weight: 800;
     }
+
     .one-text-hide {
       overflow-y: hidden;
       overflow-wrap: break-word;
@@ -143,6 +142,7 @@ export default {
       font-weight: 300;
     }
   }
+
   .left {
     flex: 1;
   }

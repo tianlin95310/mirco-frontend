@@ -8,15 +8,7 @@
 
 </template>
 
-<script>
-  export default {
-    name: 'Selector',
-    data() {
-      return {
-
-      }
-    }
-  }
+<script setup>
 </script>
 
 <style lang="scss" scoped>

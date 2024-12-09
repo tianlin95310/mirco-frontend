@@ -13,7 +13,7 @@
           apply：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.apply(A, arguments);即 A 对象应用 B 对象的方法。
           call：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.call(A, args1,args2);即 A 对象调用 B 对象的方法。
           bind 除了返回是函数以外，它的参数和 call 一样。
-          构造函数里面也可以这样使用，用于条用构造函数
+          构造函数里面也可以这样使用，用于调用构造函数
 
           1、改变 this 的指向
           2、借用别的对象的方法，保存副本
@@ -124,6 +124,19 @@
           是因为其他所有的内置对象都是从Object中继承而来的，因此可以通过Object来操作和处理其他内置对象的方法和属性。
 
         19，function和Function的区别
+        JavaScript中的function和Function主要有以下区别‌：
+        ‌定义方式‌：
+        function是一个关键字，用于声明一个函数。例如：function myFunction(arg) { ... }‌12。
+        Function是一个构造函数，用于动态创建函数。例如：var myFunction = new Function("arg", "return arg;");‌13。
+        ‌使用场景‌：
+        使用function关键字声明的函数是静态的，直接定义在代码中。这种方式定义的函数在执行时效率较高，因为不需要动态解析。
+        使用Function构造函数创建的函数是动态的，可以在运行时根据需要创建新的函数。这种方式适用于需要根据某些条件动态生成函数的场景。
+        ‌类型和实例‌：
+        function是一个关键字，用于声明函数。通过function声明的函数是Function对象的实例。例如：var func = function(arg) { ... }‌12。
+        Function是一个构造函数，用于创建函数对象。通过new Function()创建的函数对象与通过function关键字声明的函数在类型上有所不同，前者是Object类型，后者是Function类型‌2。
+        ‌性能和灵活性‌：
+        使用function关键字声明的函数在编译时就能确定其结构和内容，因此执行效率较高。
+        使用Function构造函数创建的函数需要在运行时解析代码字符串，因此执行效率较低，但提供了更高的灵活性和动态性。
         <RLink to="/menu3/func" title="function与Function" />
 
         20，何为undefined？

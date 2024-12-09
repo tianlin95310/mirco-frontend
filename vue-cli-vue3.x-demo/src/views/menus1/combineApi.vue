@@ -15,19 +15,16 @@
           d22 = {{ d22 }}
         </div>
         <div>
-          d3 = <span @click="d3.d31++">{{ d3.d31 }}</span>──<span @click="d3.d32++">{{ d3.d32 }}</span>──<span
-            @click="d3.d33 += 'a'">{{ d3.d33 }}</span>
+          d3 = <span @click="d3.d31++">{{ d3.d31 }}</span>──<span @click="d3.d32++">{{ d3.d32 }}</span>──<span @click="d3.d33 += 'a'">{{ d3.d33 }}</span>
         </div>
         <div @click="d4++">
           d4 = {{ d4 }}
         </div>
         <div>
-          d5 = <span @click="d5.d31.value++">{{ d5.d31 }}</span>──<span @click="d5.d32++">{{ d5.d32 }}</span>──<span
-            @click="d5.d33 += 'a'">{{ d5.d33 }}</span>
+          d5 = <span @click="d5.d31.value++">{{ d5.d31 }}</span>──<span @click="d5.d32++">{{ d5.d32 }}</span>──<span @click="d5.d33 += 'a'">{{ d5.d33 }}</span>
         </div>
         <div>
-          ...d5 = <span @click="d31++">{{ d31 }}</span>──<span @click="d32++">{{ d32 }}</span>──<span
-            @click="d33 += 'a'">{{ d33 }}</span>
+          ...d5 = <span @click="d31++">{{ d31 }}</span>──<span @click="d32++">{{ d32 }}</span>──<span @click="d33 += 'a'">{{ d33 }}</span>
         </div>
         <div>
           d6 = <span @click="d6.d61.d611++">{{ d6.d61.d611 }}</span>──<span @click="d6.d62++">{{ d6.d62 }}</span>

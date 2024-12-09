@@ -8,6 +8,7 @@
     *，Node.js中间件的使用，服务器端编程
     JS Worker的使用
     indexedDB的使用
+    WebError收集工具
 
     *，数据结构和算法
     *，leetcode算法练习

@@ -3,7 +3,7 @@
     <h2>测试vue的生命周期方法，以及调用组件的方法，混入验证</h2>
     <!-- <h3 style="margin: 16px 0;">{{ 1 | testFilter('111') }}</h3> -->
     <child />
-    <child3-x></child3-x>
+    <child3X />
 
     <div class="card">
       <div class="title">测试v-if和v-show的区别</div>

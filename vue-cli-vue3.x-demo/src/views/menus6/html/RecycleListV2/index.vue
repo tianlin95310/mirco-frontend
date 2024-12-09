@@ -31,7 +31,7 @@ watch(page, (newV, oldV) => {
     const start = newV * recycleCount / 2
     const end = (newV + 2) * recycleCount / 2
     renderList(start, end)
-    lastScrollTop.value = start  * itemHeight
+    lastScrollTop.value = start * itemHeight
   } else {
     renderList(initBegin, recycleCount)
     lastScrollTop.value = 0
