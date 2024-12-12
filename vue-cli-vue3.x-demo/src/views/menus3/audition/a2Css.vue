@@ -3,7 +3,7 @@
     <template v-slot:content>
       <pre>
         1，IFrame的缺点
-          加载会阻塞主线程onload事件，影响页面加载速度，并且不利于<span class="highlight">SEO</span>
+          加载会阻塞主线程onload事件，影响页面加载速度，并且不利于<span class="highlight">SEO</span>，存在跨域问题
 
         2，防抖和节流本质是不一样的。防抖是将多次执行变为最后一次执行，节流是将多次执行变成每隔一段时间执行。
           .1 防抖(debounce):
@@ -62,7 +62,7 @@
           1，position 为relative, fixed, abslolute才会生效
           2，会继承父亲的z-index
           3，不设置时并不是默认为0，而是不处于堆叠上下文中
-          <ALink to="https://blog.csdn.net/qq_39643546/article/details/124729278" title="Z-index"></ALink>
+          <ALink href="https://blog.csdn.net/qq_39643546/article/details/124729278" title="Z-index的用法实例"></ALink>
 
         9，em单位
           html根元素的em单位是会以浏览器的字体大小为基准的
@@ -81,6 +81,9 @@
 
         14，元素监听
           使用ResizeObserver监听元素
+
+        15，元素的各个位置
+        <ALink href="https://cloud.tencent.com/developer/article/1015641" title="搞清clientHeight、offsetHeight、scrollHeight、offsetTop、scrollTop"/>
 
      </pre>
     </template>

@@ -51,9 +51,9 @@ onBeforeUnmount(() => {
 onUnmounted(() => {
   console.log('%c App onUnmounted', 'color: red')
 })
-onErrorCaptured(() => {
-  console.log('%c App onErrorCaptured', 'color: red')
-})
+// onErrorCaptured(() => {
+//   console.log('%c App onErrorCaptured', 'color: red')
+// })
 onRenderTracked(() => {
   console.log('%c App onRenderTracked', 'color: red')
 })

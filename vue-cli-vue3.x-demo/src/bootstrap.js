@@ -5,7 +5,7 @@ import store from './store'
 import { getToken } from '@/cookies/Cookies.js'
 import directives from './directives/index.js'
 import selfComps from '@/components'
-
+import webError from './utils/webError'
 const whiteList = ['/login', '/login2']
 
 router.beforeEach((to, from, next) => {
@@ -31,4 +31,5 @@ createApp(App)
   .use(router)
   .use(directives)
   .use(selfComps)
+  .use(webError)
   .mount('#app')

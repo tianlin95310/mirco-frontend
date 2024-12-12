@@ -127,9 +127,6 @@ const onIndexClick = (item) => {
   background-color: white;
 
   .list-view {
-    .card {
-      display: inline-block;
-    }
   }
 
   .index {

@@ -38,5 +38,6 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/css/mixins.scss';
 .safety {
+  background-color: antiquewhite;
 }
 </style>

@@ -17,6 +17,10 @@ export default {
         break
       }
     }
+    // 判断是否被iframe嵌入
+    if (window.self !== window.top) {
+      return false
+    }
     return flag
   }
 }

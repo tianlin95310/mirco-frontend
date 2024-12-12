@@ -33,13 +33,13 @@
           props = {{ prop1 }} {{ prop2 }}
         </div>
 
-        <button class="button" @click="callChildFun">调用子组件方法1</button>
-
-        <button class="button" @click="callChildFunction">调用子组件示方法2</button>
       </div>
 
       <div style="flex: 1">
 
+        <button class="button" @click="callChildFun">调用子组件方法1</button>
+
+        <button class="button" @click="callChildFunction">调用子组件示方法2</button>
         <CombineComp ref="combineComp" :d3="d3" :d31="d31" :d32="d32" :d33="d33" @parFun="parFun"></CombineComp>
 
         <CombineCompSetup ref="combineCompSetup" @parFun="parFun"></CombineCompSetup>
@@ -111,7 +111,7 @@ export default {
     const d4 = toRef(d3, 'd31')
     // const d4 = d3
 
-    // toRefs会将对象所有已有属性的响应式对象赋给一个新的普通对象，该对象在模板代码不会自动解包(因为当前响应式对象不是顶层对象)，解构该对象不会失去向响应性
+    // toRefs会将对象所有已有属性的响应式对象赋给一个新的普通对象，该对象在模板代码不会自动解包(因为当前响应式对象不是顶层对象)，解构该对象不会失去向响应性,内部的每个对象都是Ref
     const d5 = toRefs(d3)
 
     // shallowReactive不会产生深层次的响应性
@@ -127,21 +127,25 @@ export default {
     // context.refs.combineComp.click()
     // context.refs.combineCompSetup.click()
 
-    console.log('d1 isReactive =', isReactive(d1), 'isReadonly =', isReadonly(d1), 'isRef =', isRef(d1), 'isProxy =', isProxy(d1))
-    console.log('d2 isReactive =', isReactive(d2), 'isReadonly =', isReadonly(d2), 'isRef =', isRef(d2), 'isProxy =', isProxy(d2))
-    console.log('d22 isReactive =', isReactive(d22), 'isReadonly =', isReadonly(d22), 'isRef =', isRef(d22), 'isProxy =', isProxy(d22))
+    console.log('d1 ', d1, 'isReactive =', isReactive(d1), 'isReadonly =', isReadonly(d1), 'isRef =', isRef(d1), 'isProxy =', isProxy(d1))
+    console.log('d2 ', d2, 'isReactive =', isReactive(d2), 'isReadonly =', isReadonly(d2), 'isRef =', isRef(d2), 'isProxy =', isProxy(d2))
+    console.log('d22 ', d22, 'isReactive =', isReactive(d22), 'isReadonly =', isReadonly(d22), 'isRef =', isRef(d22), 'isProxy =', isProxy(d22))
 
-    console.log('d3 isReactive =', isReactive(d3), 'isReadonly =', isReadonly(d3), 'isRef =', isRef(d3), 'isProxy =', isProxy(d3))
-    console.log('d31 isReactive =', isReactive(d3.d31), 'isReadonly =', isReadonly(d3.d31), 'isRef =', isRef(d3.d31), 'isProxy =', isProxy(d3.d31))
-    console.log('d32 isReactive =', isReactive(d3.d32), 'isReadonly =', isReadonly(d3.d32), 'isRef =', isRef(d3.d32), 'isProxy =', isProxy(d3.d32))
+    console.log('d3 ', d3, 'isReactive =', isReactive(d3), 'isReadonly =', isReadonly(d3), 'isRef =', isRef(d3), 'isProxy =', isProxy(d3))
+    console.log('d31 ', d3.d31, 'isReactive =', isReactive(d3.d31), 'isReadonly =', isReadonly(d3.d31), 'isRef =', isRef(d3.d31), 'isProxy =', isProxy(d3.d31))
+    console.log('d32 ', d3.d32, 'isReactive =', isReactive(d3.d32), 'isReadonly =', isReadonly(d3.d32), 'isRef =', isRef(d3.d32), 'isProxy =', isProxy(d3.d32))
 
-    console.log('d4 isReactive =', isReactive(d4), 'isReadonly =', isReadonly(d4), 'isRef =', isRef(d4), 'isProxy =', isProxy(d4))
-    console.log('d5 isReactive =', isReactive(d5), 'isReadonly =', isReadonly(d5), 'isRef =', isRef(d5), 'isProxy =', isProxy(d5))
-    console.log('d51 isReactive =', isReactive(d5.d31), 'isReadonly =', isReadonly(d5.d31), 'isRef =', isRef(d5.d31), 'isProxy =', isProxy(d5.d31))
-    console.log('d52 isReactive =', isReactive(d5.d32), 'isReadonly =', isReadonly(d5.d32), 'isRef =', isRef(d5.d32), 'isProxy =', isProxy(d5.d32))
+    console.log('d4 ', d4, 'isReactive =', isReactive(d4), 'isReadonly =', isReadonly(d4), 'isRef =', isRef(d4), 'isProxy =', isProxy(d4))
+    console.log('d5 ', d5, 'isReactive =', isReactive(d5), 'isReadonly =', isReadonly(d5), 'isRef =', isRef(d5), 'isProxy =', isProxy(d5))
+    console.log('d5.d31 ', d5.d31, 'isReactive =', isReactive(d5.d31), 'isReadonly =', isReadonly(d5.d31), 'isRef =', isRef(d5.d31), 'isProxy =', isProxy(d5.d31))
+    console.log('d5.d32 ', d5.d32, 'isReactive =', isReactive(d5.d32), 'isReadonly =', isReadonly(d5.d32), 'isRef =', isRef(d5.d32), 'isProxy =', isProxy(d5.d32))
 
-    console.log('props isReactive =', isReactive(props), 'isReadonly =', isReadonly(props), 'isRef =', isRef(props), 'isProxy =', isProxy(props))
-    console.log('prop1 isReactive =', isReactive(props.prop1), 'isReadonly =', isReadonly(props.prop1), 'isRef =', isRef(props.prop1), 'isProxy =', isProxy(props.prop1))
+    console.log('d6 ', d6, 'isReactive =', isReactive(d6), 'isReadonly =', isReadonly(d6), 'isRef =', isRef(d6), 'isProxy =', isProxy(d6))
+    console.log('d6.d61 ', 'isReactive =', d6.d61, isReactive(d6.d61), 'isReadonly =', isReadonly(d6.d61), 'isRef =', isRef(d6.d61), 'isProxy =', isProxy(d6.d61))
+    console.log('d6.d61.d611 ', 'isReactive =', d6.d61.d611, isReactive(d6.d61.d611), 'isReadonly =', isReadonly(d6.d61.d611), 'isRef =', isRef(d6.d61.d611), 'isProxy =', isProxy(d6.d61.d611))
+
+    console.log('props ', props, 'isReactive =', isReactive(props), 'isReadonly =', isReadonly(props), 'isRef =', isRef(props), 'isProxy =', isProxy(props))
+    console.log('prop1 ', props.prop1, 'isReactive =', isReactive(props.prop1), 'isReadonly =', isReadonly(props.prop1), 'isRef =', isRef(props.prop1), 'isProxy =', isProxy(props.prop1))
     const parFun = () => {
       console.log('parFun called')
       d3.d31++

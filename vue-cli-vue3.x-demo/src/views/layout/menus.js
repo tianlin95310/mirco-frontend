@@ -137,7 +137,7 @@ export const MENUS = [
       path: '/menu4/bomAbout'
     }]
   }, {
-    menuTitle: '练手小项目',
+    menuTitle: '综合小应用',
     isOpen: false,
     path: '/menu5',
     subMenus: [{
@@ -145,17 +145,17 @@ export const MENUS = [
       isOpen: false,
       path: '/menu5/drawPuke'
     }, {
-      menuTitle: '画出扑克牌用Canvas',
-      isOpen: false,
-      path: '/menu5/drawPukeInCanvas'
-    }, {
       menuTitle: '金字塔扑克牌游戏',
       isOpen: false,
       path: '/pukegame1'
     }, {
-      menuTitle: '抽奖',
+      menuTitle: '抽奖程序',
       isOpen: false,
       path: '/menu5/lot'
+    }, {
+      menuTitle: '组件通信【广播】',
+      isOpen: false,
+      path: '/menu5/componentInter'
     }]
   }, {
     menuTitle: '自定义控件',

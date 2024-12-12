@@ -192,14 +192,14 @@ const routes = [
         component: () => import('@/views/menus5/drawPuke.vue')
       },
       {
-        path: 'drawPukeInCanvas',
-        name: 'DrawPukeInCanvas',
-        component: () => import('@/views/menus5/drawPukeInCanvas.vue')
-      },
-      {
         path: 'lot',
         name: 'lot',
         component: () => import('@/views/menus5/lot.vue')
+      },
+      {
+        path: 'componentInter',
+        name: 'componentInter',
+        component: () => import('@/views/menus5/componentInter.vue')
       }
     ]
   },

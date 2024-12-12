@@ -209,10 +209,4 @@ const vue3Ref = () => {
 </template>
 
 <style>
-.card {
-  background-color: antiquewhite;
-  border-radius: 20px;
-  margin: 20px;
-  padding: 20px;
-}
 </style>

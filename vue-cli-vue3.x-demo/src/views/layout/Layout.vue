@@ -25,7 +25,7 @@
       </ul>
     </div>
 
-    <Content ref="content" :style="{ paddingLeft: contentPaddingLeft }" class="level1-route" @collapse="collapse" />
+    <RightContent ref="content" :style="{ paddingLeft: contentPaddingLeft }" class="level1-route" @collapse="collapse" />
   </div>
 
 </template>
@@ -34,7 +34,7 @@
 import { onMounted, ref, getCurrentInstance, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import Content from './Content.vue'
+import RightContent from './RightContent.vue'
 import { MENUS } from './menus'
 
 const route = useRoute()
@@ -198,6 +198,7 @@ const collapseChild = () => {
       background-color: #545C64;
       border-bottom: 1px solid grey;
       cursor: pointer;
+      overflow: hidden;
     }
 
     .nav-con {

@@ -81,6 +81,6 @@ export default {
 
 <style>
 .combine-comp {
-  background-color: aquamarine;
+  background-color: firebrick;
 }
 </style>
