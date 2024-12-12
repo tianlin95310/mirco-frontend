@@ -1,7 +1,5 @@
 <script setup>
-import { ref, defineProps, defineOptions, useAttrs, defineEmits, reactive } from 'vue';
-import { useStore } from 'vuex'
-const store = useStore()
+import {  useAttrs, defineOptions } from 'vue';
 const attrs = useAttrs()
 const emit = defineEmits(['updateInterData'])
 const props = defineProps({

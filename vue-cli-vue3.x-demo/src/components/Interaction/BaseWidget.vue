@@ -3,7 +3,7 @@
   </component>
 </template>
 <script setup>
-import { defineProps, useAttrs, useTemplateRef, onMounted } from 'vue'
+import { useAttrs, useTemplateRef, onMounted } from 'vue'
 import { useInter } from './interMixin';
 import { useStore } from 'vuex';
 const store = useStore()

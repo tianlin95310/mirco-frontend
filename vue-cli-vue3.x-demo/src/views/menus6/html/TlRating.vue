@@ -7,7 +7,6 @@
   </div>
 </template>
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 const $emit = defineEmits(['update']) 
 defineProps({
   size: {

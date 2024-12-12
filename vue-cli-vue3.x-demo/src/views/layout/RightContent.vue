@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { computed, ref, defineEmits, defineExpose, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { removeToken } from '@/cookies/Cookies.js'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'

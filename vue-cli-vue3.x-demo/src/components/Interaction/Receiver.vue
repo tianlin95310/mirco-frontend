@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineOptions, useAttrs, defineEmits, defineExpose, computed, watch } from 'vue';
+import { ref, defineOptions, useAttrs, computed, watch } from 'vue';
 import { useStore } from 'vuex'
 const attrs = useAttrs()
 const props = defineProps({

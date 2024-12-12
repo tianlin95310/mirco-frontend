@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   env: {
     node: true,
-    'es2020': true
+    'es2020': true,
+    "vue/setup-compiler-macros": true
   },
   'extends': [
     'plugin:vue/vue3-essential',
@@ -26,6 +27,8 @@ module.exports = {
       "switchCase": 0,
       "ignores": []
     }],
-    "vue/multi-word-component-names": ['off']
+    "vue/multi-word-component-names": ['off'],
+    
+    
   }
 }

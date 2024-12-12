@@ -45,6 +45,7 @@
   </div>
 </template>
 <script setup name="HtmlView">
+// <!-- script 设置name无效，可以使用文件名以及defineOptions -->
 import { ref, watch, reactive, toRefs, onActivated, onMounted, defineOptions } from 'vue'
 import TlIndexView from './html/TLIndexView.vue'
 import TlRating from './html/TlRating.vue'

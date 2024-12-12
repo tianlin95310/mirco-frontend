@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, toRefs, isRef, isReactive, isProxy, defineExpose, defineEmits } from 'vue'
+import { ref, reactive, toRefs } from 'vue'
 const state = reactive({
   name: 'tl',
   age: ref(22),

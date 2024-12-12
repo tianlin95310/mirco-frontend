@@ -1,5 +1,4 @@
 <template>
-
   <div class="item">
     <div>
       <span class="span-break">{{value.value}}</span>

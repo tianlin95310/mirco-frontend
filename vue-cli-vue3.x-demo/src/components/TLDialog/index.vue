@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, onMounted, nextTick } from 'vue'
+import { onMounted, nextTick } from 'vue'
 const $emit = defineEmits(['update:modelValue'])
 const vDraggable = {
   mounted(el, binding) {

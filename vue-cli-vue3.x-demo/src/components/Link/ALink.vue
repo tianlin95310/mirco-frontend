@@ -3,7 +3,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 const name = 'ALink'
 defineProps({
   href: {

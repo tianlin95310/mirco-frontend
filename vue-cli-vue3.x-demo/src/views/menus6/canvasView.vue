@@ -87,6 +87,7 @@
     </t-l-dialog>
   </div>
 </template>
+
 <script setup name="CanvasView">
 import { swapEvent } from "@/utils/event.js";
 import TlCircleRatio from "./canvas/TlCircleRatio";

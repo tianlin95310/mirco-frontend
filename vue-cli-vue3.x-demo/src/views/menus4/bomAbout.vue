@@ -6,6 +6,7 @@
     <iframe src="https://www.baidu.com/" class="frame1"></iframe>
 
     <div class="card">
+      <h2>错误日志</h2>
       <button class="button" @click="createError1">产生异常1</button>
       <button class="button" @click="createError2">产生异常2</button>
       <button class="button" @click="createError3">产生异常3</button>

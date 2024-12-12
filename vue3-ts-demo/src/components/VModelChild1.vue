@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-// import { defineProps, defineEmits } from 'vue'
 const props = defineProps(['modelValue'])
 const $emit = defineEmits(['update:modelValue'])
 

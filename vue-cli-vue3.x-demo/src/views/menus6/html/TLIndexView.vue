@@ -9,7 +9,7 @@
   </div>
 </template>
 <script setup>
-import { defineProps, ref, defineEmits } from 'vue';
+import { ref } from 'vue';
 const props = defineProps({
   vColor: {
     type: String,

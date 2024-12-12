@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, toRef } from 'vue'
+import { toRef } from 'vue'
 const $emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: {
