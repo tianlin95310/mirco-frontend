@@ -1,6 +1,9 @@
 <script setup>
-import { ref, defineOptions, useAttrs, computed, watch } from 'vue';
+import { ref, useAttrs, computed, watch, defineOptions } from 'vue';
 import { useStore } from 'vuex'
+defineOptions({
+  name: 'Receiver'
+})
 const attrs = useAttrs()
 const props = defineProps({
   option: {
@@ -17,9 +20,7 @@ const getInterData = (newV, oldV) => {
 defineExpose({
   getInterData
 })
-defineOptions({
-  name: 'Receiver'
-})
+
 </script>
 
 <template>

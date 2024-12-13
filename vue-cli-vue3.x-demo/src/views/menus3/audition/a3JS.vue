@@ -53,7 +53,7 @@
               valueOf()
 
         6，普通函数和箭头函数的区别
-          普通函数的this指向对象本省，可以作为构造函数，箭头函数都是匿名函数，无this对象，不能作为构造函数
+          普通函数的this指向对象本省，可以作为构造函数，反之函数内部的this如果函数自身，则不能作为构造函数，箭头函数都是匿名函数，无this对象，不能作为构造函数
 
         7，Promise的静态方法
           见标签<RLink to="/menu4/promiseUse" title="Promise的使用" />
@@ -81,7 +81,7 @@
           js里面函数对象和普通对象是有区别的，普通对象没有prototype属性，函数对象有，函数的原型对象包含函数自身(constructor)以及
           函数的原型对象的原型对象，原型对象是用来产生普通对象的，js的继承本质上是一种委托
 
-          原型对象相当于一个类的定义（创建对象，为对象赋值提供方法等操作），Object.getPrototypeOf可以获取某个对象的原型对象，值等于该类名（即构造函数，函数名也是一个对象）.prototype，
+          原型对象相当于一个类的定义（创建对象，为对象赋值提供方法等操作），Object.getPrototypeOf可以获取某个对象的原型对象，值等于该类名（即构造函数，函数也是一个对象）.prototype，
           对象的原型他也是一个对象，也可以通过Object.getPrototypeOf获取当前这个原型对象的原型，此时的值
           应等于父类名.prototype，直到找到Object一级，而Object.getPrototypeOf(Object.prototype) === null
           对象自身有一个constructor属性，他是构造函数（其他语言中函数本身也是一个对象），

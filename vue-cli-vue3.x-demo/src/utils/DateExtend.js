@@ -1,14 +1,7 @@
-/*eslint-disable*/
-
 /**
- * 原生Date对象函数扩展
- * author : liao jiabing
- * QQ : 656317441
- * email : admin@w3c.top
- */
-/**
- * 扩展Date格式化
- * @param {Object} format
+ * 
+ * @param {*} format 
+ * @returns 
  */
 Date.prototype.format = function (format) {
   var o = {

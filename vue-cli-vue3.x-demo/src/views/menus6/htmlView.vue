@@ -122,7 +122,7 @@ const onIndexClick = (item) => {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .html-view {
   width: 100%;
   background-color: white;

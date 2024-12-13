@@ -358,6 +358,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .promise-use {}
 </style>

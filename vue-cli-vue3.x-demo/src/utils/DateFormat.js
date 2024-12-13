@@ -1,6 +1,3 @@
-// 屏蔽报传统js风格错误的bug
-/*eslint-disable*/
-
 // create by tianlin
 var dateFormat = {
   format(date, format) {

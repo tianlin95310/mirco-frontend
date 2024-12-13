@@ -61,7 +61,7 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .recycle-list {
   width: 200px;
   height: 500px;

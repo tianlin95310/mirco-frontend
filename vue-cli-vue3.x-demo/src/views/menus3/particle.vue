@@ -55,69 +55,60 @@
       Infinity == Infinity = {{ Infinity == Infinity }}
       Infinity === Infinity = {{ Infinity === Infinity }}
      </pre>
-    
+
     <div>
-      <span class="tag" style="margin-left: 16px;" @click="random">{{number}}</span>
-      <button class="button" @click="JsonFormat">测试Json字符串格式化</button>
+      <span class="tag" style="margin-left: 16px;" @click="random">{{ number }}</span>
+      <button class="button" @click="JsonFormat">自定义son字符串格式化</button>
       <button class="button" @click="trycatch">测试catch里返回数据</button>
     </div>
   </div>
 </template>
-<script>
-/*eslint-disable*/
-export default {
-  data() {
-    return {
-      number: 0
-    };
-  },
-  computed: {
-    value() {
-      return 1 / 2;
-    }
-  },
-  methods: {
-    async testtrycatchretrun() {
-      try {
-        throw Error(123)
-        return [1, 2, 3]
-      } catch (err) {
-        return ['a', 'b', 'c']
-      }
-    },
-    async trycatch() {
-      const res = await this.testtrycatchretrun()
-      console.log('res', res)
-    },
-    JsonFormat() {
-      const value = {
-        v1: undefined,
-        v2: null,
-        v3: "",
-        v4: 123,
-        v5: "tianlin"
-      };
+<script setup>
+import { computed, ref } from 'vue';
 
-      function rep(key, value) {
-        console.log(key, value);
-        if (value === null) {
-          return undefined;
-        } else if (value === "") {
-          return undefined;
-        } else {
-          return value;
-        }
-      }
-      console.log(JSON.stringify(value, rep));
-    },
-    random() {
-      this.number = Math.ceil(Math.random() * 8888 + 1000);
+const methods = {
+  async testtrycatchretrun() {
+    try {
+      throw Error(123)
+      // return [1, 2, 3]
+    } catch (err) {
+      return ['a', 'b', 'c']
     }
   },
-  created() {
-    this.random();
+  async trycatch() {
+    const res = await methods.testtrycatchretrun()
+    console.log('res', res)
+  },
+  JsonFormat() {
+    const value = {
+      v1: undefined,
+      v2: null,
+      v3: "",
+      v4: 123,
+      v5: "tianlin"
+    };
+
+    function rep(key, value) {
+      console.log(key, value);
+      if (value === null) {
+        return undefined;
+      } else if (value === "") {
+        return undefined;
+      } else {
+        return value;
+      }
+    }
+    console.log(JSON.stringify(value, rep));
+  },
+  random() {
+    number.value = Math.ceil(Math.random() * 8888 + 1000);
   }
-};
+}
+
+const { trycatch, JsonFormat, random } = methods
+const number = ref(0)
+const value = computed(() => 1 / 2)
+random()
 </script>
 
 <style lang="scss" scoped>
@@ -126,7 +117,7 @@ div {
 }
 
 .particle {
-  div > h3 {
+  div>h3 {
     display: inline-block;
     margin-right: 16px;
   }

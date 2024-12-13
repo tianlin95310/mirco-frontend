@@ -84,7 +84,7 @@ const testBefore = () => {
   alert('window testBefore')
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .test-css-style {
   background-color: var(--primiryColor);
   color: black;

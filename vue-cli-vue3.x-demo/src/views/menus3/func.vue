@@ -77,12 +77,10 @@
         a.call()
       },
       fun100() {
-        console.log('fun100')
-        console.log(arguments)
-        console.log(this)
-        console.log('new.target', new.target)
+        console.log('fun100', arguments, this, new.target)
       },
       bindcallapplyuse() {
+        console.log(this.fun100, this.fun100.prototype)
         // 直接调用new.target为空
         this.fun100()
         // new调用则是函数自身
@@ -187,7 +185,7 @@
         console.log('date.constructor === Date.prototype.constructor', date.constructor === Date.prototype.constructor)
         console.log('普通对象有__proto__原型对象', date.__proto__)
         // 普通对象没有prototype属性
-        console.log('普通对象无prototype，只有函数对象才有', date.prototype)
+        console.log('普通对象无prototype，只有构造函数对象才有', date.prototype)
       },
       objectProto() {
         let obj = {}

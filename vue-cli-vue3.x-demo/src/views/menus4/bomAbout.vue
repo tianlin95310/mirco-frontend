@@ -102,10 +102,9 @@ const createError2 = () => {
   Promise.reject('error2')
   // Promise.reject(new Error('error2'))
 }
-// window.DB()
 const createError3 = () => {
   console.log('createError3')
-  window.DB()
+  window.callUnkownFun()
 }
 </script>
 
