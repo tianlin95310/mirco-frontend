@@ -156,6 +156,10 @@ export const MENUS = [
       menuTitle: '组件通信【广播】',
       isOpen: false,
       path: '/menu5/componentInter'
+    }, {
+      menuTitle: '换肤',
+      isOpen: false,
+      path: '/menu5/dynamicTheme'
     }]
   }, {
     menuTitle: '自定义控件',

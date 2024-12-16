@@ -1,4 +1,6 @@
 @import "mixins.scss";
+@import "./dynamic-theme.scss";
+
 :root {
 	--primiryColor: #48a167;
 	--primiryColorDark: #377a4f;

@@ -1,0 +1,38 @@
+.theme1 {
+  .dynamic-theme {
+    background-color: yellowgreen;
+    .dynamic-center {
+      background-color: white;
+      .dynamic-button {
+        background-color: yellowgreen;
+        color: black;
+      }
+    }
+    .dynamic-header {
+      background-color: white;
+      .dynamic-title {
+        color: #000;
+      }
+    }
+  }
+}
+
+.theme2 {
+  .dynamic-theme {
+    background-color: rgb(122, 50, 205);
+    .dynamic-center {
+      background-color: white;
+      .dynamic-button {
+        background-color: rgb(122, 50, 205);
+        color: white;
+      }
+    }
+    .dynamic-header {
+      background-color: white;
+      .dynamic-title {
+        color: #000;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,39 @@
+.dynamic-theme-way2 {
+  width: 300px;
+  height: 400px;
+  display: inline-block;
+  margin-right: 20px;
+  .dynamic-center {
+    margin-top: 1px;
+    .dynamic-button {
+      padding: 8px 16px;
+      border-radius: 10%;
+    }
+  }
+  .dynamic-header {
+    height: 40px;
+    .dynamic-title {
+      font-size: 16px;
+    }
+  }
+}
+.dynamic-theme-way2 {
+  background-color: rgb(122, 50, 205);
+
+  .dynamic-center {
+    background-color: white;
+
+    .dynamic-button {
+      background-color: rgb(122, 50, 205);
+      color: white;
+    }
+  }
+
+  .dynamic-header {
+    background-color: white;
+
+    .dynamic-title {
+      color: #000;
+    }
+  }
+}

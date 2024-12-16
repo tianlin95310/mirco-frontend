@@ -20,6 +20,12 @@
     </div>
 
     <div>
+      <h2>计算表达式</h2>
+      <input v-model="calcExp" @input="beginCalcExpValue">={{ calcRes }}
+      <button @click="beginCalcExpValue">计算表达式</button>
+    </div>
+
+    <div>
       <h2>计算children最大层级</h2>
       {{ calculationLevelFun() }}
     </div>
@@ -30,6 +36,58 @@ import { Cartesian } from './util/Algorithm'
 import { treeDataTranslate } from './util/TreeData'
 import NumberToText from './util/NumberToText.js'
 import { calculationLevel } from './util/Deepth.js'
+import { ref } from 'vue';
+
+const orderMap = {
+  '*': 1,
+  '/': 1,
+  '+': 2,
+  '-': 2
+}
+const calcExp = ref('1+2 * 3 + 4 / 2+5-4+2*3')
+const calcRes = ref('')
+
+const beginCalcExpValue = () => {
+  calcRes.value = calcExpValue(calcExp.value)
+}
+const calcFun = new Function('p1', 'p2', 'calc', 'const exp = `${p1} ${calc} ${p2}`; console.log(\'执行运算\', exp); return eval(exp)')
+
+const calcExpValue = (exp) => {
+  exp = exp.replace(/ /g, '')
+  console.log('calcExpValue', exp)
+  const calcsReg = /[+|\-|*|/]/g
+  const calcNumers = exp.split(calcsReg)
+  const calcs = exp.match(calcsReg) || []
+  console.log('calcNumers', calcNumers, calcs)
+  if (calcNumers.filter(item => !!item).length !== calcs.length + 1) {
+    return false
+  }
+  if (calcs.length <= 1) {
+    const result = calcFun(calcNumers[0], calcNumers[1], calcs[0])
+    console.log('result', result)
+    return result
+  } else {
+    const calcsMap = calcs.map((item, index) => ({
+      operate: item,
+      index
+    }))
+    // const calcSortMap = calcsMap.sort((a, b) => orderMap[a.operate] - orderMap[b.operate])
+    // const calc = calcSortMap[0]
+    let calc = calcsMap[0]
+    calcsMap.forEach(element => {
+      if (orderMap[element.operate] < orderMap[calc.operate]) {
+        calc = element
+      }
+    })
+    const originIndex = calc.index
+    const p1 = calcNumers[originIndex]
+    const p2 = calcNumers[originIndex + 1]
+    const midValue = calcFun(Number(p1), Number(p2), calc.operate)
+    const expNew = exp.replace(`${p1}${calc.operate}${p2}`, midValue)
+    return calcExpValue(expNew)
+  }
+
+}
 const calculationLevelFun = () => {
   const array = [{
     value: 1,

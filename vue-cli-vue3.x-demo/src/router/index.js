@@ -200,6 +200,11 @@ const routes = [
         path: 'componentInter',
         name: 'componentInter',
         component: () => import('@/views/menus5/componentInter.vue')
+      },
+      {
+        path: 'dynamicTheme',
+        name: 'dynamicTheme',
+        component: () => import('@/views/menus5/dynamicTheme.vue')
       }
     ]
   },
