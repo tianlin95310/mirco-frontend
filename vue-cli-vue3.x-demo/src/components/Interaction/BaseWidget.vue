@@ -19,8 +19,14 @@ const component = useTemplateRef('component')
 const attrs = useAttrs()
 const broadcast = attrs.broadcast
 const interParams = {}
+let latestState = {}
 console.log('props', props, 'attrs', attrs)
 const updateInterData = (state) => {
+  if (!state) {
+    state = latestState
+  } else {
+    latestState = state
+  }
   Object.keys(state).forEach(key => {
     store.commit('setBroadcastData', { id: props.option.id, key, value: state[key] })
   })
@@ -32,6 +38,10 @@ const updateInterData = (state) => {
     });
   }
 }
+
+defineExpose({
+  updateInterData
+})
 
 onMounted(() => {
   useInter(store, props.option.id, component.value.getInterData)

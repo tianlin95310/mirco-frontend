@@ -15,7 +15,7 @@ export default createStore({
       Cookies.set('username', username)
     },
     setBroadcastData(state, { id, key, value }) {
-      console.log('setBroadcastData', state.broadcastData, id, key, value)
+      // console.log('setBroadcastData', state.broadcastData, id, key, value)
       if (!state.broadcastData[id]) {
         const idData = {}
         idData[key] = value

@@ -1,8 +1,8 @@
 <template>
-  <div class="edit-div" :contenteditable="canEdit" v-html="innerHTML" placeholder="请输入内容..." @input="changeText" />
+  <div class="edit-div" :contenteditable="canEdit" v-html="innerHTML" placeholder="请输入内容..." @input="changeText" @blur="unFocus" />
 </template>
 <script setup>
-import { toRef } from 'vue'
+import { toRef, watch } from 'vue'
 const props = defineProps({
   modelValue: String,
   canEdit: {
@@ -10,11 +10,21 @@ const props = defineProps({
     default: true
   }
 })
-const $emit = defineEmits(['update:modelValue', 'change'])
+const $emit = defineEmits(['update:modelValue', 'change', 'input'])
 const innerHTML = toRef(props.modelValue)
 
+watch(() => props.modelValue, (newV) => {
+  console.log('props.modelValue', props.modelValue, newV)
+  if (!newV) {
+    innerHTML.value = newV
+  }
+})
 const changeText = (value) => {
   $emit('update:modelValue', value.target.innerHTML)
+  // 替换默认的input事件，否则input事件的参数为InputEvent,而不是value
+  $emit('input', value.target.innerHTML)
+}
+const unFocus = (value) => {
   $emit('change', value.target.innerHTML)
 }
 </script>

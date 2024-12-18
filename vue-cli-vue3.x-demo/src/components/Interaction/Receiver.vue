@@ -29,7 +29,7 @@ defineExpose({
     <div v-for="(value, key, index) in extra" :key="index">
       [ {{ index }} ] {{ key }}: {{ value }}
     </div>
-    <div>组件交互属性：</div>
+    <div>监听值：</div>
     <div v-for="(value, key, index) in broadcastData" :key="index">
       [ {{ index }} ] {{ key }}: {{ value }}
     </div>

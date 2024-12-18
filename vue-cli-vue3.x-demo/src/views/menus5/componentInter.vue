@@ -1,14 +1,18 @@
 <template>
-  <div class="component-inter" ref="parent">
+  <div class="component-inter" ref="parent" :key="refreshKey">
     <div>
-      <button class="button" @click="addComp">添加组件</button>
+      <button class="button" @click="addComponent">添加组件</button>
+      <button class="button" @click="delComponent">删除组件</button>
     </div>
-    <BaseWidget v-for="(item, index) in widgets" :key="index" :option="item.option" :extra="item.extra" :broadcast="item.broadcast" />
+    <BaseWidget v-for="(item, index) in widgets" :ref="el => setItemRef(index, el)" :key="index" :option="item.option" :extra="item.extra"
+      :broadcast="item.broadcast" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+const refreshKey = ref(0)
+const parent = ref(null)
 const widgets = ref([
   {
     option: {
@@ -16,8 +20,8 @@ const widgets = ref([
       id: 'Sender1',
     },
     extra: {
-      key1: 'value1',
-      tian: 'lin'
+      pro: 'Sender',
+      name: 'lin'
     },
     broadcast: [{
       to: 'Receiver1',
@@ -30,11 +34,6 @@ const widgets = ref([
       to: 'Receiver2',
       params: [{
         key: 'v1'
-      }]
-    }, {
-      to: 'Receiver4',
-      params: [{
-        key: 'v2'
       }]
     }]
   }, {
@@ -63,13 +62,23 @@ const widgets = ref([
     }
   }
 ])
+const itemRefs = ref([]);
 let count = 3
-const addComp = () => {
+onMounted(() => {
+
+})
+// 循环获取ref
+const setItemRef = (index, el) => {
+  if (el) {
+    itemRefs.value[index] = el;
+  }
+}
+const addComponent = () => {
   const id = `Receiver${++count}`
   widgets.value[0].broadcast.push({
     to: id,
     params: [{
-      key: 'v' + Math.random() > 0.5 ? 1 : 2
+      key: 'v' + (Math.random() > 0.5 ? 1 : 2)
     }]
   })
   widgets.value.push({
@@ -80,6 +89,21 @@ const addComp = () => {
     extra: {
       name: 'name' + count
     }
+  })
+  console.log('widgets', widgets.value)
+  // 刷新整个组件
+  // refreshKey.value++;
+  updateAllInterData()
+}
+
+const delComponent = () => {
+  widgets.value.splice(widgets.value.length - 1, 1) 
+}
+
+// 刷新数据
+const updateAllInterData = () => {
+  itemRefs.value.forEach(item => {
+    item.updateInterData && item.updateInterData()
   })
 }
 </script>

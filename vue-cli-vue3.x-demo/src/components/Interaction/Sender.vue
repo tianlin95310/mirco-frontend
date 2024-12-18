@@ -1,5 +1,5 @@
 <script setup>
-import {  useAttrs, defineOptions } from 'vue';
+import {  useAttrs, defineOptions, ref } from 'vue';
 const attrs = useAttrs()
 const emit = defineEmits(['updateInterData'])
 const props = defineProps({
@@ -9,15 +9,15 @@ const props = defineProps({
   }
 })
 const extra = attrs.extra
-const state = {
+const state = ref({
   v1: 1,
   v2: 'a'
-}
-emit('updateInterData', state)
+})
+emit('updateInterData', state.value)
 console.log('sender props', props, attrs)
 const updateValue = () => {
-  state.v1 = Math.round(Math.random() * 9999)
-  emit('updateInterData', state)
+  state.value.v1 = Math.round(Math.random() * 9999)
+  emit('updateInterData', state.value)
 }
 defineOptions({
   name: 'Sender'
@@ -26,7 +26,12 @@ defineOptions({
 
 <template>
   <div class="sender">
+    <div>extra属性：</div>
     <div v-for="(value, key, index) in extra" :key="index">
+      [ {{ index }} ] {{ key }}: {{ value }}
+    </div>
+    <div>数据源：</div>
+    <div v-for="(value, key, index) in state" :key="index">
       [ {{ index }} ] {{ key }}: {{ value }}
     </div>
     <div>
