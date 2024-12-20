@@ -4,8 +4,14 @@
       <button class="button" @click="addComponent">添加组件</button>
       <button class="button" @click="delComponent">删除组件</button>
     </div>
-    <BaseWidget v-for="(item, index) in widgets" :ref="el => setItemRef(index, el)" :key="index" :option="item.option" :extra="item.extra"
-      :broadcast="item.broadcast" />
+    <Suspense>
+      <BaseWidget v-for="(item, index) in widgets" :ref="el => setItemRef(index, el)" :key="index" :option="item.option" :extra="item.extra"
+        :broadcast="item.broadcast" />
+      <template #fallback>
+        加载中。。。
+      </template>
+    </Suspense>
+
   </div>
 </template>
 
@@ -97,7 +103,7 @@ const addComponent = () => {
 }
 
 const delComponent = () => {
-  widgets.value.splice(widgets.value.length - 1, 1) 
+  widgets.value.splice(widgets.value.length - 1, 1)
 }
 
 // 刷新数据

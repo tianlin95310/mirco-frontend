@@ -1,10 +1,16 @@
 <template>
-  <div class="loadding-container">Loading...</div>
+  <div class="loadding-container">{{ tip }}</div>
 </template>
 
 <script>
   export default {
     name: 'loading',
+    props: {
+      tip: {
+        type: String,
+        default: 'Loading...'
+      }
+    },
     setup() {
      console.log('loading setup')
     }

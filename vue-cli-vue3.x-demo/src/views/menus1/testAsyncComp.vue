@@ -1,51 +1,74 @@
 <template>
   <div class="async-comp page-container">
-    <h4>同步的setup直接使用</h4>
-    <ContentSync></ContentSync>
-    <AsyncCompSynContent />
-
-    <h4>同步的setup搭配外部Suspense使用</h4>
-    <Suspense>
+    <div class="card">
+      <h4>1 import Sync setup </h4>
       <ContentSync></ContentSync>
-      <template #fallback>
-        <Loading />
-      </template>
-    </Suspense>
-    <Suspense>
-      <AsyncCompSynContent></AsyncCompSynContent>
-      <template #fallback>
-        <Loading />
-      </template>
-    </Suspense>
-    <h4>1异步的setup搭配外部Suspense使用</h4>
-    <Suspense>
-      <ContentAsync></ContentAsync>
-      <template #fallback>
-        <Loading />
-      </template>
-    </Suspense>
-    <h4>2异步的setup搭配外部的Suspense使用</h4>
-    <Suspense>
-      <AsyncCompAsyncContent></AsyncCompAsyncContent>
-      <template #fallback>
-        <Loading />
-      </template>
-    </Suspense>
+      
+      <h4>2 defineAsyncComponent(delay import Sync setup)</h4>
+      <AsyncCompSynContent />
 
-    <h4>4异步的setup搭配封装的Suspense使用</h4>
-    <AsyncComponentContainer>
-      <template #child>
-        <AsyncCompAsyncContent></AsyncCompAsyncContent>
-      </template>
-    </AsyncComponentContainer>
+      <h4>3 Suspense + import Sync setup</h4>
+      <Suspense>
+        <ContentSync></ContentSync>
+        <template #fallback>
+          <Loading tip="Suspense Loadding..." />
+        </template>
+      </Suspense>
 
-    <h4>3异步的setup搭配封装的Suspense使用</h4>
-    <AsyncComponentContainer>
-      <template #child>
+      <h4>4 Suspense + defineAsyncComponent(delay import Sync setup)</h4>
+      <Suspense>
+        <AsyncCompSynContent></AsyncCompSynContent>
+        <template #fallback>
+          <Loading tip="Suspense Loadding..." />
+        </template>
+      </Suspense>
+    </div>
+
+    <div class="card">
+      <h4>1 Suspense + import async setup</h4>
+      <Suspense>
         <ContentAsync></ContentAsync>
-      </template>
-    </AsyncComponentContainer>
+        <template #fallback>
+          <Loading tip="Suspense1 Loadding..." />
+        </template>
+      </Suspense>
 
+      <h4>2 Suspense + defineAsyncComponent(delay import Sync setup)</h4>
+      <Suspense>
+        <AsyncCompAsyncContent></AsyncCompAsyncContent>
+        <template #fallback>
+          <Loading tip="Suspense2 Loadding..." />
+        </template>
+      </Suspense>
+
+      <h4>3 Encapsulation Suspense + import async setup</h4>
+      <AsyncComponentContainer>
+        <template #child>
+          <ContentAsync></ContentAsync>
+        </template>
+      </AsyncComponentContainer>
+
+      <h4>4 Encapsulation Suspense + defineAsyncComponent(delay import Sync setup)</h4>
+      <AsyncComponentContainer>
+        <template #child>
+          <AsyncCompAsyncContent></AsyncCompAsyncContent>
+        </template>
+      </AsyncComponentContainer>
+
+      <h5>5 defineAsyncComponent + Encapsulation Suspense + import async setup </h5>
+      <DefineSuspenseAsyncContent>
+        <template #child>
+          <ContentAsync></ContentAsync>
+        </template>
+      </DefineSuspenseAsyncContent>
+
+      <h5>6 defineAsyncComponent + Encapsulation Suspense + defineAsyncComponent(delay import Sync setup)</h5>
+      <DefineSuspenseAsyncContent>
+        <template #child>
+          <AsyncCompAsyncContent></AsyncCompAsyncContent>
+        </template>
+      </DefineSuspenseAsyncContent>
+    </div>
     <!-- <h4>异步的setup直接使用会报错</h4>
     <AsyncCompAsyncContent />
     <ContentAsync /> -->
@@ -60,36 +83,67 @@ import AsyncComponentContainer from "./asyncComponent/asyncComponentContainer.vu
 import ContentAsync from "./asyncComponent/content-async.vue";
 import ContentSync from "./asyncComponent/content-sync.vue";
 
-// 异步组件
-const AsyncCompAsyncContent = defineAsyncComponent({
-  loader: () =>
-    import("./asyncComponent/content-async.vue").finally(() => {
-      console.log("content-async.vue finally");
-    }),
-  loadingComponent: Loading,
-  errorComponent: Error,
-  delay: 2000,
-  timeout: 10000,
-  suspensible: false,
-  onError: err => {
-    console.log("defineAsyncComponent err", err);
-  }
-});
-// defineAsyncComponent一个sync组件
+// defineAsyncComponent返回一个sync组件，加载逻辑只会执行一次，加载完毕之后会立即渲染
+// Suspense的逻辑则是每一次都会执行
 const AsyncCompSynContent = defineAsyncComponent({
   loader: () =>
-    import("./asyncComponent/content-sync.vue").finally(() => {
-      console.log("content-sync.vue finally");
+    new Promise(function (reslove, reject) {
+      setTimeout(() => {
+        reslove(import("./asyncComponent/content-sync.vue").finally(() => {
+          console.log("content-sync.vue finally");
+        }),)
+      }, 2000)
     }),
   loadingComponent: Loading,
   errorComponent: Error,
-  delay: 1000,
+  delay: 100,
   timeout: 10000,
   suspensible: false,
   onError: err => {
     console.log("defineAsyncComponent err", err);
   }
 });
+
+// defineAsyncComponent返回一个setup 异步组件
+const AsyncCompAsyncContent = defineAsyncComponent({
+  loader: () =>
+    new Promise(function (reslove, reject) {
+      setTimeout(() => {
+        reslove(import("./asyncComponent/content-async.vue").finally(() => {
+          console.log("content-async.vue finally");
+        }),)
+      }, 4000)
+    }),
+  loadingComponent: Loading,
+  errorComponent: Error,
+  delay: 500,
+  timeout: 10000,
+  suspensible: false,
+  onError: err => {
+    console.log("defineAsyncComponent err", err);
+  }
+});
+
+// defineAsyncComponent返回一个setup 异步组件
+const DefineSuspenseAsyncContent = defineAsyncComponent({
+  loader: () =>
+    new Promise(function (reslove, reject) {
+      setTimeout(() => {
+        reslove(import("./asyncComponent/asyncComponentContainer.vue").finally(() => {
+          console.log("asyncComponentContainer.vue finally");
+        }),)
+      }, 6000)
+    }),
+  loadingComponent: Loading,
+  errorComponent: Error,
+  delay: 500,
+  timeout: 10000,
+  suspensible: false,
+  onError: err => {
+    console.log("defineAsyncComponent err", err);
+  }
+});
+
 export default {
   name: "TestAsyncComp",
   components: {
@@ -98,7 +152,8 @@ export default {
     ContentAsync,
     ContentSync,
     AsyncCompAsyncContent,
-    AsyncCompSynContent
+    AsyncCompSynContent,
+    DefineSuspenseAsyncContent
   },
   setup() {
     console.log("TestAsyncComp", "TestAsyncComp setup");
@@ -110,5 +165,6 @@ export default {
 .async-comp {
   background-color: aquamarine;
   position: relative;
+  display: flex;
 }
 </style>

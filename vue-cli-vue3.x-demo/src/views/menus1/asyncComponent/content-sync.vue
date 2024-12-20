@@ -1,6 +1,6 @@
 <template>
   <div class="sync-content">
-    Sync Components
+    Sync Component {{ Math.round(+new Date() / 1000) }}
   </div>
 </template>
 

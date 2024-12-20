@@ -2,7 +2,7 @@
   <Suspense>
     <slot name="child"></slot>
     <template #fallback>
-      <Loading />
+      <Loading tip="Suspense Container Loadding..." />
     </template>
   </Suspense>
 </template>
