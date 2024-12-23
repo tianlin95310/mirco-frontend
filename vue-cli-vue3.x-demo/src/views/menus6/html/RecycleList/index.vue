@@ -2,7 +2,12 @@
 import { reactive, ref, onMounted, onBeforeUnmount, watch } from 'vue'
 const initBegin = 0
 const recycleCount = 20
-
+const props = defineProps({
+  random: {
+    type: Boolean,
+    default: false
+  }
+})
 const itemHeight = 100
 const page = ref(0)
 const state = reactive({
@@ -53,7 +58,7 @@ onBeforeUnmount(() => {
   <div ref="containerRef" class="recycle-list">
     <div ref="bodyMatch" id="body-match" class="body-match"></div>
     <div id="items" class="items" :style="{transform: `translateY(${lastScrollTop}px)`}">
-      <div v-randomcolor="" v-for="(item, index) in state.reuseItems" :key="index" class="item"
+      <div v-randomcolor="props.random" v-for="(item, index) in state.reuseItems" :key="index" class="item"
         :style="{ height: `${itemHeight}px`, lineHeight: `${itemHeight}px` }">
         index{{ item }}
       </div>

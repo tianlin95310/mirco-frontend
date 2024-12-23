@@ -43,30 +43,22 @@
 
       <h4>3 Encapsulation Suspense + import async setup</h4>
       <AsyncComponentContainer>
-        <template #child>
-          <ContentAsync></ContentAsync>
-        </template>
+        <ContentAsync></ContentAsync>
       </AsyncComponentContainer>
 
       <h4>4 Encapsulation Suspense + defineAsyncComponent(delay import Sync setup)</h4>
       <AsyncComponentContainer>
-        <template #child>
-          <AsyncCompAsyncContent></AsyncCompAsyncContent>
-        </template>
+        <AsyncCompAsyncContent></AsyncCompAsyncContent>
       </AsyncComponentContainer>
 
-      <h5>5 defineAsyncComponent + Encapsulation Suspense + import async setup </h5>
+      <h4>5 defineAsyncComponent + Encapsulation Suspense + import async setup </h4>
       <DefineSuspenseAsyncContent>
-        <template #child>
-          <ContentAsync></ContentAsync>
-        </template>
+        <ContentAsync></ContentAsync>
       </DefineSuspenseAsyncContent>
 
-      <h5>6 defineAsyncComponent + Encapsulation Suspense + defineAsyncComponent(delay import Sync setup)</h5>
+      <h4>6 defineAsyncComponent + Encapsulation Suspense + defineAsyncComponent(delay import Sync setup)</h4>
       <DefineSuspenseAsyncContent>
-        <template #child>
-          <AsyncCompAsyncContent></AsyncCompAsyncContent>
-        </template>
+        <AsyncCompAsyncContent></AsyncCompAsyncContent>
       </DefineSuspenseAsyncContent>
     </div>
     <!-- <h4>异步的setup直接使用会报错</h4>
@@ -84,7 +76,7 @@ import ContentAsync from "./asyncComponent/content-async.vue";
 import ContentSync from "./asyncComponent/content-sync.vue";
 
 // defineAsyncComponent返回一个sync组件，加载逻辑只会执行一次，加载完毕之后会立即渲染
-// Suspense的逻辑则是每一次都会执行
+// Suspense的逻辑则是每一次都会执行，所以刷新和重新进入这个界面的逻辑时不一样的
 const AsyncCompSynContent = defineAsyncComponent({
   loader: () =>
     new Promise(function (reslove, reject) {
@@ -136,7 +128,7 @@ const DefineSuspenseAsyncContent = defineAsyncComponent({
     }),
   loadingComponent: Loading,
   errorComponent: Error,
-  delay: 500,
+  delay: 1000,
   timeout: 10000,
   suspensible: false,
   onError: err => {

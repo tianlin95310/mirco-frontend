@@ -22,6 +22,10 @@
 
     <div class="list-view">
       <div class="card">
+        <RecycleList :random="true"></RecycleList>
+      </div>
+
+      <div class="card">
         <RecycleList></RecycleList>
       </div>
 

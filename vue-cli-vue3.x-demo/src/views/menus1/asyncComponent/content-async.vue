@@ -1,6 +1,6 @@
 <template>
   <div class="async-content">
-    Async Component With Promise Setup {{ Math.round(+new Date() / 1000) }}
+    Async Content With async Setup {{ Math.round(+new Date() / 1000) }}
   </div>
 </template>
 
