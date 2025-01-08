@@ -1,6 +1,6 @@
-import { defineAsyncComponent, h } from 'vue'
 import loadAllComponentsProd from './indexProd'
 import loadAllComponentsDev from './indexDev'
+import { loadAsyncComponent } from '@/async/loadAsync'
 
 export async function loadJs(src) {
   return new Promise((reslove, reject) => {
@@ -22,16 +22,7 @@ export async function loadJs(src) {
 
 export const installAllComponents = (app, components) => {
   components.forEach(element => {
-    app.component(element.attrs.name, defineAsyncComponent({
-      loader: element.component,
-      loadingComponent: () => h('div', { innerHTML: 'loading' }),
-      errorComponent: () => h('div', { innerHTML: 'error' }),
-      delay: 2000,
-      timeout: 10000,
-      onError: (err) => {
-        console.log('defineAsyncComponent', err)
-      }
-    }))
+    app.component(element.attrs.name, loadAsyncComponent(element.component))
   })
 }
 

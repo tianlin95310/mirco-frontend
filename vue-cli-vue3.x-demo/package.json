@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "sit": "vue-cli-service serve --mode sit",
+    "mf": "vue-cli-service serve --mode mf",
     "waveview": "vue-cli-service build --target lib ./src/views/menus6/canvas/TLWaveView/index.js --name vue-waveview --dest vue-waveview",
     "cylinder": "vue-cli-service build --target lib ./src/views/menus6/canvas/CylinderProgress/index.js --name vue-cylinder-progress --dest vue-cylinder-progress"
   },

@@ -6,8 +6,8 @@ function resolve(dir) {
 }
 
 module.exports = defineConfig({
-  // auto之后刷新会报404
-  // publicPath: 'auto',
+  // 设置auto之后本地刷新会报404，不设置auto联邦使用时报错
+  publicPath: process.env.VUE_APP_MF ? 'auto' : '/',
   productionSourceMap: false,
   transpileDependencies: true,
   configureWebpack: {
@@ -32,7 +32,7 @@ module.exports = defineConfig({
       }
     },
     plugins: [
-      // ...mfpPlugins
+      ...mfpPlugins
     ],
     resolve: {
       alias: {

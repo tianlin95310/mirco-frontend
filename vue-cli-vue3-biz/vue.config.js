@@ -1,7 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 const webpack = require('webpack');
 const { mfpPlugins, mfpRemotes, mfpProxy } = require('./src/mfp/deploy')
-console.log('mfpProxy', mfpRemotes, mfpProxy)
+console.log('mfpPlugins', mfpPlugins, 'mfpRemotes', mfpRemotes, 'mfpProxy', mfpProxy)
 module.exports = defineConfig({
   pages: {
     index: {
@@ -26,7 +26,7 @@ module.exports = defineConfig({
         remotes: {
           lib_common_vue2: 'lib_common_vue2@http://localhost:8080/remoteEntry.js',
           lib_common_vue3: 'lib_common_vue3@http://localhost:8081/remoteEntry.js',
-          ...mfpRemotes
+          // ...mfpRemotes
         },
         shared: {
           vue: {
@@ -34,7 +34,7 @@ module.exports = defineConfig({
           }
         },
       }),
-      // ...mfpPlugins
+      ...mfpPlugins
     ]
   },
   transpileDependencies: true,
