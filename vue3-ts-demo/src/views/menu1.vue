@@ -1,7 +1,7 @@
 <script setup lang="ts">
 class Humen {
   name: string
-  constructor(shortName: string) {
+  constructor(shortName: string = 'Humen') {
     this.name = shortName
   }
   say(): void
@@ -24,9 +24,9 @@ class Men extends Humen {
     console.log(`my name is ${this.name}`)
   }
 }
-const humen = new Humen('world')
-const lili = new Humen('lili')
+
 const onBasic = () => {
+  const humen = new Humen('world')
   console.log(humen instanceof Humen, Object.getPrototypeOf(humen), Humen.prototype)
   humen.say()
 }
@@ -41,6 +41,8 @@ const onExtends = () => {
   kangkang.say()
 }
 const onChongzai = () => {
+  const humen = new Humen('world')
+  const lili = new Humen('lili')
   humen.say()
   humen.say.call(humen, 23)
   humen.say.apply(humen, [23])
@@ -61,7 +63,7 @@ const onRuntimeType = () => {
   c.say()
 }
 
-class MyDate extends Date {}
+class MyDate extends Date { }
 const baiscDate = () => {
   const date = new Date()
   // const date = Object.create(Date.prototype)
@@ -72,7 +74,7 @@ const myDate = () => {
   let mydate = new MyDate()
   console.log(mydate, mydate.constructor)
   console.log(Object.getPrototypeOf(mydate), MyDate.prototype)
-  console.log(mydate instanceof MyDate, mydate instanceof Date)
+  console.log('mydate instanceof MyDate', mydate instanceof MyDate, 'mydate instanceof MyDate', mydate instanceof Date)
 }
 </script>
 

@@ -118,7 +118,7 @@ const vue3Obj = new Proxy(obj3, {
     return true
   }
 })
-Proxy.revocable
+// Proxy.revocable
 const myRef = function(value: any) {
   const refObj = {
     get value() {
@@ -184,10 +184,8 @@ const vue3Ref = () => {
         <h4>异步组件</h4>
         <Suspense>
           <AsyncComponent></AsyncComponent>
-          <template #fallback> loadding... </template>
+          <template #fallback> Suspense loadding... </template>
         </Suspense>
-
-        <AsyncComponent></AsyncComponent>
       </div>
 
       <div class="card">

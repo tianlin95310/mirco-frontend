@@ -54,11 +54,16 @@ import { loadAsyncComponent } from './async/loadAsync'
 import { vue2ToVue3 } from './utils'
 import { delay } from "./async/loadAsync";
 import { onErrorCaptured, ref } from "vue";
+import Error from "./async/error.vue";
 // vue2的插件引入进来，先直接导入，再用vue2ToVue3转化才能渲染
 const BaseTextVue2T = loadAsyncComponent(async () => {
   await delay(2000)
-  const view = await import("lib_common_vue2/BaseText.vue")
-  return Promise.resolve(vue2ToVue3(view.default, 'vue22Button'))
+  try {
+    const view = await import("lib_common_vue2/BaseText.vue")
+    return Promise.resolve(vue2ToVue3(view.default, 'vue22Button'))
+  } catch(err) {
+    return Error
+  }
 })
 const waveAmplitude = 10
 const waveHeight = 100
@@ -68,10 +73,10 @@ const BaseTextVue3 = loadAsyncComponent(() => import("lib_common_vue3/BaseText.v
 // if 8081 was offline, suspensible set true, no end status to the Suspense, is always show the fallback slot
 const BaseTextVue3Vue = loadAsyncComponent(async () => import("lib_common_vue3/BaseTextVue3.vue"), { suspensible: true })
 const state = ref('')
-// onErrorCaptured(err => {
-//   console.log('err', err)
-//   state.value = 'timeout'
-// })
+onErrorCaptured(err => {
+  console.log('err', err)
+  // state.value = 'timeout'
+})
 </script>
 
 <style>

@@ -6,9 +6,9 @@ import ComponentLoadding from './componentLoading.vue'
 const AsyncComponent = defineAsyncComponent({
   loader: () => import('./component.vue'),
   loadingComponent: ComponentLoadding,
-  delay: 200,
   errorComponent: ComponentError,
-  timeout: 2000,
+  delay: 2000,
+  timeout: 5000,
   onError: (e) => {
     console.log('onError', e)
   }

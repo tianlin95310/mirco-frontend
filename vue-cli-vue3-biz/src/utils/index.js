@@ -1,4 +1,4 @@
-import Vue2 from 'lib_common_vue2/vue2';
+// import Vue2 from 'lib_common_vue2/vue2';
 
 function bindSlotContext(target = {}, context) {
   return Object.keys(target).map(key => {
@@ -14,8 +14,12 @@ function bindSlotContext(target = {}, context) {
 export function vue2ToVue3(WrapperComponent, wrapperId) {
   let vm;
   return {
-    mounted() {
+    async mounted() {
       const slots = bindSlotContext(this.$slots, this.__self);
+      const Vue2 = (await import('lib_common_vue2/vue2')).default
+      if (!Vue2) {
+        return
+      }
       vm = new Vue2({
         render: createElement => {
           return createElement(

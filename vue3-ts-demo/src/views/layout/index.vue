@@ -13,7 +13,7 @@ const state = reactive({
   menus: [
     {
       path: 'menu1',
-      name: '继承，重载，多态，重写'
+      name: '继承，重载，多态/重写'
     },
     {
       path: 'menu2',
@@ -21,7 +21,7 @@ const state = reactive({
     },
     {
       path: 'menu3',
-      name: 'ts的一些特殊用法'
+      name: '特殊用法'
     },
     {
       path: 'menu4',
@@ -90,13 +90,6 @@ const gotoHome = () => {
       </nav>
       <main class="main-content">
         <RouterView></RouterView>
-        <!-- <div class="container btn-primary center">container</div> -->
-        <!-- <div class="container-xs btn-primary center">container-xs</div>
-        <div class="container-sm btn-primary center">container-sm</div>
-        <div class="container-md btn-primary center">container-md</div>
-        <div class="container-lg btn-primary center">container-lg</div>
-        <div class="container-xl btn-primary center">container-xl</div>
-        <div class="container-fluid btn-primary center">container-fluid</div> -->
       </main>
     </main>
   </div>
@@ -114,7 +107,7 @@ const gotoHome = () => {
 }
 .main-container {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding-left: 240px;
   transition: padding 0.5s ease-in;
 
@@ -140,7 +133,6 @@ const gotoHome = () => {
     }
     .item {
       float: right;
-      border: 1px solid violet;
       width: 36px;
       height: 100%;
       cursor: pointer;
