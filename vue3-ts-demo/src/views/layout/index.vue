@@ -94,7 +94,7 @@ const gotoHome = () => {
     </main>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .clearfix-after {
   &:after {
     visibility: hidden;

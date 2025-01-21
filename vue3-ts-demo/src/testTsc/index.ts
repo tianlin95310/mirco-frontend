@@ -1,0 +1,3 @@
+interface Hum {
+  name: string
+}

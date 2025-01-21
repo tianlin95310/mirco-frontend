@@ -19,7 +19,9 @@ export default {
         'a5Compatible',
         'a6Plugin',
         'a7SoftEng',
-        'a8ConfigEx'
+        'a8ConfigEx',
+        'a9DataStruct.vue',
+        'a10Ts'
       ]
     }
   },
