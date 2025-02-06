@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, watch, onBeforeMount } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { RouterView, useRouter, useRoute } from 'vue-router'
 import { useCounterStore } from '../../stores/counter'
 const store = useCounterStore()
@@ -33,7 +33,7 @@ const state = reactive({
     },
     {
       path: 'menu6',
-      name: '案例'
+      name: '高级插件'
     }
   ],
   showMenu: ref(true),
