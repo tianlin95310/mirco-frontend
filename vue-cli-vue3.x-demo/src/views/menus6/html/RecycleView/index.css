@@ -1,0 +1,23 @@
+.recycle-view-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid rebeccapurple;
+  box-sizing: border-box;
+}
+
+.item-index {
+  width: 40px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.item-content {
+  flex: 1;
+}

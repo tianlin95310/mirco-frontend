@@ -24,15 +24,12 @@
       <div class="card">
         <RecycleList :random="true"></RecycleList>
       </div>
-
       <div class="card">
         <RecycleList></RecycleList>
       </div>
-
-      <div id="recycleView" style="overflow-y:auto; height:200px; border:1px solid #000;display: inline-block;width: 200px;">
-        <div id="itemsContainer">
-          <!-- 项目将被插入这里 -->
-        </div>
+      <div id="recycleView" class="card" style="width: 200px;height: 400px;overflow: hidden;">
+      </div>
+      <div id="recycleView2" class="card" style="width: 200px;height: 400px;overflow: hidden;">
       </div>
     </div>
 
@@ -50,19 +47,25 @@
 </template>
 <script setup name="HtmlView">
 // <!-- script 设置name无效，可以使用文件名以及defineOptions -->
-import { ref, watch, reactive, toRefs, onActivated, onMounted, defineOptions } from 'vue'
-import TlIndexView from './html/TLIndexView.vue'
-import TlRating from './html/TlRating.vue'
+import { ref, watch, reactive, toRefs, onActivated, onMounted, defineOptions, defineCustomElement } from 'vue'
+import TLDialog from 'comp/TLDialog'
+import TlIndexView from './html/TLIndexView'
+import TlRating from './html/TlRating'
 import TagSelect from './html/TagSelect'
 import RecycleList from './html/RecycleList'
-import RecycleView from './html/RecycleViewV2/index'
-import TLDialog from 'comp/TLDialog'
+import RecycleView from './html/RecycleView'
+import './html/RecycleView/index.css'
+import ListItem from './html/list-item.ce.vue'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 // script 设置name无效，可以使用文件名以及defineOptions
 defineOptions({
   name: 'HtmlView'
 })
+// 使用自定义元素，包裹Vue模板组件
+const MyListItem = defineCustomElement(ListItem)
+customElements.define('my-list-item', MyListItem)
+// 会创建shadow root元素快包裹ListItem
 const actived = ref('')
 const state = reactive({
   score: ref(3),
@@ -75,7 +78,6 @@ const state = reactive({
   v1: [],
   v2: null,
   v3: 'AAA',
-  recycleView: null,
   showDialog: false
 })
 
@@ -87,24 +89,53 @@ watch(() => state.v1, (newV, oldV) => {
 })
 
 onMounted(() => {
-  const recycleView = new RecycleView('#itemsContainer', (data, parent) => {
-    const element = document.createElement('div')
-    element.style.height = '50px'
-    element.style.border = '1px solid #ccc'
-    element.textContent = data.text
-    parent.appendChild(element)
-    return element
-  })
+  // 初始化RecycleView
+  const recycleView = new RecycleView(document.getElementById('recycleView'), {
+    itemHeight: 100, // 每个项高度100px
+    bufferSize: 10,  // 缓冲区10个项
+    renderItem: (data, index) => {
+      // 创建新项
+      const item = document.createElement('div');
+      item.className = 'list-item';
+      item.innerHTML = `
+      <div class="item-index">${index}</div>
+      <div class="item-content">${data.title}</div>`;
+      return item;
+    },
+    updateItem: (element, data, index) => {
+      // 更新现有项
+      element.querySelector('.item-index').textContent = index;
+      element.querySelector('.item-content').textContent = data.title;
+    }
+  });
 
-  // 假设的数据
-  const data = []
-  for (let i = 0; i < 100; i++) {
-    data.push({ text: `Item ${i}`, id: i })
-  }
+  const recycleView2 = new RecycleView(document.getElementById('recycleView2'), {
+    itemHeight: 100, // 每个项高度100px
+    bufferSize: 10,  // 缓冲区10个项
+    renderItem: (data, index) => {
+      const item = new MyListItem({
+        index: index,
+        name: data.title
+      })
+      return item;
+    },
+    updateItem: (element, data, index) => {
+      // 更新现有项
+      const shadowRoot = element.shadowRoot
+      shadowRoot.querySelector('.item-index').textContent = index;
+      shadowRoot.querySelector('.item-name').textContent = data.title;
+    }
+  });
 
-  // 设置数据并初始化回收逻辑
-  recycleView.setData(data)
-  state.recycleView = recycleView
+  // 设置数据
+  const mockData = Array(100000).fill(0).map((_, i) => ({
+    id: i,
+    title: `Item ${i + 1}`,
+    description: `This is item ${i + 1} description`
+  }));
+
+  recycleView.setData(mockData);
+  recycleView2.setData(mockData);
 })
 
 onActivated(() => {
@@ -113,7 +144,7 @@ onActivated(() => {
   console.log('this.$route.query.v2', route.query.v2)
   console.log('this.$route.query.v2 == undefined', route.query.v2 === undefined)
 })
-const addData = () => { 
+const addData = () => {
 }
 const update = (v) => {
   state.score = v
@@ -131,8 +162,7 @@ const onIndexClick = (item) => {
   width: 100%;
   background-color: white;
 
-  .list-view {
-  }
+  .list-view {}
 
   .index {
     position: fixed;

@@ -61,6 +61,11 @@ const routes = [
         path: 'testAsyncComp',
         name: 'TestAsyncComp',
         component: () => import('@/views/menus1/testAsyncComp.vue')
+      },
+      {
+        path: 'beforeCreated',
+        name: 'beforeCreated',
+        component: () => import('@/views/menus1/beforeCreated.vue')
       }
     ]
   },
@@ -179,6 +184,11 @@ const routes = [
         path: 'bomAbout',
         name: 'bomAbout',
         component: () => import('@/views/menus4/bomAbout.vue')
+      },
+      {
+        path: 'webSocket',
+        name: 'WebSocket',
+        component: () => import('@/views/menus4/webSocket.vue')
       }
     ]
   },

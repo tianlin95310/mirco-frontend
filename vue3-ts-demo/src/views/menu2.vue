@@ -109,7 +109,7 @@ function onLoad<V>(params: Map<string, V>): PromiseOr<V> {
   if (params.has('key')) {
     return params.get('key')
   } else {
-    const value: TypeOrUndefined<V> = params.get('key')
+    const value: TypeOrUndefined<V> = params.get('reslove')
     return Promise.resolve(value)
   }
 }
@@ -121,8 +121,18 @@ const funUsecase = () => {
   map.set('key', true)
   const b = onLoad(map)
   map.delete('key')
+  map.set('reslove', 'tianlin')
   const c = onLoad(map)
   console.log('a', a, 'b', b, 'c', c)
+  const array = []
+  array.push(a, b, c)
+  array.forEach(item => {
+    if (item instanceof Promise) {
+      item.then(console.log)
+    } else {
+      console.log('item', item)
+    }
+  })
 }
 
 </script>

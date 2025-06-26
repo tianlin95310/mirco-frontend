@@ -1,10 +1,10 @@
 <template>
   <div class="page-container test-event">
    <div>
-    parent
+    父parent
      <div class="parent" @click="parEvent">
        <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-       <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+       <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
        <div class="child" @click.capture="childEvent">.capture</div>
        <div class="child" @click.self="childEvent">.self</div>
        <div class="child" @click.once="childEvent">.once</div>
@@ -15,10 +15,10 @@
    </div>
     <div>
      <!-- 只有点击自己的部分才会触发事件，被覆盖的内容被点击不响应，child会响应自己的事件 -->
-      parent.self
+     父parent.self
       <div class="parent" @click.self="parEvent">
         <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-        <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+        <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
         <div class="child" @click.capture="childEvent">.capture</div>
         <div class="child" @click.self="childEvent">.self</div>
         <div class="child" @click.once="childEvent">.once</div>
@@ -29,10 +29,10 @@
     </div>
 
     <div>
-      parent.stop
+      父parent.stop
       <div class="parent" @click.stop="parEvent">
         <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-        <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+        <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
         <div class="child" @click.capture="childEvent">.capture</div>
         <div class="child" @click.self="childEvent">.self</div>
         <div class="child" @click.once="childEvent">.once</div>
@@ -43,10 +43,10 @@
     </div>
 
     <div>
-      parent.capture
+      父parent.capture
       <div class="parent" @click.capture="parEvent">
         <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-        <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+        <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
         <div class="child" @click.capture="childEvent">.capture</div>
         <div class="child" @click.self="childEvent">.self</div>
         <div class="child" @click.once="childEvent">.once</div>
@@ -57,10 +57,10 @@
     </div>
 
     <div>
-      parent.prevent
+      父parent.prevent
       <div class="parent" @click.prevent="parEvent">
         <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-        <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+        <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
         <div class="child" @click.capture="childEvent">.capture</div>
         <div class="child" @click.self="childEvent">.self</div>
         <div class="child" @click.once="childEvent">.once</div>
@@ -71,10 +71,10 @@
     </div>
 
     <div>
-      parent.once
+      父parent.once
       <div class="parent" @click.once="parEvent">
         <div class="child" @click.stop="childEvent">.stop 阻止透传，当前消费</div>
-        <div class="child" @click.prevent="childEvent">.prevent 组织默认事件</div>
+        <div class="child" @click.prevent="childEvent">.prevent 阻止默认事件</div>
         <div class="child" @click.capture="childEvent">.capture</div>
         <div class="child" @click.self="childEvent">.self</div>
         <div class="child" @click.once="childEvent">.once</div>

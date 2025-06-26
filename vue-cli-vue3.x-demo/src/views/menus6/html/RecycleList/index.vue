@@ -11,7 +11,7 @@ const props = defineProps({
 const itemHeight = 100
 const page = ref(0)
 const state = reactive({
-  list: Array.from({ length: 10000 }, (_, index) => index + 1),
+  list: Array.from({ length: 100000 }, (_, index) => index + 1),
   reuseItems: []
 })
 

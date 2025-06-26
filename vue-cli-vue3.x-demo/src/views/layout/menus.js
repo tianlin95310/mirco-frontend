@@ -35,6 +35,10 @@ export const MENUS = [
       menuTitle: '异步组件探索',
       isOpen: false,
       path: '/menu1/testAsyncComp'
+    }, {
+      menuTitle: '运行时数据注入',
+      isOpen: false,
+      path: '/menu1/beforeCreated'
     }]
   }, {
     menuTitle: '测试CSS的属性',
@@ -135,6 +139,10 @@ export const MENUS = [
       menuTitle: '浏览器环境相关',
       isOpen: false,
       path: '/menu4/bomAbout'
+    }, {
+      menuTitle: 'WebSocket',
+      isOpen: false,
+      path: '/menu4/websocket'
     }]
   }, {
     menuTitle: '综合小应用',
