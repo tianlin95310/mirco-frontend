@@ -23,6 +23,7 @@ const hide = ref(true)
 
 <style lang="scss" scoped>
 .tl-collapse {
+  font-size: 15px;
   .content {
     height: auto;
     transition: all 0.5s ease;

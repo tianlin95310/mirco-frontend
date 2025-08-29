@@ -23,22 +23,7 @@
       <button class="button" @click="stringAndString">
         string,String的区别
       </button>
-
-      <pre>
-        原始值数据类型
-        undefined,null,string,number,bool,object,Symbol,BigInt
-        特殊数字
-        +-Infinity,+-0,Nan
-        基本类型包装类
-        Undefined,Null,String,Number,Boolean,Object,Symbol,BigInt
-
-        **typeof**
-        - `typeof`一般用来判断原始值数据类型，**除了判断 null 会输出"object"，其它都是正确的**
-        - `typeof`判断引用数据类型时，**除了判断函数会输出"function",其它都是输出"object"**
-        **instanceof**
-        - Instanceof 可以准确的判断引用数据类型，它的原理是检测构造函数的`prototype`属性是否在某
-          个实例对象的原型链上， 不能判断基本数据类型
-      </pre>
+      
     </div>
   </div>
 </template>

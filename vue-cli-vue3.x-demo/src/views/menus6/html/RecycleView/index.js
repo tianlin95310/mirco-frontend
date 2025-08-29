@@ -14,6 +14,7 @@ class RecycleView {
     this.visibleItems = [];
     this.firstVisibleIndex = 0;
     this.lastVisibleIndex = 0;
+    this.nextScrollTop = 0;
     
     // 创建滚动容器
     this.scrollContainer = document.createElement('div');
@@ -54,6 +55,7 @@ class RecycleView {
   
   // 处理滚动事件
   handleScroll() {
+    console.log('handleScroll', this.scrollContainer.scrollTop)
     this.recycleItems();
   }
   
@@ -133,6 +135,13 @@ class RecycleView {
     this.scrollContainer.removeEventListener('scroll', this.scrollHandler);
     this.container.removeChild(this.scrollContainer);
     this.visibleItems = [];
+  }
+  onActivated() {
+    this.scrollContainer.scrollTop = this.nextScrollTop
+  }
+  onDeactivated() {
+    console.log('onDeactivated', this.scrollContainer.scrollTop)
+    this.nextScrollTop = this.scrollContainer.scrollTop
   }
 }
 

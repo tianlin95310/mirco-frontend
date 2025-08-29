@@ -8,29 +8,17 @@
     </div>
     <div>
       <div>oninput替换value</div>
-      <input
-        v-model="number2"
-        type="text"
-        oninput="value = value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')"
-      />
+      <input v-model="number2" type="text" oninput="value = value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" />
       {{ number2 }}
     </div>
     <div>
       <div>oninput替换value</div>
-      <input
-        v-model="number3"
-        type="text"
-        oninput="value=value.replace(/[^\d.]/g, '')"
-      />
+      <input v-model="number3" type="text" oninput="value=value.replace(/[^\d.]/g, '')" />
       {{ number3 }}
     </div>
     <div>
       <div>oninput替换v-model</div>
-      <input
-        v-model="number5"
-        type="text"
-        @input="number5 = number5.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')"
-      />{{ number5 }}
+      <input v-model="number5" type="text" @input="number5 = number5.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1')" />{{ number5 }}
     </div>
     <div>
       <div>自定义指令页面内</div>
@@ -47,7 +35,7 @@
     <div>
       用number会超过16位的限制,可以输入1，js的最长精度 Number.prototype.toPrecision
       双精度浮点数的有效尾数是16位，在js中有效位数是17位，超过10位会截取
-      可以理解为JS引擎会默认保留最多17位的有效小数 
+      可以理解为JS引擎会默认保留最多17位的有效小数
       Number.MAX_SAFE_INTEGER + 1 === Number.MAX_SAFE_INTEGER + 2
     </div>
     <div>
@@ -59,7 +47,19 @@
       <input v-model="number9" v-decimal="2" :maxlength="30" />{{ number9 }}
     </div>
     <button @click="show" class="button">显示记录的实际值</button>
+
+    <div>
+      12，js如何准确的四舍五入保留2位小数
+      <code>
+        function roundToTwo(num) {
+          return Math.round((num + Number.EPSILON) * 100) / 100;
+        }
+      </code>
+    </div>
   </div>
+
+
+
 </template>
 
 <script>
@@ -81,7 +81,7 @@ export default {
   directives: {
     pnumber: {
       mounted(el, binding) {
-        binding.extraEvent = function(v) {
+        binding.extraEvent = function (v) {
           const reg = /^[0-9]+\.?[0-9]{0,2}$/;
           if (v.target.value && !reg.test(v.target.value)) {
             v.target.value = v.target.value.replace(
@@ -120,10 +120,12 @@ export default {
 .html-deal {
   div {
     margin-top: 10px;
+
     div {
       display: inline-block;
       width: 190px;
     }
+
     input {
       width: 440px;
     }

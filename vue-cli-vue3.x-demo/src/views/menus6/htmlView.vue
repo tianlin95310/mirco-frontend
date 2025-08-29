@@ -47,7 +47,7 @@
 </template>
 <script setup name="HtmlView">
 // <!-- script 设置name无效，可以使用文件名以及defineOptions -->
-import { ref, watch, reactive, toRefs, onActivated, onMounted, defineOptions, defineCustomElement } from 'vue'
+import { ref, watch, reactive, toRefs, onActivated, onMounted, defineOptions, defineCustomElement, onDeactivated } from 'vue'
 import TLDialog from 'comp/TLDialog'
 import TlIndexView from './html/TLIndexView'
 import TlRating from './html/TlRating'
@@ -78,7 +78,9 @@ const state = reactive({
   v1: [],
   v2: null,
   v3: 'AAA',
-  showDialog: false
+  showDialog: false,
+  recycleView: null,
+  recycleView2: null
 })
 
 // 模板免state前缀
@@ -136,6 +138,8 @@ onMounted(() => {
 
   recycleView.setData(mockData);
   recycleView2.setData(mockData);
+  state.recycleView = recycleView
+  state.recycleView2 = recycleView2
 })
 
 onActivated(() => {
@@ -143,6 +147,13 @@ onActivated(() => {
   console.log('this.$route.query.v1', route.query.v1)
   console.log('this.$route.query.v2', route.query.v2)
   console.log('this.$route.query.v2 == undefined', route.query.v2 === undefined)
+  state.recycleView?.onActivated()
+  state.recycleView2?.onActivated()
+})
+
+onDeactivated(() => {
+  state.recycleView?.onDeactivated()
+  state.recycleView2?.onDeactivated()
 })
 const addData = () => {
 }

@@ -1,10 +1,10 @@
+// 自定义节流函数
 const throttleS = function(func, delay) {
-  var prev = Date.now() - delay
+  let prev = Date.now() - delay
   return function() {
-    var context = this
-    var args = arguments
-    var now = Date.now()
-    // console.log('prev == ', prev, 'now == ', now, now - prev)
+    let context = this
+    let args = arguments
+    let now = Date.now()
     if (now - prev >= delay) {
       func.apply(context, args)
       prev = Date.now()
@@ -14,11 +14,10 @@ const throttleS = function(func, delay) {
 
 // 自实现防抖函数
 const debounceS = function(callback, delay) {
-  var timer = null
+  let timer = null
   return function() {
     const _this = this
     const args = arguments
-    // console.log('timer', timer)
     if (timer) {
       clearTimeout(timer)
       timer = null

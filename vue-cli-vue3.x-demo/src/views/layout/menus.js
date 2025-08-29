@@ -111,7 +111,7 @@ export const MENUS = [
       isOpen: false,
       path: '/menu3/positionAndSize'
     }, {
-      menuTitle: 'Web前端安全与面试问题',
+      menuTitle: '面试题',
       isOpen: false,
       path: '/menu3/htmlSafety'
     }]
@@ -191,6 +191,14 @@ export const MENUS = [
       menuTitle: 'Algorithm',
       isOpen: false,
       path: '/menu7/Algorithm'
+    }, {
+      menuTitle: 'DataStructure',
+      isOpen: false,
+      path: '/menu7/DataStructure'
+    }, {
+      menuTitle: 'LeetCode',
+      isOpen: false,
+      path: '/menu7/LeetCode'
     }]
   }, {
     menuTitle: '第三方api调用',

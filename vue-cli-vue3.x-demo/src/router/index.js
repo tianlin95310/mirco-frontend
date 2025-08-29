@@ -242,6 +242,16 @@ const routes = [
         path: 'Algorithm',
         name: 'Algorithm',
         component: () => import('@/views/menus7/Algorithm.vue')
+      },
+      {
+        path: 'DataStructure',
+        name: 'DataStructure',
+        component: () => import('@/views/menus7/DataStructure.vue')
+      },
+      {
+        path: 'LeetCode',
+        name: 'LeetCode',
+        component: () => import('@/views/menus7/LeetCode.vue')
       }
     ]
   },
