@@ -1,3 +1,4 @@
+// 人物执行顺序
 export function q1() {
   console.log('同步任务开始')
   setTimeout(() => {
@@ -50,6 +51,15 @@ export function q1() {
   console.log('同步任务结束')
 }
 
+export function q2() {
+  const functionFactor = function(a, b) {
+    return function(c) {
+      return a * b + c
+    }
+  }
+  const fun1 = functionFactor(2, 5)
+  const fun2 = functionFactor(3, 4)
+}
 function deepClone(target, map = new WeakMap()) {
   // 处理原始类型和函数
   if (target === null || typeof target !== 'object') {

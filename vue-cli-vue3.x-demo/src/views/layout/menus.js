@@ -80,30 +80,22 @@ export const MENUS = [
     subMenus: [{
       menuTitle: 'js对象的属性',
       isOpen: false,
-      path: '/menu3/testJsListAndMap',
+      path: '/menu3/testCommon',
       query: '?v1=123#456'
-    }, {
-      menuTitle: '数组Array操作',
-      isOpen: false,
-      path: '/menu3/listOperate'
     }, {
       menuTitle: '函数与类',
       isOpen: false,
       path: '/menu3/func'
     }, {
-      menuTitle: '特殊运算法',
+      menuTitle: 'Ecma新特性',
       isOpen: false,
       path: '/menu3/objectAnal'
-    }, {
-      menuTitle: '数值的处理',
-      isOpen: false,
-      path: '/menu3/particle'
     }, {
       menuTitle: '正则表达式',
       isOpen: false,
       path: '/menu3/regExp'
     }, {
-      menuTitle: '测试JS的事件传递',
+      menuTitle: 'JS的事件传递机制',
       isOpen: false,
       path: '/menu3/testEvent'
     }, {

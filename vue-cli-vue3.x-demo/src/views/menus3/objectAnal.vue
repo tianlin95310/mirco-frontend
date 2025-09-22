@@ -1,65 +1,59 @@
 <template>
   <div class="page-container">
-    <h2>ES6...运算符的用法</h2>
-    <div>
-      <button class="button" @click="test1">解析数组，类似于可变数组</button>
-
-      <button class="button" @click="test2">作为形参传递，数组类型参数</button>
-
-      <button class="button" @click="testKeiban">数组传递到可变参数</button>
+    <div class="border-card">
+      <span>...运算符的用法</span>
+      <div>
+        <button class="button" @click="test1">解析数组，类似于可变数组</button>
+        <button class="button" @click="test2">作为形参传递，数组类型参数</button>
+        <button class="button" @click="testKeiban">数组传递到可变参数</button>
+        <button class="button" @click="test3">取对象key对应的值 并直接初始化给变量</button>
+        <button class="button" @click="test4">作为数组可变参数传递，解析字符串成数组</button>
+      </div>
     </div>
 
-    <div>
-      <button class="button" @click="test3">
-        取对象key对应的值 并直接初始化给变量
-      </button>
-      <button class="button" @click="test4">
-        作为数组可变参数传递，解析字符串成数组
-      </button>
+    <div class="border-card">
+      <span>对象克隆</span>
+      <div>
+        <button class="button" @click="test6">
+          多层对象的克隆（复杂对象，无法克隆）
+        </button>
+        <button class="button" @click="test5">单层对象的克隆（简单对象）</button>
+        <button class="button" @click="deepclone">手动实现深克隆</button>
+      </div>
     </div>
 
-    <div>
-      <button class="button" @click="test6">
-        多层对象的克隆（复杂对象，无法克隆）
-      </button>
-      <button class="button" @click="test5">单层对象的克隆（简单对象）</button>
-      <button class="button" @click="deepclone">深克隆的实现</button>
+    <div class="border-card">
+      <span>运算符与方法</span>
+      <div>
+        <button class="button" @click="newKeyWord">新的运算符...， ?., ??</button>
+
+        <button class="button" @click="inAndis">in, Object.is(),</button>
+
+        <button class="button" @click="var_let">var与let的区别</button>
+
+        <button class="button" @click="var_let_value">var和闭包</button>
+      </div>
     </div>
 
-    <div>
-      <button class="button" @click="newKeyWord">新的运算符...， ?., ??</button>
-
-      <button class="button" @click="inAndis">in, Object.is(),</button>
+    <div class="border-card">
+      <span>闭包</span>
+      <div>
+        <button class="button" @click="closure">闭包closure</button>
+      </div>
     </div>
-    <div>
-      <button class="button" @click="var_let">var与let的区别</button>
 
-      <button class="button" @click="var_let_value">var和闭包</button>
-
-      <button class="button" @click="closure">闭包closure</button>
+    <div class="border-card">
+      <span>最新特性</span>
+      <div>
+        <button class="button" @click="groupBy">Object.groupBy</button>
+      </div>
     </div>
+
   </div>
 </template>
 <script>
 /*eslint-disable*/
-function deepClone(obj) {
-  let newObj;
-  if (typeof obj !== "object") {
-    return;
-  }
-  if (obj instanceof Array) {
-    // newObj = [...obj]
-    newObj = [];
-  } else {
-    newObj = {};
-  }
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      newObj[key] = typeof obj !== "object" ? deepClone(obj[key]) : obj[key];
-    }
-  }
-  return newObj;
-}
+import { cloneDeep } from './qus2025/qus2025'
 export default {
   data() {
     return {
@@ -67,6 +61,11 @@ export default {
     };
   },
   methods: {
+    groupBy() {
+      const a = [{g: 1, b: 'b'}, {g: 2, b: 'd'}, {g: 1}, {g: 3}]
+      const group = Object.groupBy(a, ({ g }) => g)
+      console.log('group', group)
+    },
     deepclone() {
       // let a = [1,2,3,4]
       // let b = deepClone(a)
@@ -80,13 +79,13 @@ export default {
           d: 2
         }
       };
-      let b = deepClone(a);
+      let b = cloneDeep(a);
       a["e"] = "100";
       console.log(a, b);
     },
     closure() {
       function factory(x) {
-        return function(y) {
+        return function (y) {
           return x + y;
         };
       }
@@ -157,8 +156,8 @@ export default {
         console.log(Object.is(-0, 0));
         // Expected output: false
 
-        const obj = {a: 1};
-        console.log(Object.is(obj, {a: 1}), Object.is(obj, obj));
+        const obj = { a: 1 };
+        console.log(Object.is(obj, { a: 1 }), Object.is(obj, obj));
         // Expected output: false
       }
       console.log('---------');
@@ -166,16 +165,16 @@ export default {
         console.log("1" == 1);
         console.log(NaN == NaN);
         console.log(-0 == 0);
-        const obj = {a: 1};
-        console.log(obj == {a: 1});
+        const obj = { a: 1 };
+        console.log(obj == { a: 1 });
       }
       console.log('---------');
       {
         console.log("1" === 1);
         console.log(NaN === NaN);
         console.log(-0 === 0);
-        const obj = {a: 1};
-        console.log('obj === {a: 1}', obj === {a: 1});
+        const obj = { a: 1 };
+        console.log('obj === {a: 1}', obj === { a: 1 });
       }
     },
     newKeyWord() {
@@ -269,7 +268,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div > div {
+div>div {
   margin-top: 10px;
 }
 </style>

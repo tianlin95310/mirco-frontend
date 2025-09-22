@@ -28,8 +28,7 @@
           .2对目标环境进行polyfill
           .3按需引入，基于webpack
           .4代码翻译，翻译ES6以上代码到ES5
-          @babel/preset-env 按需引入
-          babel 内包括了Webpac
+          @babel/preset-env 预设的代码转换方案
           语法转换分为三个阶段，
           解析-将代码生成AST
           转换-通过babel-traverse对AST做增删改操作

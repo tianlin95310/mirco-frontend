@@ -1,7 +1,6 @@
 <template>
   <div class="test-css-style page-container">
     <div>
-      <h2>测试css的属性</h2>
       <div class="parent">
         <span style="visibility: hidden;" @click="testBefore">我的visibility</span>
         <p class="test">我在父块的右下角</p>
@@ -15,29 +14,30 @@
         <div style="background: #D42D00;width: 50%;text-align: center;margin: 0 auto;">div水平居中</div>
       </div>
 
-      <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center">
+      <div style="background: white;display: inline-block;width: 300px;height: 200px;vertical-align: middle;text-align: center;margin-left: 1px;">
         <div>0.5px边框</div>
         <div class="line-t-e line-b-e">sss</div>
       </div>
     </div>
 
-    <!--    margin 塌陷导致垂直居中失效-->
+    <!-- margin 塌陷导致垂直居中失效 -->
     <div style="background: gray;width: 200px;height: 200px;">
-      <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
+      <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中，margin: 50px 0;</div>
     </div>
 
-    <!--    通过子元素display: inline-block设置BFC解决问题-->
-    <div style="background: white;width: 200px;height: 200px;display: inline-block">
+    <!-- 通过子元素display: inline-block设置BFC解决问题 -->
+    <div style="background: white;width: 200px;height: 200px;display: inline-block;margin-top: 1px;">
       <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
     </div>
-    <!--    ·可以为父元素定义上边框。-->
-    <!--    ·可以为父元素定义上内边距-->
-    <!--    ·可以为父元素添加overflow:hidden, auto等，不能为visable。-->
-    <div style="background: whitesmoke;width: 200px;height: 200px;overflow: hidden">
+    <!-- ·可以为父元素定义上边框。-->
+    <!-- ·可以为父元素定义上内边距 -->
+    <!-- ·可以为父元素添加overflow:hidden, auto等，不能为visable。 -->
+    <div style="background: whitesmoke;width: 200px;height: 200px;overflow: hidden;margin-top: 1px;">
       <div style="background: #D42D00;height: 50%;width: 50%;margin: 50px 0;">已知父高度和自身高度实现竖直居中</div>
     </div>
 
     <div>
+      超过100换行
       <div style="width: 39%;background: red;display: inline-block">我占39%</div>
       <div style="width: 70%;background: blue;display: inline-block">我占70%</div>
     </div>
@@ -54,6 +54,8 @@
     <div style="border: 1px solid;height: 100px;position: relative;left: 50px;">我是relative元素</div>
 
     <div style="border: 1px solid;height: 100px;position: absolute;left: 100px;">我是absolute元素</div>
+
+    <div style="border: 1px solid;height: 100px;position: fixed;left: 400px;top: 100px;z-index: 100;">我是fixed元素</div>
 
     <div id="float1" class="test-float" style="overflow: hidden;">
       <div style="float: left;">没有overflow: hidden(BFC)的话float1的高度为0，无法支持起来</div>
@@ -81,7 +83,7 @@
 
 <script setup>
 const testBefore = () => {
-  alert('window testBefore')
+  alert('window testBefore clicked')
 }
 </script>
 <style lang="scss" scoped>

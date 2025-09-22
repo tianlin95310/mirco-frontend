@@ -30,6 +30,7 @@ input {
 	border: 1px solid #377A4F;
 	outline: none;
 	padding: 6px 8px;
+	
 }
 .button {
 	border: none;
@@ -42,6 +43,7 @@ input {
 	transition: all 0.2s ease-in;
 	margin: 8px 16px;
 	user-select: none;
+	font-size: 15px;
 }
 
 button {
@@ -184,3 +186,19 @@ pre {
 	vertical-align: top;
 }
 
+.border-card {
+	margin: 5px;
+	padding: 5px;
+	min-height: 36px;
+	border: 1px solid gainsboro;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	> span {
+		&:first-child {
+			border-right: 1px solid gainsboro;
+			padding-right: 5px;
+			margin: -5px 0;
+		}
+	}
+}

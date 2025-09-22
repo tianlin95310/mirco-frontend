@@ -110,14 +110,9 @@ const routes = [
     component: Layout,
     children: [
       {
-        path: 'testJsListAndMap',
-        name: 'TestJsListAndMap',
-        component: () => import('@/views/menus3/testJsListAndMap.vue')
-      },
-      {
-        path: 'listOperate',
-        name: 'ListOperate',
-        component: () => import('@/views/menus3/listOperate.vue')
+        path: 'testCommon',
+        name: 'TestCommon',
+        component: () => import('@/views/menus3/testCommon.vue')
       },
       {
         path: 'func',
@@ -128,11 +123,6 @@ const routes = [
         path: 'objectAnal',
         name: 'ObjectAnal',
         component: () => import('@/views/menus3/objectAnal.vue')
-      },
-      {
-        path: 'particle',
-        name: 'Particle',
-        component: () => import('@/views/menus3/particle.vue')
       },
       {
         path: 'regExp',

@@ -44,7 +44,7 @@
           需要给body/html增加touchstart事件
 
         9，1px解决方案
-          用 transfrom： scale（）缩小为元素 dpr 倍数
+          用 transfrom： scale（0.5）缩小为元素 dpr 倍数
           在 meta 标签中设定 scale 缩小dpr倍数
 
         10，伪类使用顺序

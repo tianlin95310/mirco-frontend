@@ -8,18 +8,7 @@
           encodeURIComponent()的原因所在。一般来说,我们使用encodeURIComponent()方法的时候要比使用encodeURI()更多,因为在实践
           中更常见的是对查询字符串参数而不是对基础URL进行编码。
 
-        2，call，apply，bind的区别和用法
-          都能改变this的，函数里的this是哪个对象由调用时传的参数决定，不传的话就是调用者自身
-          apply：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.apply(A, arguments);即 A 对象应用 B 对象的方法。
-          call：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.call(A, args1,args2);即 A 对象调用 B 对象的方法。
-          bind 除了返回是函数以外，它的参数和 call 一样。
-          构造函数里面也可以这样使用，用于调用构造函数
-
-          1、改变 this 的指向
-          2、借用别的对象的方法，保存副本
-          3、调用函数，因为 apply，call 方法会使函数立即执行
-
-        5，Object的用法
+        3，Object的用法
           1，Object.freeze(obj)可以冻结对象的，防止对象的值被修改如果是大数据量的数据，对于纯展示的大量数据，可以提高效率
           2，Object. entries(),keys(),values() 产生迭代器，方便遍历
           3，var A = Object.create(A.prototype);可以产生以null或者指定的原型为原型对象，可以防止对象被原型级别的篡改
@@ -38,30 +27,44 @@
             Object.getOwnPropertyNames:返回一个数组包含不可枚举的属性
             Object.getPrototypeOf() 获取一个对象的原型对象
 
-        12，js的事件机制
+        4，js的事件机制
           事件捕获阶段
           事件命中阶段
           事件冒泡阶段
           添加事件的3中方式：
           addEventListener,onclick绑定，onclick赋值
 
-        15，js单例模式的实现
+        5，js单例模式的实现
           1，使用闭包直接添加方法属性
           2，使用class添加静态方法
           <RLink to="menu3/func" title="详见函数界面" />
 
-        17，js多线程
+        6，js多线程
           web worker，通过postMessage通知，dart里有类似的isolate
 
-        18，object与Object的区别，基本数据类型与包装类的区别
+        7，object与Object的区别，基本数据类型与包装类的区别
           object和Object两者之间的主要区别在于，object是一种原始数据类型，而Object则是JavaScript中的一个内置对象。此外，我们还可以通过以下几个方面来区分这两者之间的区别：
           object不能调用任何方法，而Object可以调用所有Object.prototype中定义的方法。
           object不能使用new关键字来创建新的实例，而Object可以使用new关键字来创建新的对象。
           object通常是通过字面量形式创建的，而Object通常是通过构造函数来创建的。
           object在JavaScript中表示任何非基本类型数据，包括Function和Array等，而Object是所有对象的基础，
           是因为其他所有的内置对象都是从Object中继承而来的，因此可以通过Object来操作和处理其他内置对象的方法和属性。
+          Symbol用作来解决Object字符串作为可能出现重复而覆盖的问题，Symbol可以作为Object的key，通过Object.getOwnPropertySymbols可以获取到对应的symbol，Reflect.ownKeys也能获取到，
+          Date 和 Symbol 对象是唯一重写 [@@toPrimitive]() 方法的对象。
+          Object.prototype.toString.call() 可以完美判断类型
 
-        19，function和Function的区别
+          Object存在自动排序机制
+            1，整数数字属性，按从小到大排序
+            2，字符串属性，不进行自动排序。按照写入的顺序排序。
+            3，浮点型属性，按照字符串属性方式处理
+            4，同时存在整数数字类型和字符串类型时。优先排列整数数字类型。
+              > a
+              > {1: 1, 2: 2, 3: 3, a: 'a', c: 'c', b: 'b', e: 'e', d: 'd'}
+              > JSON.stringify(a)
+              > '{"1":1,"2":2,"3":3,"a":"a","c":"c","b":"b","e":"e","d":"d"}'
+
+
+        8，function和Function的区别
         JavaScript中的function和Function主要有以下区别‌：
         ‌定义方式‌：
         function是一个关键字，用于声明一个函数。例如：function myFunction(arg) { ... }‌12。
@@ -83,16 +86,18 @@
     考察核心：语言特性、异步、内存、新语法
       1，Event Loop：详细说明宏任务与微任务的区别、执行顺序，并分析一段包含 Promise, setTimeout, async/await, queueMicrotask 的复杂代码的输出结果。
       答案：
-      入口-宏任务-执行同步代码【分发任务队列】-当前宏任务执行完成-执行完当前队列的所有微任务-下一个宏任务
-      同步块 > requestAnimationFrame > setTimeout > 普通微任务 > queueMicrotask > 微任务中新建微任务 > finally
+      程序入口（宏任务）- 执行同步代码【分发新的宏任务以及微任务任务队列】> 当前宏任务执行完成 > 执行完当前队列的所有微任务 > 下一个宏任务
+      同步块 > (requestAnimationFrame > setTimeout) > (普通微任务 > queueMicrotask > 微任务中新建的微任务 > finally)
       <button class="button" @click="qus.q1">执行</button>
 
       2，闭包：阐述其原理、常见应用场景（模块化、柯里化）以及可能引发的内存泄漏问题和排查方法。
       答案：
-      原理： 当一个函数可以记住并访问其所在的词法作用域，即使这个函数是在当前词法作用域之外执行的，这就产生了闭包。
-      1，成员私有化，参数隔离
-      2，柯里化，将多参数函数转化为少参数函数
+      闭包是由捆绑起来（封闭的）的函数和函数周围状态（词法环境）的引用组合而成。换言之，闭包让函数能访问它的外部作用域。在 JavaScript 中，闭包会随着函数的创建而同时创建。
+      原理： 当一个函数可以记住并访问其所在的词法作用域，即使这个函数是在当前词法作用域之外执行的，这就产生了闭包。可以理解为函数访问函数外的局部变量
+      1，成员私有化，参数隔离【实现单例】
+      2，柯里化，将多参数函数转化为少参数函数，多级嵌套的闭包，也可以实现函数工厂
       3，内存泄漏：闭包会阻止其引用的外部函数作用域中的变量被垃圾回收。如果闭包本身是全局变量或其生命周期很长，那么它引用的变量会一直驻留内存。
+      4，闭包一个常见的问题就是循环创建多个具有相同词法环境的场景，导致闭包函数调用时值不是预期的，使用const，let等也可以避免
 
       3，this 指向：详细说明默认绑定、隐式绑定、显式绑定（call/apply/bind）、new 绑定、箭头函数这五种规则的优先级和严格模式下的差异。
       答案：
@@ -104,6 +109,16 @@
       箭头函数：this 在定义时就已经确定，指向其外层作用域的 this，无法通过上述规则改变。
       优先级： new > 显式 > 隐式 > 默认。箭头函数无 this，不参与比较。
 
+      call，apply，bind的区别和用法
+      都能改变this的，函数里的this是哪个对象由调用时传的参数执行，不传的话就是调用者自身
+      apply：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.apply(A, arguments);即 A 对象应用 B 对象的方法。
+      call：调用一个对象的一个方法，用另一个对象替换当前对象。例如：B.call(A, args1,args2);即 A 对象调用 B 对象的方法。
+      bind 除了返回是函数以外，它的参数和 call 一样。
+      构造函数里面也可以这样使用，用于调用构造函数，继承的时候就有用到
+      1、改变 this 的指向
+      2、借用别的对象的方法，保存副本
+      3、调用函数，因为 apply，call 方法会使函数立即执行
+
       4，手写 Promise：实现一个符合 Promises/A+ 规范的 Promise，并实现 Promise.all 和 Promise.race 的 polyfill。
         Promise见标签<RLink to="/menu4/promiseUse" title="Promise的使用" />
         <ALink href="https://blog.csdn.net/qq_39370934/article/details/115574212" title="js 迭代器用法"></ALink>
@@ -111,7 +126,8 @@
       5，Async/Await 原理：阐述其和 Generator 函数的关系，说明其底层是如何用 Generator + 自动执行器实现的。
       答案：
       Async/Await 是 Generator 函数的语法糖，它提供了更清晰的异步代码编写方式
-      底层原理： async 函数会返回一个 Promise 对象。await 后面的表达式相当于 yield，会暂停函数的执行。JS 引擎会用一个自动执行器来处理这个 async 函数，它自动调用 .next() 方法，将 await 后面表达的返回值（或 resolved 的 Promise 值）作为 yield 的结果，并继续执行函数，直到函数结束或抛出错误，最终返回的 Promise 状态随之改变。
+      底层原理： async 函数会返回一个 Promise 对象。await 后面的表达式相当于 yield，会暂停函数的执行。JS 引擎会用一个自动执行器来处理这个 async 函数，它自动调用 .next() 方法，
+      将 await 后面表达的返回值（或 resolved 的 Promise 值）作为 yield 的结果，并继续执行函数，直到函数结束或抛出错误，最终返回的 Promise 状态随之改变。
       与 Generator 的区别：
       内置执行器：async 函数自带执行器，无需像 co 库那样的额外工具。
       更好的语义：async 和 await 比 * 和 yield 语义更清晰。
@@ -133,19 +149,6 @@
       Map 在频繁增删键值对的场景下性能更好，delete Object属性的效率低
       Map 默认是可迭代的 (iterable)，Map有方便的遍历迭代器API
 
-      Symbol用作来解决Object字符串作为可能出现重复而覆盖的问题，Symbol可以作为Object的key，通过Object.getOwnPropertySymbols可以获取到对应的symbol，Reflect.ownKeys也能获取到，
-      Date 和 Symbol 对象是唯一重写 [@@toPrimitive]() 方法的对象。
-
-      Object存在自动排序机制
-        1，整数数字属性，按从小到大排序
-        2，字符串属性，不进行自动排序。按照写入的顺序排序。
-        3，浮点型属性，按照字符串属性方式处理
-        4，同时存在整数数字类型和字符串类型时。优先排列整数数字类型。
-          > a
-          > {1: 1, 2: 2, 3: 3, a: 'a', c: 'c', b: 'b', e: 'e', d: 'd'}
-          > JSON.stringify(a)
-          > '{"1":1,"2":2,"3":3,"a":"a","c":"c","b":"b","e":"e","d":"d"}'
-
       Set vs Array：
       Set 成员的值都是唯一的，常用于数组去重。
 
@@ -165,7 +168,7 @@
       引入/导出	  import / export           require() / module.exports
       值类型	    值的引用            	    值的拷贝（导出的是值的副本）
       同步/异步	  异步加载	                同步加载
-      Tree Shaking	支持（利于静态分析）	  不支持
+      Tree Shaking	支持（利于静态分析，Webpack）	  不支持
       适用环境	  浏览器、现代 Node.js	    Node.js
 
       8，内存管理：V8 垃圾回收机制（分代假说、新生代 Scavenge、老生代标记-清除/整理），以及如何利用 Chrome DevTools 识别和定位内存泄漏。
@@ -186,6 +189,9 @@
 
       9，手写代码：实现一个能处理循环引用的深拷贝函数。
       <button class="button" @click="qus.q9">克隆</button>
+      注意循环引用，所以需要一个WeakMap记录当前克隆的对象，如果存在直接返回
+      注意Map，Set，Date，RegExp，Map的key可以时任意类型，所以也需要deepClone
+      对于Array和Object，统一用Reflect.ownKeys(target)获取所有key，如果时数组的话，将会得到下标和length
 
       10，手写代码：实现防抖（Debounce）和节流（Throttle）函数，并说明应用场景。
         .1 防抖(debounce):
@@ -196,7 +202,8 @@
         概述:每次触发事件时都会判断是否等待执行的延时函数。
         区别:降低回调执行频率,节省计算资源。
         
-        函数防抖一定时间连续触发的事件, 只在最后触发时执行一次, 而函数节流一段时间内只执行一次。
+        函数防抖一定时间连续触发的事件, 只在最后触发时执行一次, 主要是降低出发频率，
+        而函数节流一段时间内只执行一次，长做时间连点
         <RLink title="查看代码实现" to="/menu3/func" />
 
       11 类型判断：typeof, instanceof, Object.prototype.toString.call 的区别和原理，如何实现一个完善的类型判断函数？
@@ -271,141 +278,6 @@
       Vue 的 EventBus / Node.js 的 EventEmitter：创建一个全局事件总线，组件 A $emit 发布事件，组件 B $on 订阅事件。
       Vue 组件间的 $emit 和 v-on：子组件发布事件，父组件订阅事件。虽然看起来直接，但其内部机制是通过 Vue 实例这个“通道”实现的，是典型的 Pub-Sub。
       系统事件：addEventListener('click', handler)。浏览器（事件通道）负责在用户点击时调用你的处理函数。
-
-    二、 CSS & HTML 篇 (15题)
-    考察核心：布局、渲染机制、响应式
-
-      布局：实现一个圣杯布局或双飞翼布局（两侧固定，中间自适应，中间列优先渲染）。
-
-      Flex 与 Grid：详细对比两者的适用场景，并用两者分别实现一个九宫格布局。
-
-      BFC：什么是 BFC？触发条件？应用场景（清除浮动、防止外边距重叠、自适应两栏布局）？
-
-      CSS 选择器优先级：计算规则（内联 > ID > Class/属性/伪类 > 标签/伪元素）以及 !important 的影响。
-
-      重排与重绘：详细说明两者的区别，哪些操作会触发，以及如何优化（CSS 图层、GPU 加速、读写分离）。
-
-      移动端适配：1px 边框问题、Retina 屏适配、移动端响应式方案的选型（REM/VW+媒体查询）。
-
-      CSS 动画性能：为什么 transform 和 opacity 能高效触发 GPU 渲染？will-change 属性有什么用？
-
-      居中：至少写出 5 种水平垂直居中的方案。
-
-      CSS 变量：如何定义和使用 CSS 变量（--*），它有什么好处？
-
-      HTML 语义化：谈谈你对语义化标签（article, section, nav 等）的理解及其好处（SEO、可访问性、代码结构）。
-
-      'script' 标签：async 和 defer 属性的区别？请画图说明加载和执行时机。
-
-      Web Components：是什么？由哪几个技术组成？与 Vue/React 组件的区别？
-
-      伪类与伪元素：:hover 和 ::before 的根本区别是什么？
-
-      CSS 预处理器：你用过哪些（Sass/Less）？它们提供的核心功能（变量、嵌套、Mixin、函数）有什么好处？
-
-      CSS in JS：谈谈它的优缺点，以及你是否在项目中使用过。
-
-    三、 Vue 框架深度篇 (45题) - 核心重点
-    考察核心：原理、源码、组合式 API、生态、性能
-
-      Vue 核心原理 (15题)
-      Vue 2 响应式原理：详细阐述 Object.defineProperty 如何进行数据劫持，并说明其无法监听数组和对象新增属性的缺陷以及 Vue 2 的补救方案（$set）。
-
-      Vue 3 响应式原理：详细阐述 Proxy 和 Reflect 是如何实现响应式的，对比 Object.defineProperty 的优势。
-
-      ref 与 reactive：详细说明两者的区别、适用场景以及实现原理（ref 如何对原始值进行响应式包装）。
-
-      依赖收集与派发更新：详细描述 effect, track, trigger 函数在整个响应式系统中的工作流程。
-
-      虚拟 DOM 与 Diff 算法：Vue 的虚拟 DOM 是什么？Vue 2 和 Vue 3 在 Diff 算法上分别做了哪些优化（Vue3 的 PatchFlags, staticHoisting, blockTree）？
-
-      模板编译：描述 .vue 文件中的 template 是如何被编译成 render 函数的。
-
-      NextTick 原理：作用是什么？其内部实现机制是怎样的（优先使用微任务 Promise.then）？
-
-      Computed 实现原理：阐述其惰性求值和缓存机制是如何实现的。
-
-      Watch 实现原理：阐述其如何监听响应式数据的变化，并说明 deep 和 flush 选项的原理。
-
-      生命周期：详细说明 Vue 2 和 Vue 3 (Composition API) 的生命周期钩子，以及每个钩子的适用场景。
-
-      组件渲染流程：描述一个组件从 new Vue() 开始到挂载到页面的完整过程。
-
-      编译器优化：Vue 3 在编译阶段做了哪些静态优化？这些优化对运行时性能有何帮助？
-
-      手写实现：尝试实现一个极简版的 reactive 或 ref 函数。
-
-      手写实现：实现一个极简版的 watch 函数。
-
-      手写实现：实现一个极简版的 computed 函数。
-
-      Composition API & 新特性 (15题)
-      Composition API 设计动机：解决了 Options API 的哪些痛点？（逻辑复用、代码组织、TypeScript 支持）
-
-      script setup：这个语法糖带来了哪些便利？defineProps, defineEmits, defineExpose 如何使用？
-
-      逻辑复用：如何使用 Composition API（自定义 Hook）封装一个 useMousePosition 或 useLocalStorage？
-
-      Vue 3 生态：为什么 Vuex 被 Pinia 取代？Pinia 的核心优势和用法是什么？
-
-      Teleport 组件：作用是什么？实现原理？典型应用场景（模态框、Toast）？
-
-      Suspense 组件：作用是什么？如何在异步组件和 async setup() 中使用？
-
-      Fragment 组件：Vue 3 支持多根节点组件的原理是什么？
-
-      自定义渲染器：概念是什么？如何实现一个自定义渲染器（如渲染到 Canvas）？
-
-      Vue 3 与 TypeScript：defineComponent 的作用？如何为 Props 和 Emits 提供完整的类型推导？
-
-      响应式 API 进阶：shallowRef, shallowReactive, toRaw, markRaw 的作用和适用场景。
-
-      Effect Scope：effectScope API 是用来解决什么问题的？
-
-      VueUse 库：是否了解或使用过？它体现了 Composition API 的哪些优势？
-
-      v-model 的进化：Vue 3 中 v-model 相对于 Vue 2 有何变化？如何在自定义组件上使用多个 v-model？
-
-      指令生命周期：自定义指令的钩子函数在 Vue 2 和 Vue 3 中的变化。
-
-      渲染函数 & JSX：在 Vue 中如何使用 JSX？它的适用场景是什么？
-
-      工程实践 & 性能优化 (15题)
-      Vue Router：路由模式（Hash vs History）的原理和区别？导航守卫的使用场景和流程？
-
-      状态管理选型：在什么情况下才需要使用 Pinia？什么时候用 provide/inject 就够了？
-
-      组件设计：如何设计和实现一个高复用性、可维护性好的业务组件或基础UI组件？
-
-      权限系统：在前端如何实现路由级别和按钮级别的权限控制？
-
-      Vue 应用性能优化：
-
-      打包优化（Tree-shaking, 代码分割，异步组件）。
-
-      运行时优化（v-once, v-memo, 虚拟滚动，减少大型响应式对象）。
-
-      优化更新性能（合理的组件拆分，避免不必要的子组件重新渲染）。
-
-      错误处理：如何全局捕获和处理 Vue 组件渲染函数、生命周期钩子、watch 中的错误？
-
-      服务端渲染 (SSR)：Nuxt.js 的核心原理是什么？SSR 和 CSR 的优劣对比？为什么要用 SSR？
-
-      静态站点生成 (SSG)：什么是 SSG？它和 SSR 的区别？VuePress, VitePress 是基于什么原理？
-
-      单元测试：如何为 Vue 组件编写单元测试（Vitest + Vue Test Utils）？测试的重点是什么？
-
-      E2E 测试：如何为 Vue 应用做端到端测试（Cypress, Playwright）？
-
-      微前端：如何将 Vue 应用接入微前端架构（qiankun, Module Federation）？需要处理哪些问题（样式隔离、JS 沙箱、数据通信）？
-
-      Vue 2 到 Vue 3 的迁移：迁移策略和主要注意事项有哪些？
-
-      项目配置：如何通过 vue.config.js 或 Vite 配置进行 Webpack 优化（别名 alias、代理 proxy、自定义 Loader/Plugin）？
-
-      代码规范：如何在团队中统一代码风格（ESLint, Prettier, Stylelint）？如何通过 Git Hooks 在提交前进行校验？
-
-      部署：Docker 容器化部署 Vue 项目的流程是怎样的？
 
       四、 工程化、构建工具与网络 (15题)
       考察核心：自动化、质量、效率、网络

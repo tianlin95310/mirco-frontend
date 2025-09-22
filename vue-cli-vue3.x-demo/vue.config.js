@@ -31,9 +31,9 @@ module.exports = defineConfig({
         },
       }
     },
-    plugins: [
+    plugins: process.env.VUE_APP_MF ? [
       ...mfpPlugins
-    ],
+    ] : [],
     resolve: {
       alias: {
         '@': resolve('src'),

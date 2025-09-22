@@ -1,7 +1,7 @@
 function People() {
   this.name = '张三'
 }
-
+// 闭包实现单例
 People.getInstance = (function() {
   let instance
   return function() {
@@ -12,6 +12,7 @@ People.getInstance = (function() {
   }
 })()
 
+// 静态成员实现单例
 class User {
   constructor(name) {
     this.name = name
