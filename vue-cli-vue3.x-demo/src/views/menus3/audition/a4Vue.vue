@@ -23,46 +23,45 @@
       考察核心：原理、源码、组合式 API、生态、性能
 
       Vue 核心原理 (15题)
-      1 Vue 2 响应式原理：详细阐述 Object.defineProperty 如何进行数据劫持，并说明其无法监听数组和对象新增属性的缺陷以及 Vue 2 的补救方案（$set）。
-      答案：
-      Vue 2 的响应式核心是通过 Object.defineProperty 递归地将一个普通 JavaScript 对象的属性转换为 getter/setter。
-      数据劫持 (Data Observation)：在初始化阶段，Vue 会遍历 data 函数返回对象的所有属性，使用 Object.defineProperty 为每个属性定义 getter 和 setter。当组件渲染时（即执行 render 函数），
-      会读取（get） 数据属性，从而将当前的渲染副作用（一个称为 Watcher 的依赖）收集起来。当数据发生变化时，会设置（set） 属性值，从而触发 setter 函数，通知所有之前收集的依赖进行
-      更新（重新渲染组件）。
-      缺陷与补救：
-      无法检测对象属性的添加或删除：Object.defineProperty 只能劫持已存在的属性。解决方法是使用 Vue.set(object, propertyName, value) 或 this.$set 来添加新属性，使用 Vue.delete 来删除属性。
-      无法监听数组索引和长度的变化：Vue 2 通过重写数组的 7 个变更方法（push, pop, shift, unshift, splice, sort, reverse）来解决。当这些方法被调用时，Vue 除了执行原有的数组操作外，
-      还会额外触发视图更新。对于直接通过索引设置值（arr[index] = newValue）或修改 length，仍需使用 Vue.set 或 splice 方法。
+        1 Vue 2 响应式原理：详细阐述 Object.defineProperty 如何进行数据劫持，并说明其无法监听数组和对象新增属性的缺陷以及 Vue 2 的补救方案（$set）。
+        答案：
+        Vue 2 的响应式核心是通过 Object.defineProperty 递归地将一个普通 JavaScript 对象的属性转换为 getter/setter。
+        数据劫持 (Data Observation)：在初始化阶段，Vue 会遍历 data 函数返回对象的所有属性，使用 Object.defineProperty 为每个属性定义 getter 和 setter。当组件渲染时（即执行 render 函数），
+        会读取（get） 数据属性，从而将当前的渲染副作用（一个称为 Watcher 的依赖）收集起来。当数据发生变化时，会设置（set） 属性值，从而触发 setter 函数，通知所有之前收集的依赖进行
+        更新（重新渲染组件）。
+        缺陷与补救：
+        无法检测对象属性的添加或删除：Object.defineProperty 只能劫持已存在的属性。解决方法是使用 Vue.set(object, propertyName, value) 或 this.$set 来添加新属性，使用 Vue.delete 来删除属性。
+        无法监听数组索引和长度的变化：Vue 2 通过重写数组的 7 个变更方法（push, pop, shift, unshift, splice, sort, reverse）来解决。当这些方法被调用时，Vue 除了执行原有的数组操作外，
+        还会额外触发视图更新。对于直接通过索引设置值（arr[index] = newValue）或修改 length，仍需使用 Vue.set 或 splice 方法。
 
       2 Vue 3 响应式原理：详细阐述 Proxy 和 Reflect 是如何实现响应式的，对比 Object.defineProperty 的优势。
+        ref 与 reactive：详细说明两者的区别、适用场景以及实现原理（ref 如何对原始值进行响应式包装）。
+        答案：
+        reactive：
+        作用：接收一个对象，返回该对象的响应式代理（基于 Proxy）。
+        限制：只能用于对象类型（Object, Array, Map, Set）。对于原始值（string, number, boolean）无效。
+        访问：直接访问和修改属性即可。
 
-      ref 与 reactive：详细说明两者的区别、适用场景以及实现原理（ref 如何对原始值进行响应式包装）。
-      答案：
-      reactive：
-      作用：接收一个对象，返回该对象的响应式代理（基于 Proxy）。
-      限制：只能用于对象类型（Object, Array, Map, Set）。对于原始值（string, number, boolean）无效。
-      访问：直接访问和修改属性即可。
+        ref：
+        作用：接收一个内部值（可以是原始值或对象），返回一个响应式的、可变的 ref 对象。该对象只有一个 .value 属性。
+        实现：即使传入的是原始值，ref 也会创建一个包装对象。这样，在 JavaScript 中，对 .value 的访问和修改就可以被拦截（通过自定义的 getter/setter，而非 Proxy）。如果传入的是对象，
+        内部会调用 reactive 进行深层转换。
+        访问：在 JavaScript 中需要通过 .value 来访问和修改其值；在模板中会自动“解包”，无需 .value。
 
-      ref：
-      作用：接收一个内部值（可以是原始值或对象），返回一个响应式的、可变的 ref 对象。该对象只有一个 .value 属性。
-      实现：即使传入的是原始值，ref 也会创建一个包装对象。这样，在 JavaScript 中，对 .value 的访问和修改就可以被拦截（通过自定义的 getter/setter，而非 Proxy）。如果传入的是对象，
-      内部会调用 reactive 进行深层转换。
-      访问：在 JavaScript 中需要通过 .value 来访问和修改其值；在模板中会自动“解包”，无需 .value。
-
-      区别与选择：
-      使用 reactive 处理对象或数组。
-      使用 ref 处理原始值，或在逻辑中需要用一个引用来持有某个值（可能在未来被整个替换）时。在组合式函数中返回响应式状态时，通常也使用 refs，以便在使用处能够解构而不丢失响应性。
+        区别与选择：
+        使用 reactive 处理对象或数组。
+        使用 ref 处理原始值，或在逻辑中需要用一个引用来持有某个值（可能在未来被整个替换）时。在组合式函数中返回响应式状态时，通常也使用 refs，以便在使用处能够解构而不丢失响应性。
 
       4 依赖收集与派发更新：详细描述 effect, track, trigger 函数在整个响应式系统中的工作流程。
-      答案：
-      这是 Vue 3 响应式系统的核心三部曲，对应 effect, track, trigger 三个函数。
-      effect (副作用)：任何会引起副作用的函数，例如组件的渲染函数、computed 的计算函数、用户的 watch 回调。Vue 会用 effect 函数包装它们，创建一个响应式副作用。当这个 effect 运行时，
-        Vue 会将其设置为“当前活跃的 effect”。
-      track (跟踪/依赖收集)：在响应式代理的 get track中调用。它建立了三层关系：
-      target -> key -> effect (依赖)
-      它用一个全局的 WeakMap 数据结构来记录：WeakMap&lt;target, Map&lt;key, Set&lt;effect&gt;&gt;&gt;。当读取 (get) 一个响应式对象的属性时，track 函数会找到当前活跃的 effect，
-      并将其添加到这个属性对应的依赖集合 (Set) 中。trigger (触发/派发更新)：在响应式代理的 set 或 deleteProperty 等track中调用。当修改 (set) 一个属性时，trigger 函数会根据 target 和 key，
-      去之前建立的 WeakMap 中找到这个属性对应的所有依赖 effect，然后依次执行这些 effect。如果是渲染函数的 effect，就会重新执行渲染函数，生成新的 VNode，进而进行 patch 更新 DOM。
+        答案：
+        这是 Vue 3 响应式系统的核心三部曲，对应 effect, track, trigger 三个函数。
+        effect (副作用)：任何会引起副作用的函数，例如组件的渲染函数、computed 的计算函数、用户的 watch 回调。Vue 会用 effect 函数包装它们，创建一个响应式副作用。当这个 effect 运行时，
+          Vue 会将其设置为“当前活跃的 effect”。
+        track (跟踪/依赖收集)：在响应式代理的 get track中调用。它建立了三层关系：
+        target -> key -> effect (依赖)
+        它用一个全局的 WeakMap 数据结构来记录：WeakMap&lt;target, Map&lt;key, Set&lt;effect&gt;&gt;&gt;。当读取 (get) 一个响应式对象的属性时，track 函数会找到当前活跃的 effect，
+        并将其添加到这个属性对应的依赖集合 (Set) 中。trigger (触发/派发更新)：在响应式代理的 set 或 deleteProperty 等track中调用。当修改 (set) 一个属性时，trigger 函数会根据 target 和 key，
+        去之前建立的 WeakMap 中找到这个属性对应的所有依赖 effect，然后依次执行这些 effect。如果是渲染函数的 effect，就会重新执行渲染函数，生成新的 VNode，进而进行 patch 更新 DOM。
 
       5 虚拟 DOM 与 Diff 算法：Vue 的虚拟 DOM 是什么？Vue 2 和 Vue 3 在 Diff 算法上分别做了哪些优化（Vue3 的 PatchFlags, staticHoisting, blockTree）？
       答案：

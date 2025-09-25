@@ -125,11 +125,6 @@ const routes = [
         component: () => import('@/views/menus3/objectAnal.vue')
       },
       {
-        path: 'regExp',
-        name: 'RegExp',
-        component: () => import('@/views/menus3/regExp.vue')
-      },
-      {
         path: 'testEvent',
         name: 'TestEvent',
         component: () => import('@/views/menus3/testEvent.vue')

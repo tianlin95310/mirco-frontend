@@ -111,6 +111,7 @@ pre {
 	line-height: 1.4;
 	overflow: auto;
 	font-size: 15px;
+	width: fit-content;
 }
 
 .highlight {
@@ -199,6 +200,10 @@ pre {
 			border-right: 1px solid gainsboro;
 			padding-right: 5px;
 			margin: -5px 0;
+			max-width: 160px;
 		}
+	}
+	> div {
+		margin-left: 10px;
 	}
 }

@@ -1,84 +1,114 @@
 <template>
   <div class="page-container">
-    <div>
-      <button class="button" @click="testStrOp">测试字符串split操作</button>
-      <button class="button" @click="strIndex">js字符串截取</button>
-      <button class="button" @click="strReplace" title="replaceAll不是全部浏览器支持">字符串替换</button>
-      <button class="button" @click="testStart">判断是以某段开头</button>
-      <button class="button" @click="testReg()">去点数字前面的0</button>
-      <button class="button" @click="testTeshu">判断是否包含特殊字符</button>
 
+    <div class="border-card">
+      <span>字符串处理</span>
+      <div>
+        <button class="button" @click="testStrOp">测试字符串split操作</button>
+        <button class="button" @click="strIndex">js字符串截取</button>
+        <button class="button" @click="strReplace" title="replaceAll不是全部浏览器支持">字符串替换</button>
+        <button class="button" @click="testStart">判断是以某段开头</button>
+        <button class="button" @click="testReg()">去点数字前面的0</button>
+        <button class="button" @click="testTeshu">判断是否包含特殊字符</button>
+      </div>
+    </div>
+
+    <div class="border-card">
+      <span>json字符串处理</span>
+      <div>
+        <button class="button" @click="JsonFormat">自定义son字符串格式化</button>
+        <button class="button" @click="jsEmptyToJson">js空串转json</button>
+      </div>
+    </div>
+
+    <div class="border-card">
+      <span>url处理</span>
+      <div>
+        <button class="button" @click="testUrlDecode">url转义</button>
+      </div>
+    </div>
+
+    <div class="border-card" style="display: inline-block;">
+      <span>JS除与取模</span>
+      <div>
+        <pre>
+          在js中 1/2 = {{ 1 / 2 }}
+          在js中 2/4 = {{ 2 / 4 }}
+          在js中 3/4 = {{ 3 / 4 }}
+          在js中 4/4 = {{ 4 / 4 }}
+          取余数1 % 3 = {{ 1 % 3 }}
+          取余数2 % 3 = {{ 2 % 3 }}
+          取余数3 % 3 = {{ 3 % 3 }}
+          取余数4 % 3 = {{ 4 % 3 }}
+          取余数5 % 3 = {{ 5 % 3 }}
+        </pre>
+      </div>
+    </div>
+
+    <group-card title="undefined与null以及特殊点" style="display: inline-block;">
+      <pre>
+        undefined + 1 = {{ undefined + 1 }}
+        1 + undefined = {{ 1 + undefined }}
+        null + 1 = {{ null + 1 }}
+        1 / 0 = {{ 1 / 0 }}
+        '123' + 123 = {{ "123" + 123 }}
+        0.1 + 0.2 = {{ 0.1 + 0.2 }}
+        0.1 + 0.7 = {{ 0.1 + 0.7 }}
+        +0 == -0 = {{ +0 == -0 }}
+        +0 === -0 = {{ +0 === -0 }}
+
+        +'123' = {{ +'123' }}
+        12345678912345671 === 12345678912345672 {{ 12345678912345671 === 12345678912345672 }}
+        12345678912345671 == 12345678912345672 {{ 12345678912345671 == 12345678912345672 }}
+        '1' == 1 = {{ '1' == 1 }}
+        ' ' == '' = {{ ' ' == '' }}
+        ' ' == 0 = {{ ' ' == 0 }}
+        'x' == 0 = {{ 'x' == 0 }}
+        true == 0 = {{ true == 0 }}
+        false == 0 = {{ false == 0 }}
+      </pre>
+    </group-card>
+
+    <group-card title="||与&&运算符" style="display: inline-block;">
+      <pre>
+        <span>||与()</span>
+        <span>||运算 undefined || 1 - undefined || 2 = {{ undefined || 1 - undefined || 2 }}</span>
+        <span>||运算 (undefined || 1) - (undefined || 2) = {{ (undefined || 1) - (undefined || 2) }}</span>
+        undefined && 1 = {{ undefined && 1 }}
+        1 && 2 = {{ 1 && 2 }}
+      </pre>
+    </group-card>
+
+    <group-card title="特殊值进行比较" style="display: inline-block;">
+      <pre>
+        浮点数与0 0.00 == 0 = {{ 0.0 == 0 }}
+        浮点数与0 0.000 === 0 = {{ 0.0 === 0 }}
+        <span class="highlight">undefined == null =  {{ undefined == null }}</span>
+        undefined === null = {{ undefined === null }}
+        <span>null == NaN = {{ null == NaN }}</span>
+        null === NaN = {{ null === NaN }}
+        undefined == NaN = {{ undefined == NaN }}
+        undefined === NaN = {{ undefined === NaN }}
+        <span class="highlight">NaN == NaN = {{ NaN == NaN }}</span>
+        <span class="highlight">NaN === NaN = {{ NaN === NaN }}</span>
+        Infinity == Infinity = {{ Infinity == Infinity }}
+        Infinity === Infinity = {{ Infinity === Infinity }}
+      </pre>
+    </group-card>
+
+    <group-card title="千分位处理" style="display: inline-block;">
+      <pre>
+        千分位展示数据 123 = {{ numberFormat(123, 2, ".", ",") }}
+        千分位展示数据 123.45 = {{ numberFormat(123.45, 2, ".", ",") }}
+        千分位展示数据 1123.45 = {{ numberFormat(1123.45, 2, ".", ",") }}
+        千分位展示数据 112133.4567 = {{ numberFormat(112133.4567, 2, ".", ",") }}
+      </pre>
+    </group-card>
+
+    <div>
       <span class="tag" style="margin-left: 16px;" @click="random">{{ number }}</span>
-      <button class="button" @click="JsonFormat">自定义son字符串格式化</button>
       <button class="button" @click="trycatch">测试catch里返回数据</button>
     </div>
-    <div>
-      <button class="button" @click="jsEmptyToJson">js空串转json</button>
-      <button class="button" @click="testUrlDecode">url转义</button>
-    </div>
-
-    <pre>
-      千分位展示数据 123 = {{ numberFormat(123, 2, ".", ",") }}
-      千分位展示数据 123.45 = {{ numberFormat(123.45, 2, ".", ",") }}
-      千分位展示数据 1123.45 = {{ numberFormat(1123.45, 2, ".", ",") }}
-      千分位展示数据 112133.4567 = {{ numberFormat(112133.4567, 2, ".", ",") }}
-    </pre>
-    <pre>
-      在js中 1/2 = {{ 1 / 2 }}
-      在js中 2/4 = {{ 2 / 4 }}
-      在js中 3/4 = {{ 3 / 4 }}
-      在js中 4/4 = {{ 4 / 4 }}
-      取余数1 % 3 = {{ 1 % 3 }}
-      取余数2 % 3 = {{ 2 % 3 }}
-      取余数3 % 3 = {{ 3 % 3 }}
-      取余数4 % 3 = {{ 4 % 3 }}
-      取余数5 % 3 = {{ 5 % 3 }}
-    </pre>
-    <pre>
-      undefined + 1 = {{ undefined + 1 }}
-      1 + undefined = {{ 1 + undefined }}
-      null + 1 = {{ null + 1 }}
-      1 / 0 = {{ 1 / 0 }}
-      '123' + 123 = {{ "123" + 123 }}
-      0.1 + 0.2 = {{ 0.1 + 0.2 }}
-      0.1 + 0.7 = {{ 0.1 + 0.7 }}
-      +0 == -0 = {{ +0 == -0 }}
-      +0 === -0 = {{ +0 === -0 }}
-
-      +'123' = {{ +'123' }}
-      12345678912345671 === 12345678912345672 {{ 12345678912345671 === 12345678912345672 }}
-      12345678912345671 == 12345678912345672 {{ 12345678912345671 == 12345678912345672 }}
-      '1' == 1 = {{ '1' == 1 }}
-      ' ' == '' = {{ ' ' == '' }}
-      ' ' == 0 = {{ ' ' == 0 }}
-      'x' == 0 = {{ 'x' == 0 }}
-      true == 0 = {{ true == 0 }}
-      false == 0 = {{ false == 0 }}
-    </pre>
-    <pre>
-      <span>||与()</span>
-      <span>||运算 undefined || 1 - undefined || 2 = {{ undefined || 1 - undefined || 2 }}</span>
-      <span>||运算 (undefined || 1) - (undefined || 2) = {{ (undefined || 1) - (undefined || 2) }}</span>
-      undefined && 1 = {{ undefined && 1 }}
-      1 && 2 = {{ 1 && 2 }}
-
-    </pre>
-    <pre>
-      浮点数与0 0.00 == 0 = {{ 0.0 == 0 }}
-      浮点数与0 0.000 === 0 = {{ 0.0 === 0 }}
-      <span class="highlight">undefined == null =  {{ undefined == null }}</span>
-      undefined === null = {{ undefined === null }}
-      <span>null == NaN = {{ null == NaN }}</span>
-      null === NaN = {{ null === NaN }}
-      undefined == NaN = {{ undefined == NaN }}
-      undefined === NaN = {{ undefined === NaN }}
-      <span class="highlight">NaN == NaN = {{ NaN == NaN }}</span>
-      <span class="highlight">NaN === NaN = {{ NaN === NaN }}</span>
-     
-      Infinity == Infinity = {{ Infinity == Infinity }}
-      Infinity === Infinity = {{ Infinity === Infinity }}
-     </pre>
-
 
   </div>
 </template>
@@ -189,7 +219,5 @@ random()
 
 </script>
 <style scoped="scope">
-div>div {
-  margin-top: 10px;
-}
+div>div {}
 </style>

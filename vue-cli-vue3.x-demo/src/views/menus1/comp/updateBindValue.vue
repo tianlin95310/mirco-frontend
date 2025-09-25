@@ -26,6 +26,5 @@
 </script>
 <style>
 .update-bind-value {
-  border: 1px solid saddlebrown;
 }
 </style>

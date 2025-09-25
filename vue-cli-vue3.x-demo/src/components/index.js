@@ -3,7 +3,7 @@ import ALink from './Link/ALink.vue'
 import BaseWidget from './Interaction/BaseWidget.vue'
 import Sender from './Interaction/Sender.vue'
 import Receiver from './Interaction/Receiver.vue'
-
+import GroupCard from './GroupCard'
 export default {
   install(Vue) {
     console.log('install Component', RLink, Sender)
@@ -12,5 +12,6 @@ export default {
     Vue.component(BaseWidget.__name, BaseWidget)
     Vue.component(Sender.name, Sender)
     Vue.component(Receiver.name, Receiver)
+    Vue.component('GroupCard', GroupCard)
   }
 }

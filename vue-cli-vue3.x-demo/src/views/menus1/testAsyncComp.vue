@@ -75,7 +75,8 @@ import AsyncComponentContainer from "./asyncComponent/asyncComponentContainer.vu
 import ContentAsync from "./asyncComponent/content-async.vue";
 import ContentSync from "./asyncComponent/content-sync.vue";
 
-// defineAsyncComponent返回一个sync组件，加载逻辑只会执行一次，加载完毕之后会立即渲染
+// defineAsyncComponent返回一个sync组件，加载逻辑只会执行一次，加载完毕之后就会立即渲染
+
 // Suspense的逻辑则是每一次都会执行，所以刷新和重新进入这个界面的逻辑时不一样的
 const AsyncCompSynContent = defineAsyncComponent({
   loader: () =>

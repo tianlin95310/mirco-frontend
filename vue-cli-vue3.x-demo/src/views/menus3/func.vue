@@ -22,9 +22,10 @@
     <div class="border-card">
       <span>原型与原型链</span>
       <div>
-        <button class="button" @click="objectProto">Object的原型</button>
-        <button class="button" @click="objectProtoConst">对象的原型对象</button>
-        <button class="button" @click="funProto">函数的原型</button>
+        <button class="button" @click="objectProtoConst">普通对象的原型链</button>
+        <button class="button" @click="ObjectProto">Object的原型链</button>
+        <button class="button" @click="FunctionProto">Function原型链</button>
+        <button class="button" @click="funAndObj">Function和Object</button>
       </div>
     </div>
 
@@ -184,41 +185,48 @@ export default {
       console.log('funa,funb,func,fund,fune,funf,objg = ', typeof funa, typeof funb, typeof func, typeof fund, typeof fune, typeof funf, typeof objg)
       console.log('funa,funb,func,fund,fune,funf,objg = ', funa(), funb(), func, fund, fune, funf, objg)
     },
-    funProto() {
-      console.log(Date)
-      // 函数对象求原型对象是一个函数
-      console.log(Object.getPrototypeOf(Date), Date.__proto__)
+    funAndObj() {
+      // Object是对象的构造函数,故也是函数
+      console.log('Object instanceof Function', Object instanceof Function)
+      // 函Object是函数的实例[特殊点1]
+      console.log('Object.__proto__ === Function.prototype', Object.__proto__ === Function.prototype)
+      // 函Object是函数的实例[特殊点1]
+      console.log('Object.__proto__.__proto__ === Object.prototype', Object.__proto__.__proto__ === Object.prototype)
+
+      // 函数是Object的实例,Object和Function互为实例
+      console.log('Function instanceof Object', Function instanceof Object)
+      // 函数也是自己的实例,Function.__proto__指向Function.prototype[特殊点2]
+      console.log('Function.__proto__ === Function.prototype', Function.__proto__ === Function.prototype)
+      // Function.prototype原型对象是Object.prototype,也就是Function.__proto__.__proto__是Object.prototype
+      console.log('Function.__proto__.__proto__ === Object.prototype', Function.__proto__.__proto__ === Object.prototype)
+    },
+    FunctionProto() {
       // 函数的原型对象包含constructor和原型对象的原型对象的引用
-      console.log(Date.prototype)
-      // 函数的原型对象的原型对象是Object的原型对象
-      console.log(Date.prototype.__proto__)
-      let Afun = () => {
-        this.age = 10
-      }
-      debugger
-      console.log(new Afun())
-      console.log(Afun.prototype)
+      console.log('Date', Date, Date.prototype)
+      // 函数既有prototype[用于继承]也有原型对象,普通函数.__proto__也是直接指到Function.prototype
+      console.log('Date.__proto__ === Function.prototype', Date.__proto__ === Function.prototype)
+      console.log('Date.__proto__.__proto__ === Object.prototype', Date.__proto__.__proto__ === Object.prototype)
+      console.log('Date.__proto__.__proto__.__proto__ === null', Date.__proto__.__proto__.__proto__ === null)
+    },
+    ObjectProto() {
+      let obj = {}
+      console.log('Object.getPrototypeOf(obj) === obj.__proto__', Object.getPrototypeOf(obj) === obj.__proto__)
+      console.log('Object.prototype === obj.__proto__', Object.prototype === obj.__proto__)
+      console.log('obj.__proto__.__proto__', obj.__proto__.__proto__)
     },
     objectProtoConst() {
       let date = new Date()
       console.log(date)
-      // getPrototypeOf与__proto__等价，部分浏览器无__proto__
-      console.log('Object.getPrototypeOf(date) === date.__proto__', Object.getPrototypeOf(date) === date.__proto__)
       // 对象的原型就是构造函数的原型
       console.log('date.__proto__ === Date.prototype', date.__proto__ === Date.prototype)
       // 对象的原型对象的原型对象等于父类构造函数的原型对象
       console.log('date.__proto__.__proto__ === Object.prototype', date.__proto__.__proto__ === Object.prototype)
-      // 对象的原型对象的构造函数是对象的构造函数
+      // 原型链一直找到Object.prototype的.__proto__
+      console.log('date.__proto__.__proto__.__proto__ === null', date.__proto__.__proto__.__proto__ === null)
+
+      // 对象的构造函数等于对象的原型对象的构造函数，普通对象只有__proto__没有prototype
       console.log('date.constructor === Date.prototype.constructor', date.constructor === Date.prototype.constructor)
-      console.log('普通对象有__proto__原型对象', date.__proto__)
-      // 普通对象没有prototype属性
-      console.log('普通对象无prototype，只有构造函数对象才有', date.prototype)
-    },
-    objectProto() {
-      let obj = {}
-      let o_proto = Object.getPrototypeOf(obj)
-      let o_proto_proto = Object.getPrototypeOf(o_proto)
-      console.log('objectProto', obj, o_proto, o_proto_proto)
+      console.log('普通对象有__proto__原型对象,无prototype属性', date.__proto__, date.prototype)
     },
     combineExtends() {
       function Father(age) {

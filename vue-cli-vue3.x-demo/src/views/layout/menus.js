@@ -91,10 +91,6 @@ export const MENUS = [
       isOpen: false,
       path: '/menu3/objectAnal'
     }, {
-      menuTitle: '正则表达式',
-      isOpen: false,
-      path: '/menu3/regExp'
-    }, {
       menuTitle: 'JS的事件传递机制',
       isOpen: false,
       path: '/menu3/testEvent'
