@@ -107,7 +107,6 @@
 
     <div>
       <span class="tag" style="margin-left: 16px;" @click="random">{{ number }}</span>
-      <button class="button" @click="trycatch">测试catch里返回数据</button>
     </div>
 
   </div>
@@ -174,18 +173,7 @@ const testStrOp = () => {
   console.log("---拆分后的长度---" + str.split("_").length);
 }
 const methods = {
-  async testtrycatchretrun() {
-    try {
-      throw Error(123)
-      // return [1, 2, 3]
-    } catch (err) {
-      return ['a', 'b', 'c']
-    }
-  },
-  async trycatch() {
-    const res = await methods.testtrycatchretrun()
-    console.log('res', res)
-  },
+  
   JsonFormat() {
     const value = {
       v1: undefined,
@@ -212,7 +200,7 @@ const methods = {
   }
 }
 
-const { trycatch, JsonFormat, random } = methods
+const { JsonFormat, random } = methods
 const number = ref(0)
 const value = computed(() => 1 / 2)
 random()

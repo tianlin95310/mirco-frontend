@@ -1,19 +1,22 @@
 <template>
   <div class="bom-about page-container">
     <button class="button primary">测试定时器{{ timer }}</button>
-    <iframe src="http://localhost:9527/app3/pukegame1" class="frame1" resize></iframe>
-    <!-- iframe也是存在跨域问题的 -->
-    <iframe src="https://www.baidu.com/" class="frame1"></iframe>
+    <group-card title="同域名" inline>
+      <iframe src="http://localhost:9527/app3/pukegame1" class="frame1" resize></iframe>
+    </group-card>
 
-    <div class="card">
-      <h2>错误日志</h2>
+    <group-card title="不同域名" inline>
+      <!-- iframe也是存在跨域问题的 -->
+      <iframe src="https://www.baidu.com/" class="frame1"></iframe>
+    </group-card>
+
+    <group-card title="错误日志" inline>
       <button class="button" @click="createError1">产生异常1</button>
       <button class="button" @click="createError2">产生异常2</button>
       <button class="button" @click="createError3">产生异常3</button>
-    </div>
+    </group-card>
 
-    <div class="card">
-      <h2>html内置对象以及属性</h2>
+    <group-card title="html内置对象以及属性" inline>
       <div>location.origin = {{ locationOrigin() }}</div>
       <div>location.port = {{ location.port }}</div>
       <div>location.href = {{ location.href }}</div>
@@ -25,7 +28,7 @@
         <button class="button" @click="prePage(false)">上一个</button>
         <button class="button" @click="prePage">下一个</button>
       </div>
-    </div>
+    </group-card>
   </div>
 </template>
 
@@ -110,7 +113,7 @@ const createError3 = () => {
 
 <style>
 .bom-about {
-  background-color: blueviolet;
+  background-color: white;
 }
 
 .frame1 {

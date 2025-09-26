@@ -74,7 +74,7 @@ function customCompareASC(propertyName) {
 
 const stringAndString = () => {
   let index = 1
-  console.log(toString("1"), '1'.toString(), index.toString());
+  console.log(toString(), '1'.toString(), index.toString());
   console.log(
     String("1") === '1',
     String("1") == '1',

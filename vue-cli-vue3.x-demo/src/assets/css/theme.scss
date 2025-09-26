@@ -195,15 +195,20 @@ pre {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: flex-start;
+	vertical-align: top;
 	> span {
 		&:first-child {
 			border-right: 1px solid gainsboro;
 			padding-right: 5px;
 			margin: -5px 0;
-			max-width: 160px;
+			max-width: 180px;
 		}
 	}
 	> div {
 		margin-left: 10px;
+		max-height: 500px;
+		overflow-y: auto;
+		max-width: 550px;
 	}
 }

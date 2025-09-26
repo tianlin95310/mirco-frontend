@@ -1,53 +1,42 @@
 <template>
   <div class="page-container">
-    <div class="border-card">
-      <span>...运算符的用法</span>
-      <div>
-        <button class="button" @click="test1">解析数组，类似于可变数组</button>
-        <button class="button" @click="test2">作为形参传递，数组类型参数</button>
-        <button class="button" @click="testKeiban">数组传递到可变参数</button>
-        <button class="button" @click="test3">取对象key对应的值 并直接初始化给变量</button>
-        <button class="button" @click="test4">作为数组可变参数传递，解析字符串成数组</button>
-      </div>
-    </div>
+    <group-card title="...运算符的用法">
+      <button class="button" @click="test1">解析数组，类似于可变数组</button>
+      <button class="button" @click="test2">作为形参传递，数组类型参数</button>
+      <button class="button" @click="testKeiban">数组传递到可变参数</button>
+      <button class="button" @click="test3">取对象key对应的值 并直接初始化给变量</button>
+      <button class="button" @click="test4">作为数组可变参数传递，解析字符串成数组</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>对象克隆</span>
-      <div>
-        <button class="button" @click="test6">
-          多层对象的克隆（复杂对象，无法克隆）
-        </button>
-        <button class="button" @click="test5">单层对象的克隆（简单对象）</button>
-        <button class="button" @click="deepclone">手动实现深克隆</button>
-      </div>
-    </div>
+    <group-card title="对象克隆">
+      <button class="button" @click="test6">
+        多层对象的克隆（复杂对象，无法克隆）
+      </button>
+      <button class="button" @click="test5">单层对象的克隆（简单对象）</button>
+      <button class="button" @click="deepclone">手动实现深克隆</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>运算符与方法</span>
-      <div>
-        <button class="button" @click="newKeyWord">新的运算符...， ?., ??</button>
+    <group-card title="运算符与方法">
+      <button class="button" @click="newKeyWord">新的运算符...， ?., ??</button>
 
-        <button class="button" @click="inAndis">in, Object.is(),</button>
+      <button class="button" @click="inAndis">in, Object.is(),</button>
 
-        <button class="button" @click="var_let">var与let的区别</button>
+      <button class="button" @click="var_let">var与let的区别</button>
 
-        <button class="button" @click="var_let_value">var和闭包</button>
-      </div>
-    </div>
+      <button class="button" @click="var_let_value">var和闭包</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>闭包</span>
-      <div>
-        <button class="button" @click="closure">闭包closure</button>
-      </div>
-    </div>
+    <group-card title="闭包">
+      <button class="button" @click="closure">闭包closure</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>最新特性</span>
-      <div>
-        <button class="button" @click="groupBy">Object.groupBy</button>
-      </div>
-    </div>
+    <group-card title="trycatch">
+      <button class="button" @click="trycatch">测试catch里返回数据</button>
+    </group-card>
+
+    <group-card title="最新特性">
+      <button class="button" @click="groupBy">Object.groupBy</button>
+    </group-card>
 
   </div>
 </template>
@@ -62,7 +51,7 @@ export default {
   },
   methods: {
     groupBy() {
-      const a = [{g: 1, b: 'b'}, {g: 2, b: 'd'}, {g: 1}, {g: 3}]
+      const a = [{ g: 1, b: 'b' }, { g: 2, b: 'd' }, { g: 1 }, { g: 3 }]
       const group = Object.groupBy(a, ({ g }) => g)
       console.log('group', group)
     },
@@ -262,7 +251,19 @@ export default {
       const [a, ...b] = [1, 2, 3, 4];
       console.log(a, b);
       // 后面的2,3,4会被解析成数组b
-    }
+    },
+    async testtrycatchretrun() {
+      try {
+        throw Error(123)
+        // return [1, 2, 3]
+      } catch (err) {
+        return ['a', 'b', 'c']
+      }
+    },
+    async trycatch() {
+      const res = await methods.testtrycatchretrun()
+      console.log('res', res)
+    },
   }
 };
 </script>

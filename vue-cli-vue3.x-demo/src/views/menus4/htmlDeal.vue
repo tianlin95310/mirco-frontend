@@ -1,7 +1,6 @@
 <template>
   <div class="html-deal page-container">
-    <div class="border-card">
-      <span>判断是否为纯数字，最多两位小数(n.2)</span>
+    <group-card title="判断是否为纯数字，最多两位小数(n.2)" style="display: inline-block;">
       <div>
         <div>
           <div>原值</div>
@@ -48,25 +47,19 @@
         </div>
         <button @click="show" class="button">展示实际值</button>
       </div>
-    </div>
+    </group-card>
 
-    <div class="border-card">
-      <span>js如何准确的四舍五入保留2位小数</span>
-      <div>
-        <pre>
-  function roundToTwo(num) {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-  }
-        </pre>
-      </div>
-    </div>
+    <group-card title="js如何准确的四舍五入保留2位小数" inline>
+      <pre>
+        function roundToTwo(num) {
+          return Math.round((num + Number.EPSILON) * 100) / 100;
+        }
+      </pre>
+    </group-card>
 
-    <div class="border-card">
-      <span>判断是否为纯数字，最多两位小数(n.2)</span>
-      <div>
-        <input v-model="v1" /> {{ decimal }}
-      </div>
-    </div>
+    <group-card title="判断是否为纯数字，最多两位小数(n.2)" inline>
+      <input v-model="v1" /> {{ decimal }}
+    </group-card>
 
   </div>
 
