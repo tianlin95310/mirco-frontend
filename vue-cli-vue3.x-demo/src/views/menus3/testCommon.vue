@@ -1,6 +1,5 @@
 <template>
   <div class="page-container">
-    <h2>测试js中的数据和Map(控制台查看)</h2>
     <div class="border-card">
       <span>Object的用法</span>
       <div>

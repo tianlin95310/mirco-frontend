@@ -11,8 +11,8 @@
           1，生成block tree，vue2的动态刷新是以组件为单位的，组件越大，速度越慢，vue3中组件的刷新只和动态模板的数量有关
           2，slot优化，vue2中父组件的刷新会导致slot刷新，vue3中非动态的slot不会刷新
           3，diff算法优化
-          4，静态提升，组件复用，对不参与更新的元素，只会被创建一次，之后会在每次渲染时候被不停的复用。
-          5，事件侦听器缓存
+          4，静态标记，静态提升，组件复用，对不参与更新的元素，只会被创建一次，之后会在每次渲染时候被不停的复用。
+          5，事件侦听器缓存，内联事件处理函数缓存
         3，v-if和v-show
           v-if控制是否在文档上，v-show控制display属性
         4，vue2的.sync修饰符
@@ -64,87 +64,88 @@
         去之前建立的 WeakMap 中找到这个属性对应的所有依赖 effect，然后依次执行这些 effect。如果是渲染函数的 effect，就会重新执行渲染函数，生成新的 VNode，进而进行 patch 更新 DOM。
 
       5 虚拟 DOM 与 Diff 算法：Vue 的虚拟 DOM 是什么？Vue 2 和 Vue 3 在 Diff 算法上分别做了哪些优化（Vue3 的 PatchFlags, staticHoisting, blockTree）？
-      答案：
-      虚拟 DOM (Virtual DOM)：它是一个用 JavaScript 对象（VNode）来描述真实 DOM 结构和属性的树状结构。它的优势在于：
-      抽象：为渲染过程提供了抽象层，使得 Vue 可以渲染到非 DOM 环境（如 SSR, Weex, Canvas）。
-      性能：直接操作 DOM 成本高昂。通过对比新旧 VNode，可以计算出最少需要更新的 DOM 操作，然后批量执行，提高性能。
-      Diff 算法 (差异化算法)：当组件更新时，会生成新的 VNode 树，与旧的 VNode 树进行对比（diff），找出差异。
-      Vue 2 的 Diff：是标准的“双端比较”算法。同时从新旧孩子的头尾两端开始比较，试图复用节点。时间复杂度 O(n)。
-      Vue 3 的优化：
-      Patch Flags (静态标记)：在编译阶段，Vue 会分析模板并给动态节点（绑定了响应式数据的节点）打上不同的标记（如 TEXT, CLASS, PROPS）。在运行时，Diff 算法可以直接根据这些标记知道该
-      节点哪些地方需要更新，无需全量对比，极大提升了 Diff 效率。
-      静态提升 (Static Hoisting)：模板中的静态节点或静态属性会被提升到渲染函数之外，只在应用初始化时创建一次。后续更新时直接复用，无需重新创建 VNode 和进行 Diff。
-      Block Tree (区块树)：Vue 3 将模板划分为“动态区块”。一个区块（Block）是一个内部有动态节点的父节点。Diff 时，Vue 会跳过静态的父节点，直接对比动态区块，减少了需要对比的节点数量。
+        答案：
+        虚拟 DOM (Virtual DOM)：它是一个用 JavaScript 对象（VNode）来描述真实 DOM 结构和属性的树状结构。它的优势在于：
+        抽象：为渲染过程提供了抽象层，使得 Vue 可以渲染到非 DOM 环境（如 SSR, Weex, Canvas）。
+        性能：直接操作 DOM 成本高昂。通过对比新旧 VNode，可以计算出最少需要更新的 DOM 操作，然后批量执行，提高性能。
+        Diff 算法 (差异化算法)：当组件更新时，会生成新的 VNode 树，与旧的 VNode 树进行对比（diff），找出差异。
+        Vue 2 的 Diff：是标准的“双端比较”算法。同时从新旧孩子的头尾两端开始比较，试图复用节点。时间复杂度 O(n)。
+        Vue 3 的优化：
+        Patch Flags (静态标记)：在编译阶段，Vue 会分析模板并给动态节点（绑定了响应式数据的节点）打上不同的标记（如 TEXT, CLASS, PROPS）。在运行时，Diff 算法可以直接根据这些标记知道该
+        节点哪些地方需要更新，无需全量对比，极大提升了 Diff 效率。
+        静态提升 (Static Hoisting)：模板中的静态节点或静态属性会被提升到渲染函数之外，只在应用初始化时创建一次。后续更新时直接复用，无需重新创建 VNode 和进行 Diff。
+        Block Tree (区块树)：Vue 3 将模板划分为“动态区块”。一个区块（Block）是一个内部有动态节点的父节点。Diff 时，Vue 会跳过静态的父节点，直接对比动态区块，减少了需要对比的节点数量。
 
       6 模板编译：描述 .vue 文件中的 template 是如何被编译成 render 函数的。
-      答案：
-      Vue 的模板编译是一个将 .vue 文件中的 template 或模板字符串转换为 JavaScript 渲染函数 (render function) 的过程。它主要分为三个步骤：
-      解析 (Parse)：使用一个解析器（包含 HTML、CSS 选择器等规则）将模板字符串解析成一个抽象语法树 (AST)。AST 是模板的 JavaScript 对象表示，描述了标签、属性、指令、文本等节点信息。
-      转换 (Transform)：对 AST 进行深度遍历和修改。这是进行优化的关键阶段。例如：
-      静态节点提升：标记出纯静态的节点和子树。
-      Patch Flags 标记：给动态节点打上优化的标记。
-      处理指令（如 v-if, v-for），将其转换为对应的 JavaScript 逻辑。
-      生成 (Code Generation)：将优化后的 AST 递归地拼接成字符串代码，最终生成一个 render 函数。这个 render 函数执行后会返回一个 VNode 树。例如，msg 会被编译成类似
-       _createVNode("div", null, _toDisplayString(_ctx.msg)) 的代码。
+        答案：
+        Vue 的模板编译是一个将 .vue 文件中的 template 或模板字符串转换为 JavaScript 渲染函数 (render function) 的过程。它主要分为三个步骤：
+        解析 (Parse)：使用一个解析器（包含 HTML、CSS 选择器等规则）将模板字符串解析成一个抽象语法树 (AST)。AST 是模板的 JavaScript 对象表示，描述了标签、属性、指令、文本等节点信息。
+        转换 (Transform)：对 AST 进行深度遍历和修改。这是进行优化的关键阶段。例如：
+        静态节点提升：标记出纯静态的节点和子树。
+        Patch Flags 标记：给动态节点打上优化的标记。
+        处理指令（如 v-if, v-for），将其转换为对应的 JavaScript 逻辑。
+        生成 (Code Generation)：将优化后的 AST 递归地拼接成字符串代码，最终生成一个 render 函数。这个 render 函数执行后会返回一个 VNode 树。例如，msg 会被编译成类似
+        _createVNode("div", null, _toDisplayString(_ctx.msg)) 的代码。
 
       7 NextTick 原理：作用是什么？其内部实现机制是怎样的（优先使用微任务 Promise.then）？
-      答案：
-      作用：nextTick 是一个用于延迟执行回调函数的工具方法。它的核心应用场景是：在下一次 DOM 更新循环结束之后执行延迟回调。在修改了响应式数据后，DOM 并不会立即更新，而是异步地执行更新。
-      此时如果立即访问 DOM，得到的是旧的状态。使用 nextTick 可以确保在 DOM 更新完成后才执行回调，从而访问到最新的 DOM。
-      实现原理：Vue 内部维护了一个回调队列。当调用 nextTick(callback) 时，Vue 并不会立即执行 callback，而是将其推入这个队列。然后，它尝试用一个异步延迟函数去清空并执行这个队列中的所有回调。
-      优先级：Vue 会优先使用微任务 (MicroTask) 来实现这个异步延迟（如 Promise.then, MutationObserver），如果环境不支持则降级为宏任务 (MacroTask)（如 setImmediate, setTimeout）。
-      与更新的关系：组件的异步更新也是通过这个队列机制实现的。数据变化触发的 effect（渲染 watcher）会被推入一个队列，并通过 nextTick 的异步机制进行批处理更新。因此，在数据变化后立即
-      调用 nextTick，其回调会在所有组件的 DOM 更新完成后被执行。
+        答案：
+        作用：nextTick 是一个用于延迟执行回调函数的工具方法。它的核心应用场景是：在下一次 DOM 更新循环结束之后执行延迟回调。在修改了响应式数据后，DOM 并不会立即更新，而是异步地执行更新。
+        此时如果立即访问 DOM，得到的是旧的状态。使用 nextTick 可以确保在 DOM 更新完成后才执行回调，从而访问到最新的 DOM。
+        实现原理：Vue 内部维护了一个回调队列。当调用 nextTick(callback) 时，Vue 并不会立即执行 callback，而是将其推入这个队列。然后，它尝试用一个异步延迟函数去清空并执行这个队列中的所有回调。
+        优先级：Vue 会优先使用微任务 (MicroTask) 来实现这个异步延迟（如 Promise.then, MutationObserver），如果环境不支持则降级为宏任务 (MacroTask)（如 setImmediate, setTimeout）。
+        与更新的关系：组件的异步更新也是通过这个队列机制实现的。数据变化触发的 effect（渲染 watcher）会被推入一个队列，并通过 nextTick 的异步机制进行批处理更新。因此，在数据变化后立即
+        调用 nextTick，其回调会在所有组件的 DOM 更新完成后被执行。
 
       8 Computed 实现原理：阐述其惰性求值和缓存机制是如何实现的。
-      答案：
-      computed 的本质是一个惰性的、具有缓存机制的响应式副作用。
-      惰性求值：computed 返回的是一个 ref 对象。只有在其他 effect（如渲染函数）读取这个 ref 的 .value 时，它的计算函数才会首次运行。
-      依赖收集：计算函数运行时，会读取它所依赖的响应式数据。这会触发这些数据的 get track，从而将当前这个计算属性的 effect 收集为依赖。
-      缓存机制：计算函数执行完毕后，其结果会被缓存起来，并标记为“脏 (dirty)”状态为 false。后续多次访问 .value，只要其依赖的数据没有变化（“脏”状态仍为 false），
-      就会直接返回缓存的结果，而不会重新计算，性能极高。
-      重新计算：当计算属性所依赖的响应式数据发生变化时，会触发 set track。这会通知计算属性的 effect：标记自身为“脏” (dirty = true)，但不会立即重新计算。只有当下一次
-      有 effect（如渲染函数）再次读取这个计算属性的 .value 时，发现它是“脏”的，才会重新执行计算函数，更新缓存的值并返回。
+        答案：
+        computed 的本质是一个惰性的、具有缓存机制的响应式副作用。
+        惰性求值：computed 返回的是一个 ref 对象。只有在其他 effect（如渲染函数）读取这个 ref 的 .value 时，它的计算函数才会首次运行。
+        依赖收集：计算函数运行时，会读取它所依赖的响应式数据。这会触发这些数据的 get track，从而将当前这个计算属性的 effect 收集为依赖。
+        缓存机制：计算函数执行完毕后，其结果会被缓存起来，并标记为“脏 (dirty)”状态为 false。后续多次访问 .value，只要其依赖的数据没有变化（“脏”状态仍为 false），
+        就会直接返回缓存的结果，而不会重新计算，性能极高。
+        重新计算：当计算属性所依赖的响应式数据发生变化时，会触发 set track。这会通知计算属性的 effect：标记自身为“脏” (dirty = true)，但不会立即重新计算。只有当下一次
+        有 effect（如渲染函数）再次读取这个计算属性的 .value 时，发现它是“脏”的，才会重新执行计算函数，更新缓存的值并返回。
 
       9 Watch 实现原理：阐述其如何监听响应式数据的变化，并说明 deep 和 flush 选项的原理。
-      答案：
-      watch 的本质是监听一个或多个响应式数据源，并在其变化时执行用户提供的回调函数。
-      创建 getter：Vue 会根据你传入的监听源（一个 ref、一个 reactive 对象、一个 getter 函数、或一个数组），创建一个用于“获取值”的 getter 函数。
-      创建 effect：Vue 会用一个 effect 来包裹这个 getter 函数，并配置调度器 (scheduler)。这个 effect 会立即执行一次，运行 getter 函数来获取初始值，并在这个过程中收集依赖。
-      触发回调：
-      当监听源发生变化时，会触发这个 effect 的重新执行（即再次运行 getter 函数获取新值）。
-      但是，effect 的重新执行并不会直接调用用户的回调，而是会触发其配置的调度器函数 (scheduler)。
-      在调度器中，Vue 会拿到新值 (newValue) 和旧值 (oldValue)，然后异步地（默认情况下）执行用户传入的回调函数，并将新、旧值作为参数传入。
-      flush 选项：flush: 'post' 等选项控制了调度器执行的时机。例如，'post' 会让回调被推进一个队列，并通过 nextTick 延迟执行，确保在 DOM 更新后触发。
-      deep 选项：当 deep: true 时，Vue 会递归地遍历监听源的所有嵌套属性，并对每一个属性都进行依赖收集。这样，任何嵌套属性的变化都会触发回调。
+        答案：
+        watch 的本质是监听一个或多个响应式数据源，并在其变化时执行用户提供的回调函数。
+        创建 getter：Vue 会根据你传入的监听源（一个 ref、一个 reactive 对象、一个 getter 函数、或一个数组），创建一个用于“获取值”的 getter 函数。
+        创建 effect：Vue 会用一个 effect 来包裹这个 getter 函数，并配置调度器 (scheduler)。这个 effect 会立即执行一次，运行 getter 函数来获取初始值，并在这个过程中收集依赖。
+        触发回调：
+        当监听源发生变化时，会触发这个 effect 的重新执行（即再次运行 getter 函数获取新值）。
+        但是，effect 的重新执行并不会直接调用用户的回调，而是会触发其配置的调度器函数 (scheduler)。
+        在调度器中，Vue 会拿到新值 (newValue) 和旧值 (oldValue)，然后异步地（默认情况下）执行用户传入的回调函数，并将新、旧值作为参数传入。
+        flush 选项：flush: 'post' 等选项控制了调度器执行的时机。例如，'post' 会让回调被推进一个队列，并通过 nextTick 延迟执行，确保在 DOM 更新后触发。
+        deep 选项：当 deep: true 时，Vue 会递归地遍历监听源的所有嵌套属性，并对每一个属性都进行依赖收集。这样，任何嵌套属性的变化都会触发回调。
 
       10 生命周期：详细说明 Vue 2 和 Vue 3 (Composition API) 的生命周期钩子，以及每个钩子的适用场景。
+        答案：vue3少了beforeCreated和created钩子，destroy勾子改名为unmounted，狗子名改为on开头，实际通畅不这样命令，属于是反过来的
 
       11 组件渲染流程：描述一个组件从 new Vue() 开始到挂载到页面的完整过程。
-      答案：
-      从 new Vue() 或 createApp() 开始：
-      初始化 & 选项合并：合并全局配置和组件自身的配置（如 mixins）。
-      建立响应式：调用 setup 函数（如果存在），并应用 reactive, ref 等 API 建立数据的响应式连接。
-      创建渲染上下文：对于 Options API，将 data, props, methods 等挂载到组件实例上；对于 Composition API，setup 的返回值将被暴露给模板。
-      编译模板 (如果未预编译)：如果使用运行时+编译器的版本，会将模板编译成 render 函数。
-      beforeCreate & created：触发相应的生命周期钩子。
-      调用 render 函数：执行 render 函数，在这个过程中会读取响应式数据，触发 getter 进行依赖收集。render 函数返回一个虚拟 DOM 树 (VNode Tree)。
-      beforeMount：触发 beforeMount 钩子。
-      Patch / Mount：将 render 函数返回的 VNode 树与旧的 VNode 树（首次为 null）进行 Diff 比较，计算出需要进行的 DOM 操作，并执行它们，将真实 DOM 挂载到页面上。
-      mounted：触发 mounted 钩子，此时实例已挂载完毕。
-      更新阶段：当响应式数据发生变化时，触发 setter，通知渲染 effect 异步地重新执行 render 函数，生成新的 VNode 树，然后与旧的 VNode 树进行 Diff，并最小化地更新真实 DOM。
-      在更新前后会触发 beforeUpdate 和 updated 钩子。
-      卸载阶段：当组件被销毁时（如 v-if 为 false，路由切换），会触发 beforeUnmount 钩子，然后卸载组件对应的 DOM 节点、移除所有的事件监听器、销毁所有子组件实例、断开响应式连接，
-      最后触发 unmounted 钩子。
+        答案：
+        从 new Vue() 或 createApp() 开始：
+        初始化 & 选项合并：合并全局配置和组件自身的配置（如 mixins）。
+        建立响应式：调用 setup 函数（如果存在），并应用 reactive, ref 等 API 建立数据的响应式连接。
+        创建渲染上下文：对于 Options API，将 data, props, methods 等挂载到组件实例上；对于 Composition API，setup 的返回值将被暴露给模板。
+        编译模板 (如果未预编译)：如果使用运行时+编译器的版本，会将模板编译成 render 函数。
+        beforeCreate & created：触发相应的生命周期钩子。
+        调用 render 函数：执行 render 函数，在这个过程中会读取响应式数据，触发 getter 进行依赖收集。render 函数返回一个虚拟 DOM 树 (VNode Tree)。
+        beforeMount：触发 beforeMount 钩子。
+        Patch / Mount：将 render 函数返回的 VNode 树与旧的 VNode 树（首次为 null）进行 Diff 比较，计算出需要进行的 DOM 操作，并执行它们，将真实 DOM 挂载到页面上。
+        mounted：触发 mounted 钩子，此时实例已挂载完毕。
+        更新阶段：当响应式数据发生变化时，触发 setter，通知渲染 effect 异步地重新执行 render 函数，生成新的 VNode 树，然后与旧的 VNode 树进行 Diff，并最小化地更新真实 DOM。
+        在更新前后会触发 beforeUpdate 和 updated 钩子。
+        卸载阶段：当组件被销毁时（如 v-if 为 false，路由切换），会触发 beforeUnmount 钩子，然后卸载组件对应的 DOM 节点、移除所有的事件监听器、销毁所有子组件实例、断开响应式连接，
+        最后触发 unmounted 钩子。
 
       12 编译器优化：Vue 3 在编译阶段做了哪些静态优化？这些优化对运行时性能有何帮助？
-      答案：
-      Vue 3 的编译器在将模板编译成 render 函数时，会进行以下关键优化（参考第 5 题）：
-      Patch Flags：对动态节点打上标记，运行时 Diff 时只需对比有标记的节点，跳过静态内容。
-      静态提升 (Static Hoisting)：将静态节点和子树提升到渲染函数之外，避免重复创建 VNode。
-      树结构打平 (Tree Flattening / Block Tree)：将模板划分为动态区块（Block），每个 Block 追踪其内部的动态后代节点。Diff 时只需对比 Block 内的动态节点列表，大幅减少需要遍历的节点数量。
-      缓存内联事件处理函数：为内联事件处理函数生成缓存，避免每次渲染都创建新的函数，减少子组件的不必要更新。
-      这些优化使得 Vue 3 的运行时 Diff 效率极高，即使模板很大，每次更新也只需要检查很少量的动态绑定。
+        答案：
+        Vue 3 的编译器在将模板编译成 render 函数时，会进行以下关键优化（参考第 5 题）：
+        Patch Flags：对动态节点打上标记，运行时 Diff 时只需对比有标记的节点，跳过静态内容。
+        静态提升 (Static Hoisting)：将静态节点和子树提升到渲染函数之外，避免重复创建 VNode。
+        树结构打平 (Tree Flattening / Block Tree)：将模板划分为动态区块（Block），每个 Block 追踪其内部的动态后代节点。Diff 时只需对比 Block 内的动态节点列表，大幅减少需要遍历的节点数量。
+        缓存内联事件处理函数：为内联事件处理函数生成缓存，避免每次渲染都创建新的函数，减少子组件的不必要更新。
+        这些优化使得 Vue 3 的运行时 Diff 效率极高，即使模板很大，每次更新也只需要检查很少量的动态绑定。
 
       13 手写实现：尝试实现一个极简版的 reactive 或 ref 函数。
 
@@ -154,16 +155,36 @@
 
       Composition API & 新特性 (15题)
       1 Composition API 设计动机：解决了 Options API 的哪些痛点？（逻辑复用、代码组织、TypeScript 支持）
+        答案:
+        选项式api：
+        1，逻辑关注点被分离
+        2，逻辑复用困难
+        3，ts支持有限
+
+        组合式api
+        1，更好的逻辑组织
+        2，更好的逻辑复用
+        3，出色的ts支持
 
       2 script setup：这个语法糖带来了哪些便利？defineProps, defineEmits, defineExpose 如何使用？
 
       3 逻辑复用：如何使用 Composition API（自定义 Hook）封装一个 useMousePosition 或 useLocalStorage？
+        答案：
+        可以将系统功能代码提取出来，形成独立文件，使用时用useXXX函数，返回响应式对象
 
       4 Vue 3 生态：为什么 Vuex 被 Pinia 取代？Pinia 的核心优势和用法是什么？
+        答案：
+        1，更简洁的api
+        2，完美的ts支持
+        3，模块化设计
+        4，组合式api支持
+        5，更加轻量
 
       5 Teleport 组件：作用是什么？实现原理？典型应用场景（模态框、Toast）？
+        答案：改变dom层级关系，vue2可以模拟
 
       6 Suspense 组件：作用是什么？如何在异步组件和 async setup() 中使用？
+        答案：见vue的异步组件探索，目前有些api还是实验阶段
 
       7 Fragment 组件：Vue 3 支持多根节点组件的原理是什么？
       答案：
@@ -197,10 +218,28 @@
       兼容 Options API：在 Composition API 下不是必须的（script setup 中不需要），但在使用 Options API 时至关重要。
 
       10 响应式 API 进阶：shallowRef, shallowReactive, toRaw, markRaw 的作用和适用场景。
+      答案：
+      shallowRef()：只对 .value 的访问和替换进行响应式跟踪。如果 .value 是一个对象，其内部属性变化不会触发更新。适用于：不需要深层响应的大型数据结构（如大型列表、第三方库实例），可以提升性能。
+      shallowReactive()：只对对象的第一层属性进行响应式处理，深层属性不会被自动追踪。适用于：只有顶层属性会变化的对象，同样用于性能优化。
+      toRaw()：返回由 reactive() 或 readonly() 创建的代理的原始对象。用于临时读取数据而避免代理开销/或写入数据而避免触发更新。不建议持有对原始对象的持久引用。
+      markRaw()：标记一个对象，使其永远不会被转换为代理对象。返回对象本身。适用于：集成第三方库实例、渲染不可变的大数据、确保不可代理的复杂对象（如 Vue 组件实例）。
 
       11 Effect Scope：effectScope API 是用来解决什么问题的？
+      答案：
+      问题：在组合式函数中创建的响应式 effect（如 watch 或 computed）是分散的。当组件卸载时，Vue 需要逐个手动停止它们以避免内存泄漏。在复杂的组合式函数中，手动收集和管理这些 effect 
+      非常麻烦且容易出错。
+      解决方案：effectScope 可以创建一个 effect 作用域，在这个作用域内创建的响应式 effect（计算属性、侦听器）可以被集中在一起处理。当作用域被停止 (scope.stop()) 时，它会自动停止其内部
+      所有的 effect。
+      主要应用场景：在高级插件或库作者中更常用，用于在其组件外部（例如在服务或测试中）管理 effect 的生命周期。例如，Vue Router 的 useRouter 内部就使用了它。
 
       12 VueUse 库：是否了解或使用过？它体现了 Composition API 的哪些优势？
+      答案：
+      VueUse 是一个基于 Composition API 的实用函数集合。
+      体现了 Composition API 的优势：
+      极致的逻辑复用：每个函数（如 useClipboard, useStorage, useMouse) 都是一个组合式函数，开箱即用，无需重复造轮子。
+      代码组织清晰：每个函数只关心一个特定的功能，代码非常模块化。
+      与框架完美融合：无缝使用 Vue 的响应式系统和生命周期，使用方式与编写自己的组合式函数完全一致。
+      TypeScript 友好：完全使用 TypeScript 编写，提供完美的类型支持。
 
       13 v-model 的进化：Vue 3 中 v-model 相对于 Vue 2 有何变化？如何在自定义组件上使用多个 v-model？
 
@@ -210,26 +249,36 @@
 
       工程实践 & 性能优化 (15题)
       1 Vue Router：路由模式（Hash vs History）的原理和区别？导航守卫的使用场景和流程？
-      Hash：使用#后面的内容模型路由，不会导致浏览器像服务器发请求
-      History：利用html5的History Interface 中新增的 pushState() 和 replaceState()实现路由切换，且不导致浏览器向服务器发请求，但是刷新时和输入会重新请求，仍需要服务器端支持返回
-      统一的入口，主要是nginx配置
-
-      导航守卫：
-      主要使用的是beforeRouteLeave，beforeEach，afterEach
+      答案：
+        Hash：使用#后面的内容模型路由，不会导致浏览器像服务器发请求
+        History：利用html5的History Interface 中新增的 pushState() 和 replaceState()实现路由切换，且不导致浏览器向服务器发请求，但是刷新时和输入会重新请求，仍需要服务器端支持返回
+        统一的入口，主要是nginx配置
+        导航守卫：
+        主要使用的是beforeRouteLeave，beforeEach，afterEach
 
       2 状态管理选型：在什么情况下才需要使用 Pinia？什么时候用 provide/inject 就够了？
 
       3 组件设计：如何设计和实现一个高复用性、可维护性好的业务组件或基础UI组件？
-      1，定义清晰类型以及语义的props，2定义通用的event，3，使用v-model双向绑定，4，支持样式重写与样式隔离，5，提供插槽可扩展性，6，再封装时，$attr,$listener透传
+      答案：
+        1，定义清晰类型以及语义的props，
+        2，定义通用的event，
+        3，使用v-model双向绑定，
+        4，支持样式重写与样式隔离，
+        5，提供插槽可扩展性，
+        6，再封装时，$attr,$listener透传
 
       4 权限系统：在前端如何实现路由级别和按钮级别的权限控制？
+      答案：
+        1，这个有多种方式
 
       5 Vue 应用性能优化：
-        打包优化（Tree-shaking, 代码分割，异步组件）。
-        运行时优化（v-once, v-memo, 虚拟滚动，减少大型响应式对象）。
-        优化更新性能（合理的组件拆分，避免不必要的子组件重新渲染）。
+      答案：
+        打包优化（Tree-shaking, 代码分割/路由懒加载，资源压缩，异步组件，缓存）。
+        运行时优化（v-once, v-memo, 虚拟滚动，图片懒加载，减少大型响应式对象）。
+        优化更新性能（合理的组件拆分，多使用缓存类数据，避免不必要的子组件重新渲染，避免使用内联函数）。
 
       6 错误处理：如何全局捕获和处理 Vue 组件渲染函数、生命周期钩子、watch 中的错误？
+      见错误处理测试页
 
       7 服务端渲染 (SSR)：Nuxt.js 的核心原理是什么？SSR 和 CSR 的优劣对比？为什么要用 SSR？
 
@@ -248,6 +297,7 @@
       14 代码规范：如何在团队中统一代码风格（ESLint, Prettier, Stylelint）？如何通过 Git Hooks 在提交前进行校验？
 
       15 部署：Docker 容器化部署 Vue 项目的流程是怎样的？
+      主要是nginx配置，刷新配置，代理配置
       </pre>
     </template>
   </t-l-collapse>

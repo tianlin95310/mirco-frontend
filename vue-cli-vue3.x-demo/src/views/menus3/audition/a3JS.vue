@@ -281,38 +281,7 @@
         Vue 组件间的 $emit 和 v-on：子组件发布事件，父组件订阅事件。虽然看起来直接，但其内部机制是通过 Vue 实例这个“通道”实现的，是典型的 Pub-Sub。
         系统事件：addEventListener('click', handler)。浏览器（事件通道）负责在用户点击时调用你的处理函数。
 
-      四、 工程化、构建工具与网络 (15题)
-      考察核心：自动化、质量、效率、网络
-
-      1 Webpack 与 Vite：对比两者的构建原理、优势和适用场景。为什么 Vite 开发服务器启动更快？
-
-      2 Webpack 核心概念：Loader 和 Plugin 的区别？如何编写一个自定义的 Loader 或 Plugin？
-
-      3 打包优化：什么是 Tree Shaking？它的工作原理是什么？如何确保它生效？
-
-      4 代码分割：如何配置 Webpack 或 Vite 进行有效的代码分割和懒加载？
-
-      5 模块联邦 (Module Federation)：是什么？解决了什么问题？如何用它实现微前端？
-
-      6 Babel：作用和工作原理？如何配置 Babel 来兼容目标浏览器？
-
-      7 Monorepo：是什么？有什么优势？如何用 pnpm workspace 或 Turborepo 搭建和管理 Monorepo？
-
-      8 CI/CD：描述一下你之前项目的自动化部署流程（GitLab CI/CD, Jenkins, GitHub Actions）。
-
-      9 浏览器缓存：详细说明 强缓存（Expires, Cache-Control）和协商缓存（Last-Modified, ETag）的流程和区别。
-
-      10 HTTP2 与 HTTP1.1：对比主要特性（多路复用、头部压缩、服务器推送）。
-
-      11 HTTPS：工作原理是什么（SSL/TLS 握手过程）？
-
-      12 前端安全：XSS、CSRF 的攻击原理和防御手段。
-
-      13 Web 性能指标：LCP, FID, CLS 分别是什么？如何测量和优化？
-
-      14 PWA：是什么？如何让 Vue 应用支持 PWA（离线可用、添加到桌面）？
-
-      15 WebAssembly：是什么？它在前端领域可能的应用场景是什么？
+      
      </pre>
     </template>
   </t-l-collapse>

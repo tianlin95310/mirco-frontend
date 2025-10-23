@@ -105,7 +105,7 @@ function deepClone(target, map = new WeakMap()) {
   return clone;
 }
 
-function cloneDeep(obj, map = new WeakMap()) {
+export function cloneDeep(obj, map = new WeakMap()) {
   if (typeof obj === 'object') {
     if (obj === null) {
       return obj

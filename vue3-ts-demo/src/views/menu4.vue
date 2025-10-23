@@ -64,25 +64,25 @@ const vue2Value = {
 }
 {
   const witcher = {
-  w1: () => {
-    if ($('vue2')) {
-      $('vue2')!.innerHTML = String(vue2Value.v1)
+    w1: () => {
+      if ($('vue2')) {
+        $('vue2')!.innerHTML = String(vue2Value.v1)
+      }
     }
   }
-}
-Object.defineProperty(vue2Value, 'v2', {
-  // configurable: true,
-  enumerable: true,
-  get() {
-    console.log('get')
-    witcher.w1()
-    return this.v1
-  },
-  set(v) {
-    console.log('set')
-    this.v1 = v
-  }
-})
+  Object.defineProperty(vue2Value, 'v2', {
+    // configurable: true,
+    enumerable: true,
+    get() {
+      console.log('get')
+      witcher.w1()
+      return this.v1
+    },
+    set(v) {
+      console.log('set')
+      this.v1 = v
+    }
+  })
 }
 const vue2 = () => {
   vue2Value.v2++
@@ -108,18 +108,18 @@ const trigger = (target: any, key: string | symbol) => {
   effets[`$target$key`]();
 }
 const vue3Obj = new Proxy(obj3, {
-  get (target: any, key) {
+  get(target: any, key) {
     track(target, key)
     return target[key]
   },
-  set (target: any, key: string | symbol, value: any, receiver: any) : boolean {
+  set(target: any, key: string | symbol, value: any, receiver: any): boolean {
     target[key] = value
     trigger(target, key)
     return true
   }
 })
 // Proxy.revocable
-const myRef = function(value: any) {
+const myRef = function (value: any) {
   const refObj = {
     get value() {
       track(refObj, 'value')
@@ -206,5 +206,4 @@ const vue3Ref = () => {
   </div>
 </template>
 
-<style>
-</style>
+<style></style>

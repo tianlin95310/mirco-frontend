@@ -1,6 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
 const { mfpPlugins, mfpProxy } = require('./src/mfp/mfConfig')
+
+const MyPlugin = require('./myplugin')
+
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -10,6 +13,9 @@ module.exports = defineConfig({
   publicPath: process.env.VUE_APP_MF ? 'auto' : '/',
   productionSourceMap: false,
   transpileDependencies: true,
+  chainWebpack: (config) => {
+    console.log('config', config)
+  },
   configureWebpack: {
     optimization: {
       splitChunks: {
@@ -33,7 +39,7 @@ module.exports = defineConfig({
     },
     plugins: process.env.VUE_APP_MF ? [
       ...mfpPlugins
-    ] : [],
+    ] : [new MyPlugin()],
     resolve: {
       alias: {
         '@': resolve('src'),
