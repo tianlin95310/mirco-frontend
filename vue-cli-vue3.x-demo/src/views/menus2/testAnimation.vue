@@ -1,6 +1,5 @@
 <template>
   <div class="test-animation page-container">
-    <h2>测试Animation动画，定义一组的transform</h2>
     <div class="img">
       <img src="../../assets/logo.png" :class="initImg" />
 

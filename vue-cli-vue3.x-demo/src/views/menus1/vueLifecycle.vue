@@ -1,33 +1,23 @@
 <template>
   <div class="vue-life-cycle page-container">
-    <h2>，以及调用组件的方法，混入验证</h2>
+    <group-card title="测试vue的生命周期方法" inline>
+      <child />
+      <child3X />
+    </group-card>
 
-    <div class="border-card">
-      <span>测试vue的生命周期方法</span>
+    <group-card title="测试v-if和v-show的区别">
       <div>
-        <child />
-        <child3X />
+        <button class="button" @click="show = !show">v-if与v-show</button>
       </div>
-    </div>
+      <button class="button" v-if="show" title="v-if会直接删除dom，会不停的进行创建">v-if</button>
+      <button class="button" v-show="show" title="v-show只是改变元素的display属性，不会删除dom">v-show</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>测试v-if和v-show的区别</span>
-      <div>
-        <div>
-          <button class="button" @click="show = !show">v-if与v-show</button>
-        </div>
-        <button class="button" v-if="show" title="v-if会直接删除dom，会不停的进行创建">v-if</button>
-        <button class="button" v-show="show" title="v-show只是改变元素的display属性，不会删除dom">v-show</button>
-      </div>
-    </div>
+    <group-card title="混入测试[vue3 弱化]">
+      <button class="button" @click="showSameProperty">同名属性</button>
+      <button class="button" @click="funA">同名方法</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>混入测试[vue3 弱化]</span>
-      <div>
-        <button class="button" @click="showSameProperty">同名属性</button>
-        <button class="button" @click="funA">同名方法</button>
-      </div>
-    </div>
 
   </div>
 </template>

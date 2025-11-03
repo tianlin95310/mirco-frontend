@@ -1,27 +1,20 @@
 <template>
   <div class="test-child-mod page-container">
-
-    <div class="border-card">
-      <span>测试子组件更改父组件的data数据，测试更改父组件数据的方式</span>
+    <group-card title="更改父组件数据的方式" inline>
       <div>
-        <div>
-          <span class="tag">value1 = {{ value1.value }}</span>
-        </div>
-        <div>
-          <span class="tag">value2 = {{ value2.value }}</span>
-        </div>
-        <v-model-child v-bind:value="value1" />
-        <not-v-model-child v-bind:value="value2" @change="change" />
+        <span class="tag">value1 = {{ value1.value }}</span>
       </div>
-    </div>
-
-    <div class="border-card">
-      <span>父子组件传参，在子组件里需要nextTick才能获取</span>
       <div>
-        <updateBindValue ref="updateBindValue" :bindName1="bindName1" />
-        <button class="button" @click="changeProp1">更新props值</button>
+        <span class="tag">value2 = {{ value2.value }}</span>
       </div>
-    </div>
+      <v-model-child v-bind:value="value1" />
+      <not-v-model-child v-bind:value="value2" @change="change" />
+    </group-card>
+
+    <group-card title="nextTick作用" inline>
+      <updateBindValue ref="updateBindValue" :bindName1="bindName1" />
+      <button class="button" @click="changeProp1">更新props值</button>
+    </group-card>
 
   </div>
 </template>

@@ -1,7 +1,5 @@
 <template>
   <div class="vue-transition page-container">
-
-    <h2>测试vue的transition标签动画</h2>
     <button class="button" v-on:click="toggleClick">
       Toggle
     </button>

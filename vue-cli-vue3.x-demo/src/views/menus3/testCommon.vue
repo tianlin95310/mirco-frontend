@@ -1,57 +1,45 @@
 <template>
   <div class="page-container">
-    <div class="border-card">
-      <span>Object的用法</span>
-      <div>
-        <button class="button btn btn-danger" @click="obj_fun">Object的用法</button>
-        <button class="button btn btn-warning" @click="testeqcommon">常见的==比较</button>
-        <button class="button" @click="testeq">==操作符配合toString()</button>
 
-        <button class="button" @click="testNull">测试空的判断</button>
+    <group-card title="Object的用法">
+      <button class="button btn btn-danger" @click="obj_fun">Object的用法</button>
+      <button class="button btn btn-warning" @click="testeqcommon">常见的==比较</button>
+      <button class="button" @click="testeq">==操作符配合toString()</button>
 
-        <button class="button" @click="fun6">类型判断(type of, instance of)</button>
-      </div>
-    </div>
+      <button class="button" @click="testNull">测试空的判断</button>
 
-    <div class="border-card">
-      <span>Array的用法</span>
-      <div>
-        <button class="button btn btn-primary" @click="array_fun">Array基本用法</button>
-        <button class="button" @click="sort">测试数组排序</button>
+      <button class="button" @click="fun6">类型判断(type of, instance of)</button>
+    </group-card>
 
-        <button class="button" @click="reduceQuchong">reduce方式去重</button>
 
-        <button class="button" @click="testAddListEle">push list[0]</button>
+    <group-card title="Array的用法">
+      <button class="button btn btn-primary" @click="array_fun">Array基本用法</button>
+      <button class="button" @click="sort">测试数组排序</button>
 
-        <button class="button" @click="splice">splice(1, 1)</button>
-        <button class="button" @click="spliceNo">splice(0，0)</button>
+      <button class="button" @click="reduceQuchong">reduce方式去重</button>
 
-        <button class="button" @click="flatApi">数组扁平化操作api</button>
-      </div>
-    </div>
+      <button class="button" @click="testAddListEle">push list[0]</button>
 
-    <div class="border-card">
-      <span>Set的用法</span>
-      <div>
-        <button class="button" @click="SetArray">不重复的集合Set</button>
-      </div>
-    </div>
+      <button class="button" @click="splice">splice(1, 1)</button>
+      <button class="button" @click="spliceNo">splice(0，0)</button>
 
-    <div class="border-card">
-      <span>Map的用法</span>
-      <div>
-        <button class="button btn btn-info" @click="map_fun">Map的用法</button>
-      </div>
-    </div>
+      <button class="button" @click="flatApi">数组扁平化操作api</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>特殊点</span>
-      <div>
-        <button class="button" @click="stringAndString">
+    <group-card title="Set的用法">
+      <button class="button" @click="SetArray">不重复的集合Set</button>
+    </group-card>
+    
+    <group-card title="Map的用法">
+      <button class="button btn btn-info" @click="map_fun">Map的用法</button>
+    </group-card>
+
+    <group-card title="特殊点">
+      <button class="button" @click="stringAndString">
           string,String的区别
         </button>
-      </div>
-    </div>
+    </group-card>
+    
   </div>
 </template>
 

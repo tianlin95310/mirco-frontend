@@ -1,61 +1,45 @@
 <template>
   <div class="page-container">
-    <div class="border-card">
-      <span>函数的参数的用法</span>
-      <div>
-        <button class="button" @click="change">作为新参传递</button>
-        <button class="button" @click="defArg">函数默认参数</button>
-      </div>
-    </div>
 
-    <div class="border-card">
-      <span>类与继承</span>
-      <div>
-        <button class="button" @click="defineAClass">函数作为类的实现体</button>
-        <button class="button" @click="ex5Extends">ES5继承（原型链继承）</button>
-        <button class="button" @click="callExtends">ES5继承（构造继承）</button>
-        <button class="button" @click="combineExtends">ES5继承（组合寄生继承）</button>
-        <button class="button" @click="ex6Extends">ES6继承</button>
-      </div>
-    </div>
+    <group-card title="函数的参数的用法">
+      <button class="button" @click="change">作为新参传递</button>
+      <button class="button" @click="defArg">函数默认参数</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>原型与原型链</span>
-      <div>
-        <button class="button" @click="objectProtoConst">普通对象的原型链</button>
-        <button class="button" @click="ObjectProto">Object的原型链</button>
-        <button class="button" @click="FunctionProto">Function原型链</button>
-        <button class="button" @click="funAndObj">Function和Object</button>
-      </div>
-    </div>
+    <group-card title="类与继承">
+      <button class="button" @click="defineAClass">函数作为类的实现体</button>
+      <button class="button" @click="ex5Extends">ES5继承（原型链继承）</button>
+      <button class="button" @click="callExtends">ES5继承（构造继承）</button>
+      <button class="button" @click="combineExtends">ES5继承（组合寄生继承）</button>
+      <button class="button" @click="ex6Extends">ES6继承</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>JS单例</span>
-      <div>
-        <button class="button" title="属性上直接添加闭包函数" @click="getInstance">JS单例模式方式1</button>
-        <button class="button" title="class添加静态方法" @click="getInstanceStatic">JS单例模式方式2</button>
-      </div>
-    </div>
+    <group-card title="原型与原型链">
+      <button class="button" @click="objectProtoConst">普通对象的原型链</button>
+      <button class="button" @click="ObjectProto">Object的原型链</button>
+      <button class="button" @click="FunctionProto">Function原型链</button>
+      <button class="button" @click="funAndObj">Function和Object</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>防抖与节流</span>
-      <div>
-        <button class="button" @click="debounce">防抖函数的实现（手动）</button>
-        <button class="button" @click="throttle">节流函数的实现（手动）</button>
-        <button class="button" @click="debounceAPI">防抖函数的实现（API）</button>
-        <button class="button" @click="throttleAPI">节流函数的实现（API）</button>
-      </div>
-    </div>
+    <group-card title="JS单例">
+      <button class="button" title="属性上直接添加闭包函数" @click="getInstance">JS单例模式方式1</button>
+      <button class="button" title="class添加静态方法" @click="getInstanceStatic">JS单例模式方式2</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>特殊函数</span>
-      <div>
-        <button class="button" @click="bindcallapply">bindcallapply的区别</button>
-        <button class="button" @click="bindcallapplyuse">bindcallapply的细节</button>
-        <button class="button" @click="arrowFun">箭头函数</button>
-        <button class="button" @click="FunctionUse">Function与function</button>
-      </div>
-    </div>
+    <group-card title="防抖与节流">
+      <button class="button" @click="debounce">防抖函数的实现（手动）</button>
+      <button class="button" @click="throttle">节流函数的实现（手动）</button>
+      <button class="button" @click="debounceAPI">防抖函数的实现（API）</button>
+      <button class="button" @click="throttleAPI">节流函数的实现（API）</button>
+    </group-card>
+
+    <group-card title="特殊函数">
+      <button class="button" @click="bindcallapply">bindcallapply的区别</button>
+      <button class="button" @click="bindcallapplyuse">bindcallapply的细节</button>
+      <button class="button" @click="arrowFun">箭头函数</button>
+      <button class="button" @click="FunctionUse">Function与function</button>
+    </group-card>
+
   </div>
 </template>
 
@@ -86,7 +70,7 @@ export default {
     this.throttleSelf = throttleS(this.callback, 2000)
   },
   methods: {
-    arrowFun(params = [1,2,3]) {
+    arrowFun(params = [1, 2, 3]) {
       let a = () => {
         this.a = 100
         console.log(arguments)
@@ -99,7 +83,7 @@ export default {
       }
       fun2.call(this)
 
-      let fun3 = function(...args) {
+      let fun3 = function (...args) {
         console.log('fun2', args)
       }
       fun3.call(this)
@@ -331,7 +315,8 @@ export default {
       const a = '手动实现防抖函数'
       return this.debounceSelf(a)
     },
-    getInstanceStatic() {a
+    getInstanceStatic() {
+      a
       console.log(User.getInstance('tianlin'))
     },
     getInstance() {

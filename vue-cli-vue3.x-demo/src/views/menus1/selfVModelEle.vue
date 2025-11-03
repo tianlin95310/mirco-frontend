@@ -1,6 +1,5 @@
 <template>
   <div class="self-model-ele page-container">
-    <h4>自定义一个能使用v-model指令的可编辑div,能带格式复制内容,max {{ maxLength }}</h4>
     <div style="height: 100px">
       <edit-div v-model="text" :canEdit="canEdit" @change="onChange" @input="onInput" />
     </div>

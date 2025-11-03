@@ -1,53 +1,43 @@
 <template>
   <div class="promise-use page-container">
 
-    <div class="border-card">
-      <span>Promise的基本用法</span>
-      <div>
-        <button class="button" @click="funTest1">调用普通方法测试（不用await）</button>
-        <button class="button" @click="funTest2">调用方法测试（全部用await）</button>
-        <button class="button" @click="funTest3">调用方法测试（最后一步不用await）</button>
-        <button class="button" @click="funTest4">调用方法测试（第一个不用await）</button>
-        <button class="button" @click="defaultPromise">Promise的基本用法</button>
+    <group-card title="Promise的基本用法">
+      <button class="button" @click="funTest1">调用普通方法测试（不用await）</button>
+      <button class="button" @click="funTest2">调用方法测试（全部用await）</button>
+      <button class="button" @click="funTest3">调用方法测试（最后一步不用await）</button>
+      <button class="button" @click="funTest4">调用方法测试（第一个不用await）</button>
+      <button class="button" @click="defaultPromise">Promise的基本用法</button>
 
-        <button class="button" @click="useWithAwait">Promise与async和await的结合使用</button>
-      </div>
-    </div>
+      <button class="button" @click="useWithAwait">Promise与async和await的结合使用</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>Generator的基本用法</span>
-      <div>
-        <button class="button" @click="generator">generator用法</button>
+    <group-card title="Generator的基本用法">
+      <button class="button" @click="generator">generator用法</button>
 
-        <button class="button" @click="generatorToArray">generatorToArray</button>
+      <button class="button" @click="generatorToArray">generatorToArray</button>
 
-        <button class="button" @click="awaitFor">js await For</button>
-      </div>
-    </div>
+      <button class="button" @click="awaitFor">js await For</button>
+    </group-card>
 
-    <div class="border-card">
-      <span>Promise Api的基本用法</span>
-      <div>
-        <button class="button" @click="PromiseAll" title="有一个发生错误那么就会走reject状态">Promise.all</button>
+    <group-card title="Promise Api的基本用法">
 
-        <button class="button" @click="PromiseAny" title="任意一个成功resolve">Promise.any</button>
+      <button class="button" @click="PromiseAll" title="有一个发生错误那么就会走reject状态">Promise.all</button>
 
-        <button class="button" @click="PromiseRace" title="任意一个先走完取哪个值">Promise.race</button>
-        <button class="button" @click="PromiseTry" title="同步异步统一错误处理">Promise.try</button>
+      <button class="button" @click="PromiseAny" title="任意一个成功resolve">Promise.any</button>
 
-        <button class="button" @click="PromiseAllSettled">Promise.AllSettled</button>
-      </div>
-    </div>
+      <button class="button" @click="PromiseRace" title="任意一个先走完取哪个值">Promise.race</button>
+      <button class="button" @click="PromiseTry" title="同步异步统一错误处理">Promise.try</button>
 
-    <div class="border-card">
-      <span>Promise的特殊用法</span>
-      <div>
-        <button class="button" @click="testSetTimeOut">各代码块执行顺序</button>
-        <button class="button" @click="awaitAErrorPromise">await Promise Error</button>
-        <button class="button" @click="NoReturnPromise" title="无返回Promise">无返回Promise</button>
-        <button class="button" @click="selfPromise">自定义Promise</button>
-      </div>
-    </div>
+      <button class="button" @click="PromiseAllSettled">Promise.AllSettled</button>
+    </group-card>
+
+    <group-card title="Promise的特殊用法">
+      <button class="button" @click="testSetTimeOut">各代码块执行顺序</button>
+      <button class="button" @click="awaitAErrorPromise">await Promise Error</button>
+      <button class="button" @click="NoReturnPromise" title="无返回Promise">无返回Promise</button>
+      <button class="button" @click="selfPromise">自定义Promise</button>
+    </group-card>
+
 
   </div>
 </template>

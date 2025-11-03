@@ -3,7 +3,6 @@ const path = require('path')
 const { mfpPlugins, mfpProxy } = require('./src/mfp/mfConfig')
 
 const MyPlugin = require('./myplugin')
-
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -14,7 +13,34 @@ module.exports = defineConfig({
   productionSourceMap: false,
   transpileDependencies: true,
   chainWebpack: (config) => {
-    console.log('config', config)
+    // console.log('config', config.plugins)
+
+    config.when(process.env.NODE_ENV === 'production', (config) => {
+      config.optimization.minimizer('terser').tap(options => {
+        options[0].terserOptions.compress.pure_funcs = ['console.log', 'console.error']
+        return options
+      })
+    })
+    config.module
+      .rule('custom-loader')
+      .test(/\.custom-loader$/)
+      .use('my-loader')
+      .loader(path.resolve(__dirname, './myloader.js'))
+      .options({
+        prefix: 'PREFIX: ',
+        suffix: ' :SUFFIX'
+      })
+      .end()
+    // 保留vue-router的空白
+    // config.module
+    //   .rule('vue')
+    //   .use('vue-loader')
+    //   .loader('vue-loader')
+    //   .tap(options => {
+    //     options.compilerOptions.preserveWhitespace = true
+    //     return options
+    //   })
+    //   .end()
   },
   configureWebpack: {
     optimization: {
