@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // 外部木块
-import AModule from 'AModule'
+// import AModule from 'AModule'
 // 引用内部模块
 import { Request } from '../module/moduleRaw.js'
 // 扩展内部模块

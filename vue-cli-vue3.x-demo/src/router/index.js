@@ -14,7 +14,7 @@ const routes = [
       {
         path: '/dashboard',
         name: 'Dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */'@/views/Dashboard.vue')
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue')
       }
     ]
   },
@@ -112,32 +112,32 @@ const routes = [
       {
         path: 'testCommon',
         name: 'TestCommon',
-        component: () => import('@/views/menus3/testCommon.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/testCommon.vue')
       },
       {
         path: 'func',
         name: 'Func',
-        component: () => import('@/views/menus3/func.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/func.vue')
       },
       {
         path: 'objectAnal',
         name: 'ObjectAnal',
-        component: () => import('@/views/menus3/objectAnal.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/objectAnal.vue')
       },
       {
         path: 'testEvent',
         name: 'TestEvent',
-        component: () => import('@/views/menus3/testEvent.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/testEvent.vue')
       },
       {
         path: 'positionAndSize',
         name: 'PositionAndSize',
-        component: () => import('@/views/menus3/positionAndSize.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/positionAndSize.vue')
       },
       {
         path: 'htmlSafety',
         name: 'HtmlSafety',
-        component: () => import('@/views/menus3/htmlSafety.vue')
+        component: () => import(/* webpackChunkName: "menu3" */ '@/views/menus3/htmlSafety.vue')
       }
     ]
   },
@@ -148,32 +148,32 @@ const routes = [
       {
         path: 'dateFormat',
         name: 'DateFormat',
-        component: () => import('@/views/menus4/dateFormat.vue')
+        component: () => import(/* webpackChunkName: "menu4" */ '@/views/menus4/dateFormat.vue')
       },
       {
         path: 'stringDealwith',
         name: 'StringDealwith',
-        component: () => import('@/views/menus4/stringDealwith.vue')
+        component: () => import(/* webpackChunkName: "menu4" */'@/views/menus4/stringDealwith.vue')
       },
       {
         path: 'promiseUse',
         name: 'PromiseUse',
-        component: () => import('@/views/menus4/promiseUse.vue')
+        component: () => import(/* webpackChunkName: "menu4" */'@/views/menus4/promiseUse.vue')
       },
       {
         path: 'htmlDeal',
         name: 'HtmlDeal',
-        component: () => import('@/views/menus4/htmlDeal.vue')
+        component: () => import(/* webpackChunkName: "menu4" */'@/views/menus4/htmlDeal.vue')
       },
       {
         path: 'bomAbout',
         name: 'bomAbout',
-        component: () => import('@/views/menus4/bomAbout.vue')
+        component: () => import(/* webpackChunkName: "menu4" */'@/views/menus4/bomAbout.vue')
       },
       {
         path: 'webSocket',
         name: 'WebSocket',
-        component: () => import('@/views/menus4/webSocket.vue')
+        component: () => import(/* webpackChunkName: "menu4" */'@/views/menus4/webSocket.vue')
       }
     ]
   },
