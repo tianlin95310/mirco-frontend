@@ -3,6 +3,7 @@ const webpack = require('webpack')
 module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: 'auto',
+  productionSourceMap: false,
   pages: {
     index: {
       entry: './src/index.js',
@@ -44,6 +45,7 @@ module.exports = defineConfig({
         shared: {
           vue: {
             singleton: true,
+            eager: true
           },
         },
       }),

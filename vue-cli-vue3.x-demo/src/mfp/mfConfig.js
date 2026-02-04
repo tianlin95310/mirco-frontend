@@ -4,13 +4,17 @@ exports.mfpPlugins = [new webpack.container.ModuleFederationPlugin({
   name: 'vue3DemoPlugin',
   filename: 'vue3DemoPlugin.js',
   exposes: {
-    '.': './src/mfp/index.js'
+    '.': './src/mfp/index.js',
+    './components': './src/mfp/components.js',
+    './TLWaveView': './src/views/menus6/canvas/TLWaveView/TLWaveView.vue'
   },
   shared: {
     vue: {
-      singleton: true
-    }
-  }
-})]
+      singleton: true,
+      eager: true
+    },
+  },
+})
+]
 
 exports.mfpProxy = {}

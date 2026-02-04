@@ -3,6 +3,7 @@ const { ModuleFederationPlugin } = require('webpack').container;
 module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: 'auto',
+  productionSourceMap: false,
   pages: {
     index: {
       entry: './src/index.js',
@@ -22,11 +23,16 @@ module.exports = defineConfig({
       new ModuleFederationPlugin({
         name: 'lib_common_vue2',
         filename: 'remoteEntry.js',
-        library: { type: 'var', name: 'lib_common_vue2' },
         exposes: {
           './vue2': './node_modules/vue/dist/vue',
           './BaseText.vue': './src/components/BaseText.vue',
-        }
+        },
+        shared: {
+          vue: {
+            singleton: true,
+            eager: true
+          },
+        },
       })
     ]
   }

@@ -12,7 +12,6 @@
       }
     },
     setup() {
-     console.log('loading setup')
     }
   }
 </script>

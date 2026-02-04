@@ -12,7 +12,8 @@ function loadPlugin(scope, module) {
       const factory = await plugin.get(module)
       const pluginModule = factory()
       console.timeEnd(scope)
-      return pluginModule
+      // return pluginModule
+      return pluginModule && pluginModule.default ? pluginModule.default : pluginModule
     } catch (err) {
       return null
     }
@@ -21,15 +22,20 @@ function loadPlugin(scope, module) {
 
 async function loadAllPlugins() {
   const proxyTable = Object.entries(proxy)
-  await Promise.allSettled(Object.values(remotes).map((item, index) => {
+
+  const fetchTasks = Object.values(remotes).map((item, index) => {
     return loadJs(item.split('@')[1].replace(proxyTable[index][0], proxyTable[index][1]))
-  }))
-  return Promise.all(Object.keys(remotes).map(key => {
-    return loadPlugin(key, '.')()
-  }))
+  })
+  await Promise.allSettled(fetchTasks)
+
+  const pluginLoader = Object.keys(remotes).map(key => {
+    const loader = loadPlugin(key, '.')
+    return loader()
+  })
+  return Promise.all(pluginLoader)
 }
 
 export default async function loadAllComponentsProd() {
   const plugins = await loadAllPlugins()
-  return plugins.flatMap(plugin => plugin.default.components)
+  return plugins.flatMap(plugin => plugin?.default?.components ?? [])
 }

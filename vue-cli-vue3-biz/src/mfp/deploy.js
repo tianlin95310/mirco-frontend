@@ -1,7 +1,8 @@
 const { proxy, remotes } = require('./deployConfig')
 const webpack = require('webpack')
-exports.mfpPlugins = [new webpack.container.ModuleFederationPlugin({remotes})]
-exports.mfpRemotes = remotes
+exports.mfpPlugins = [new webpack.container.ModuleFederationPlugin({
+  remotes: remotes,
+})]
 
 const mfpProxy = {}
 Object.entries(proxy).forEach(item => {

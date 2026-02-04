@@ -1,5 +1,5 @@
 <template>
-  <div>A Base Text(Vue3) from lib_common_vue3 {{ Math.round(+new Date() / 1000) }}</div>
+  <div>A Base Text(Vue3) await from lib_common_vue3 {{ Math.round(+new Date() / 1000) }}</div>
 </template>
 <script setup>
 async function delay(duration) {

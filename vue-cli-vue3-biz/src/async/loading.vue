@@ -3,19 +3,17 @@
 </template>
 
 <script>
-/* eslint-disable */
-  export default {
-    name: 'Loading',
-    props: {
-      tip: {
-        type: String,
-        default: 'Loading...'
-      }
-    },
-    setup() {
-     console.log('loading setup')
+export default {
+  name: 'LoadingComponent',
+  props: {
+    tip: {
+      type: String,
+      default: 'Loading...'
     }
+  },
+  setup() {
   }
+}
 </script>
 
 <style>

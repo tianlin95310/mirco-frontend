@@ -24,6 +24,8 @@
       <button class="button" @click="spliceNo">splice(0，0)</button>
 
       <button class="button" @click="flatApi">数组扁平化操作api</button>
+
+      <button class="button" @click="ArrayEvery">反直觉的every的方法</button>
     </group-card>
 
     <group-card title="Set的用法">
@@ -199,6 +201,15 @@ const { obj_fun, testeqcommon, testeq, testNull, fun6 } = {
 }
 
 const { testAddListEle, reduceQuchong, flatApi, SetArray, spliceNo, splice, sort, array_fun } = {
+  ArrayEvery() {
+    const arr = []
+    // 空集合求every结果为true
+    // 反直觉的every的方法
+    const result = arr.every((item) => {
+      return item < 6
+    })
+    console.log('every result', result)
+  },
   testAddListEle() {
     const o1 = {
       str: 'o1'
