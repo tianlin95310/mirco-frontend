@@ -2,6 +2,14 @@ const { proxy, remotes } = require('./deployConfig')
 const webpack = require('webpack')
 exports.mfpPlugins = [new webpack.container.ModuleFederationPlugin({
   remotes: remotes,
+  shared: {
+    vue: {
+      singleton: true,
+      eager: true,
+      // 升级vue，不升级的话有上下文混乱问题
+      requiredVersion: '^3.2.13'
+    }
+  }
 })]
 
 const mfpProxy = {}

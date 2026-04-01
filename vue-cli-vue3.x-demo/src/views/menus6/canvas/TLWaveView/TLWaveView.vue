@@ -200,8 +200,10 @@
       }
     },
     mounted() {
-      this.initCanvas()
-      this.beginAnim()
+      this.$nextTick(() => {
+        this.initCanvas()
+        this.beginAnim()
+      })
       // this.onDraw(this.canvas)
     }
   }

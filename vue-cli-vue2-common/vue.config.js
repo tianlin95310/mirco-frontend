@@ -26,6 +26,7 @@ module.exports = defineConfig({
         exposes: {
           './vue2': './node_modules/vue/dist/vue',
           './BaseText.vue': './src/components/BaseText.vue',
+          '.': './src/components/BaseText.vue',
         },
         shared: {
           vue: {

@@ -55,12 +55,13 @@ import { vue2ToVue3 } from './utils'
 import { delay } from "./async/loadAsync";
 import { onErrorCaptured, ref } from "vue";
 import Error from "./async/error.vue";
-// try {
-//   const view = await import("vue3DemoPlugin/TLWaveView")
-//   console.log('view', view)
-// } catch(e) {
-//   console.log('e', e)
-// }
+try {
+  import("vue3DemoPlugin/TLWaveView").then(view => {
+    console.log('view', view)
+  })
+} catch(e) {
+  console.log('e', e)
+}
 // vue2的插件引入进来，先直接导入，再用vue2ToVue3转化才能渲染
 const BaseTextVue2T = loadAsyncComponent(async () => {
   await delay(2000)

@@ -1,8 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
-const { mfpPlugins, mfpProxy } = require('./src/mfp/mfConfig')
-
 const MyPlugin = require('./myplugin')
+const webpack = require('webpack')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -13,7 +12,7 @@ module.exports = defineConfig({
   productionSourceMap: false,
   transpileDependencies: true,
   chainWebpack: (config) => {
-    // console.log('config', config.plugins)
+    console.log('config', config.plugins, process.env.VUE_APP_MF)
 
     config.when(process.env.NODE_ENV === 'production', (config) => {
       config.optimization.minimizer('terser').tap(options => {
@@ -43,7 +42,15 @@ module.exports = defineConfig({
     //   .end()
   },
   configureWebpack: {
-    optimization: {
+    // output: {
+    //   publicPath: process.env.VUE_APP_MF ? 'auto' : '/',
+    // },
+    optimization: process.env.VUE_APP_MF ? {
+      // MF 模式下不进行代码分割
+      splitChunks: false,
+      // 或者最小化配置
+      runtimeChunk: false,
+    } : {
       // 打包优化
       splitChunks: {
         chunks: 'all',
@@ -103,7 +110,24 @@ module.exports = defineConfig({
     //   'element-ui': 'ELEMENT'
     // },
     plugins: [
-      ...process.env.VUE_APP_MF ? mfpPlugins : [],
+      ...process.env.VUE_APP_MF ? [new webpack.container.ModuleFederationPlugin({
+        name: 'vue3DemoPlugin',
+        filename: 'vue3DemoPlugin.js',
+        exposes: {
+          '.': './src/mfp/index.js',
+          './components': './src/mfp/components.js',
+          './TLWaveView': './src/views/menus6/canvas/TLWaveView/TLWaveView.vue'
+        },
+        shared: {
+          vue: {
+            singleton: true,
+            eager: true,
+            // 降级配置
+            requiredVersion: '^3.2.13'
+          },
+        },
+      })
+      ] : [],
       new MyPlugin()
     ],
     resolve: {
@@ -126,7 +150,6 @@ module.exports = defineConfig({
           '^/bpi': ''
         },
       },
-      ...mfpProxy
     }
   }
 })

@@ -5,7 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vite.dev/config/
 export default defineConfig({
   // 配置到子path的话需要加此配置
-  base: '/vue3tsdemo',
+  base: '/vue3-ts-demo/',
   plugins: [vue()],
   resolve: {
     alias: {

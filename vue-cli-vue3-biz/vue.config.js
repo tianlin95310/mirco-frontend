@@ -7,7 +7,7 @@ module.exports = defineConfig({
       entry: './src/index.js',
     },
   },
-  publicPath: '/vue3clibiz',
+  publicPath: '/vue-cli-vue3-biz',
   configureWebpack: {
     devServer: {
       headers: {
