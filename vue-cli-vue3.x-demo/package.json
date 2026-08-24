@@ -10,7 +10,9 @@
     "mf": "vue-cli-service serve --mode mf",
     "mfb": "vue-cli-service build --mode mf",
     "waveview": "vue-cli-service build --target lib ./src/views/menus6/canvas/TLWaveView/index.js --name vue-waveview --dest vue-waveview",
-    "cylinder": "vue-cli-service build --target lib ./src/views/menus6/canvas/CylinderProgress/index.js --name vue-cylinder-progress --dest vue-cylinder-progress"
+    "cylinder": "vue-cli-service build --target lib ./src/views/menus6/canvas/CylinderProgress/index.js --name vue-cylinder-progress --dest vue-cylinder-progress",
+    "help": "vue-cli-service -h",
+    "config": "vue-cli-service inspect --mode mf > auto_generated_config.js"
   },
   "dependencies": {
     "core-js": "^3.39.0",

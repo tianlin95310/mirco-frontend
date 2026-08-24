@@ -11,6 +11,6 @@ export function useInter(store, id, callback) {
     (newV, oldV) => {
       callback && callback(newV, oldV)
     },
-    { immediate: true, deep: true })
+    { immediate: true, deep: true, })
   return currentIdData
 }

@@ -48,6 +48,15 @@
         15，元素的各个位置
         <ALink href="https://cloud.tencent.com/developer/article/1015641" title="搞清clientHeight、offsetHeight、scrollHeight、offsetTop、scrollTop"/>
 
+        16，line-height误区
+        为了帮你更好地区分，下面是几种常见取值方式的对比：
+
+        赋值方式	        示例	                继承的是比例还是绝对值？	子元素会重新计算吗？	  特点与适用场景
+        百分比 (%)	      line-height: 150%;	  绝对值	                ❌ 否	              基于自身 font-size 计算，适合需要与字体大小严格挂钩的场景。
+        固定值 (px)	      line-height: 24px;	  绝对值	                ❌ 否	              精确控制，但灵活性差，不利于响应式。
+        纯数字 (无单位)	  line-height: 1.5;	    比例	                  ✅ 是	              最推荐方式。子元素会根据自身 font-size 计算行高，灵活性好。
+        相对单位 (em)	    line-height: 2em;	    比例	                  ✅ 是	              基于父元素 font-size 计算，继承性较复杂，易出错。
+
      </pre>
      <pre>
       二、 CSS & HTML 篇 (15题)

@@ -40,11 +40,26 @@
       </AsynComponent>
     </div>
 
+    <div class="item">
+      <h4>TLWaveViewVue3Style:</h4>
+      <AsynComponent>
+        <TLWaveViewVue3Style 
+          :waveAmplitude="waveAmplitude" 
+          :waveHeight="waveHeight" 
+          :width="200" 
+          :height="200" 
+          bgColor="gainsboro" 
+          :isCycle="true"
+          :styleObj="{ border: '1px solid white', borderRadius: '50%' }" 
+          waveColor="rgba(0, 255, 255, 255)"
+        ></TLWaveViewVue3Style>
+      </AsynComponent>
+    </div>
+
   </div>
 </template>
 
 <script setup>
-/* eslint-disable */
 // 项目内部的组件直接使用
 import BaseTextLocal from "@/components/BaseTextLocal.vue"
 // 项目内部的组件直接使用，如果有同名的其他包的插件会被覆盖
@@ -56,11 +71,13 @@ import { delay } from "./async/loadAsync";
 import { onErrorCaptured, ref } from "vue";
 import Error from "./async/error.vue";
 try {
-  import("vue3DemoPlugin/TLWaveView").then(view => {
-    console.log('view', view)
+  const importRes = import("vue3DemoPlugin/TLWaveView")
+  console.log('importRes', importRes)
+  importRes?.then(view => {
+    console.log('importRes then', view)
   })
 } catch(e) {
-  console.log('e', e)
+  console.log('importRes e', e)
 }
 // vue2的插件引入进来，先直接导入，再用vue2ToVue3转化才能渲染
 const BaseTextVue2T = loadAsyncComponent(async () => {

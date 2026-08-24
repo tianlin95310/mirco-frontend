@@ -12,7 +12,7 @@ module.exports = defineConfig({
   productionSourceMap: false,
   transpileDependencies: true,
   chainWebpack: (config) => {
-    console.log('config', config.plugins, process.env.VUE_APP_MF)
+    console.log('config', process.env)
 
     config.when(process.env.NODE_ENV === 'production', (config) => {
       config.optimization.minimizer('terser').tap(options => {
@@ -42,9 +42,10 @@ module.exports = defineConfig({
     //   .end()
   },
   configureWebpack: {
-    // output: {
-    //   publicPath: process.env.VUE_APP_MF ? 'auto' : '/',
-    // },
+    // publicPath这一层的配置目前跟外面一层没有区别
+    output: {
+      publicPath: process.env.VUE_APP_MF ? 'auto' : '/',
+    },
     optimization: process.env.VUE_APP_MF ? {
       // MF 模式下不进行代码分割
       splitChunks: false,
@@ -109,6 +110,14 @@ module.exports = defineConfig({
     //   // 通过CDN引入，不打包到bundle中
     //   'element-ui': 'ELEMENT'
     // },
+    // externalsType: 'module',
+    externals: process.env.VUE_APP_MF ? {
+      // 'vue': 'vue',
+      'vue-router': 'VueRouter',
+      'vuex': 'Vuex',
+      // 'axios': 'axios',
+      // 'core-js': 'corejs'
+    } : {},
     plugins: [
       ...process.env.VUE_APP_MF ? [new webpack.container.ModuleFederationPlugin({
         name: 'vue3DemoPlugin',
@@ -121,9 +130,10 @@ module.exports = defineConfig({
         shared: {
           vue: {
             singleton: true,
-            eager: true,
+            // eager: true,
             // 降级配置
-            requiredVersion: '^3.2.13'
+            // requiredVersion: '^3.2.13'
+            requiredVersion: '^3.5.12'
           },
         },
       })

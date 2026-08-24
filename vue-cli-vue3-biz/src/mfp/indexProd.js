@@ -10,11 +10,11 @@ function loadPlugin(scope, module) {
       const plugin = window[scope]
       await plugin.init(__webpack_share_scopes__.default)
       const factory = await plugin.get(module)
-      const pluginModule = factory()
       console.timeEnd(scope)
-      // return pluginModule
+      const pluginModule = factory()
       return pluginModule && pluginModule.default ? pluginModule.default : pluginModule
     } catch (err) {
+      console.log('loadPlugin err', err)
       return null
     }
   }
@@ -29,7 +29,7 @@ async function loadAllPlugins() {
   await Promise.allSettled(fetchTasks)
 
   const pluginLoader = Object.keys(remotes).map(key => {
-    const loader = loadPlugin(key, '.')
+    const loader = loadPlugin(key, '.') ?? (() => Promise.resolve(null))
     return loader()
   })
   return Promise.all(pluginLoader)
@@ -37,5 +37,8 @@ async function loadAllPlugins() {
 
 export default async function loadAllComponentsProd() {
   const plugins = await loadAllPlugins()
-  return plugins.flatMap(plugin => plugin?.default?.components ?? [])
+  console.log('plugins', plugins)
+  const components = plugins.flatMap(plugin => plugin?.components ?? [])
+  window.components = components
+  return components
 }

@@ -2,7 +2,7 @@
   <div class="themes" :class="[theme1Index === 1 ? 'theme1' : 'theme2']">
     <div class="dynamic-theme">
       <div class="dynamic-header">
-        <div class="dynamic-title">方案1</div>
+        <div class="dynamic-title">方案1[根class切换]</div>
       </div>
       <div class="dynamic-center">
         <button class="dynamic-button" @click="changeTheme1">切换主题</button>
@@ -11,7 +11,7 @@
 
     <div class="dynamic-theme-way2">
       <div class="dynamic-header">
-        <div class="dynamic-title">方案2</div>
+        <div class="dynamic-title">方案2[修改style link和根class切换]</div>
       </div>
       <div class="dynamic-center">
         <button class="dynamic-button" @click="changeTheme2">切换主题</button>
@@ -20,7 +20,16 @@
 
     <div class="dynamic-theme-way3">
       <div class="dynamic-header">
-        <div class="dynamic-title">方案3</div>
+        <div class="dynamic-title">方案3[style变量]</div>
+      </div>
+      <div class="dynamic-center">
+        <button class="dynamic-button" @click="changeTheme3">切换主题</button>
+      </div>
+    </div>
+
+    <div class="dynamic-theme-way4">
+      <div class="dynamic-header">
+        <div class="dynamic-title">方案4[scss变量 + style变量]</div>
       </div>
       <div class="dynamic-center">
         <button class="dynamic-button" @click="changeTheme3">切换主题</button>

@@ -96,9 +96,9 @@ import TLChart from "./canvas/TLChart.vue";
 import TLDialog from "@/components/TLDialog";
 import TLImageCut from "./canvas/TLImageCut";
 import TlRoundCountDown from "./canvas/TlRoundCountDown.vue";
-// import TLWaveView from './canvas/TLWaveView'
-import TLWaveView from "vue-waveview";
-import "vue-waveview/vue-waveview.css";
+import TLWaveView from './canvas/TLWaveViewVue3Style'
+// import TLWaveView from "vue-waveview";
+// import "vue-waveview/vue-waveview.css";
 
 import CylinderProgress from './canvas/CylinderProgress'
 import { onActivated, onMounted, reactive, toRefs, defineOptions } from "vue";

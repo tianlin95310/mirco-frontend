@@ -8,11 +8,11 @@ export function loadAsyncComponent(component, { suspensible = false } = {}) {
     loadingComponent: Loading,
     errorComponent: Error,
     // Vue 3.2.25 之后的版本不再直接支持 delay 选项。delay结束前不会展示Loadding
-    delay: 500,
+    delay: 0,
     timeout: 10000,
     suspensible: suspensible,
     onError: (err, retry, fail, attempts) => {
-      console.log("defineAsyncComponent err", err, retry, fail, attempts);
+      console.log("defineAsyncComponent err", component, err, retry, fail, attempts);
       // 通过此种方式通知失败
       fail(Error)
     }

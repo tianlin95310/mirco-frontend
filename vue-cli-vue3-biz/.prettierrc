@@ -1,0 +1,6 @@
+{
+  "singleAttributePerLine": true,
+  "printWidth": 120,
+  "bracketSameLine": true,
+  "vueIndentScriptAndStyle": false
+}

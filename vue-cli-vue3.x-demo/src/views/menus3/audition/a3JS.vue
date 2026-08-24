@@ -218,8 +218,8 @@
         typeof：
         原理：基于机器码的低位标记判断。这是 JavaScript 语言底层实现的方式。
         特点：
-        对原始类型（undefined, boolean, number, string, symbol, bigint）的判断非常有效，typeof null 是著名的 bug，会返回 "object"。
-        对引用类型，除了function会返回"function"，其他都返回"object"（如Array, Date, RegExp），无法进行细分。
+        对原始类型（undefined, boolean, number, string, symbol, bigint）以及function的判断非常有效，typeof null 是著名的 bug，会返回 "object"。
+        对引用类型，都返回"object"（如Array, Date, RegExp），无法进行细分。
 
         instanceof：
         原理：检查构造函数的 prototype 属性是否出现在对象的原型链上。用于检测对象是哪个构造函数的实例。
